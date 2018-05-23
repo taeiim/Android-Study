@@ -6,7 +6,7 @@
 
 [ **1회차**. 2018.05.23 - 06.01 ]
 
-##### 01. MVC/MVP/MVVM (박소현)
+##### 01. [MVC/MVP/MVVM](study/week1/android-architecture-pattern.md) (박소현)
 
 ##### 02. Thread, Handler, Looper (박태임)
 
