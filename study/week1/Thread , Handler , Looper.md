@@ -150,7 +150,7 @@ Thread와 Runnable 은 몇가지 차이점이 있다.
 
 Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스레드로부터 메시지를 받아서 Message Queue에 넣는 역할을 하는 스레드 간의 통신 장치이다.
 
-![thread_img](/Users/parktaeim/Documents/GitHub/Android-Study/study/week1/thread_img.png/thread_img.png)
+![thread_img](https://github.com/taeiim/Android-Study/blob/master/study/week1/thread_img.png/thread_img.png)
 
 
 
