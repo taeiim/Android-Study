@@ -1,7 +1,3 @@
----
-typora-copy-images-to: ./스크린샷 2018-06-03 오후 3.27.38.png
----
-
 # Thread , Handler , Looper
 
 > Android의 Thread, Handler, Looper 에 대하여
@@ -14,7 +10,7 @@ typora-copy-images-to: ./스크린샷 2018-06-03 오후 
 
 ----------------------------
 
-
+</br>
 
 ## 0. 들어가기전,, 
 
@@ -28,7 +24,7 @@ typora-copy-images-to: ./스크린샷 2018-06-03 오후 
 
 메인 스레드에서 파생되어 실행되는 스레드
 
-
+</br>
 
 ##### 단일 스레드 모델
 
@@ -36,7 +32,7 @@ typora-copy-images-to: ./스크린샷 2018-06-03 오후 
 
 **뷰나 뷰그룹에서 제공하는 메소드** 는 단일 스레드 모델이다. 
 
-
+</br>
 
 ##### 동기화(Synchronized)
 
@@ -46,7 +42,9 @@ Ex) 프린터 : 문서를 출력하고 있는 동안 다른 문서를 동시에 
 
 
 
+</br>
 
+</br>
 
 ## 1. Thread
 
@@ -56,7 +54,7 @@ Ex) 프린터 : 문서를 출력하고 있는 동안 다른 문서를 동시에 
 
 어플리케이션은 성능향상을 위해 멀티 스레드를 많이 사용하지만, UI를 업데이트 할 때는 단일 스레드 모델이 적용된다. 멀티 스레드로 UI를 업데이트 하면 동일한 UI자원을 사용할 때 *교착 상태,  *경합 상태 등 여러 문제가 발생할 수 있다. 따라서 UI업데이트는 메인스레드에서만 허용한다. 
 
-###### 
+###### </br>
 
 #### 1.2 Thread, 왜 사용해요?
 
@@ -68,7 +66,7 @@ Ex) 프린터 : 문서를 출력하고 있는 동안 다른 문서를 동시에 
 
 안드로이드 앱을 제대로 개발하기 위해서는 멀티 스레드를 이용하는 것은 필수적이라 할 수 있다. 
 
-
+</br>
 
 #### 1.3 Thread, 직접 만들어보자
 
@@ -92,7 +90,7 @@ TaeiimThread thread = new TaeiimThread();
 thread.start();
 ```
 
-
+</br>
 
 ##### 1.3.2.  Runnable 인터페이스 구현
 
@@ -111,12 +109,12 @@ public class TaeiimRunnable implements Runnable {
 
 ```Java
 // 사용하기 
-TaeiimRunnable myRunnable = new TaeiimThread();
+TaeiimRunnable myRunnable = new TaeiimRunnable();
 Thread thread = new Thread(myRunnable);
 thread.start();
 ```
 
-
+</br>
 
 ##### 1.3.3. Thread VS. Runnable
 
@@ -130,13 +128,7 @@ Thread와 Runnable 은 몇가지 차이점이 있다.
 
    스레드는 일회용이다. 따라서 한 번 사용한 스레드는 재사용할 수 없다. 재사용시 'IllegalThreadStateException' 이 발생한다. 즉, 하나의 스레드에 대해 start()가 한 번만 호출될 수 있다. 하지만, Runnable로 구현한 경우 재사용 가능하다.
 
-   ​
-
-#### 1.4. Thread, 잘못쓰면 독
-
-스레드를 실제 코드로 구현할 때는 다양한 문제가 발생할 수 있다. 
-
-
+</br>
 
 **용어정리**
 
@@ -148,7 +140,9 @@ Thread와 Runnable 은 몇가지 차이점이 있다.
 
  
 
+</br>
 
+</br>
 
 ## 2. Handler
 
@@ -156,7 +150,7 @@ Thread와 Runnable 은 몇가지 차이점이 있다.
 
 Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스레드로부터 메시지를 받아서 Message Queue에 넣는 역할을 하는 스레드 간의 통신 장치이다.
 
-![스크린샷 2018-06-03 오후 3.27.38](/Users/parktaeim/Desktop/스크린샷 2018-06-03 오후 3.27.38.png)
+![thread_img](/Users/parktaeim/Desktop/thread_img.png)
 
 
 
@@ -171,7 +165,7 @@ Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스�
 
 핸들러는 반드시 메시지큐가 제공되는 스레드에서 생성해야한다. 메인 스레드는 기본으로 메시지큐를 제공한다. 
 
-
+</br>
 
 
 
@@ -199,14 +193,14 @@ Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스�
 
    스레드에서 네트워크 등의 작업들을 하는 도중에 UI를 업데이트 할 때 핸들러를 사용한다. 
 
-   ​
+   </br>
 
 2. 하나의 프로세스에서 다른 프로세스의 핸들러에 메시지를 전송하여 작업을 요청할 때
 
 
    독립적으로 실행되는 스레드 사이에 정보를 주고받는 수단으로 메시지큐와 핸들러를 채택했다. 만약 일반 스레드사이에서 필요한 정보를 주고 받으려면 루퍼를 사용해야 한다. 
 
-
+</br>
 
 #### 2.3 Handler, 직접 사용해보자!
 
@@ -278,7 +272,9 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+</br>
 
+</br>
 
 ## 3. Looper
 
@@ -288,7 +284,7 @@ public class MainActivity extends AppCompatActivity{
 
 메인 스레드에는 Looper가 기본적으로 생성되어 있지만, 새로 생성한 스레드는 Looper를 가지고 있지 않기 때문에 메시지를 받을 수 없다. 사용할 수 있는 메시지 큐가 없기 때문이다. 서브 스레드에서 메시지를 전달받기 위해서는 Looper를 생성해주어야 한다. 
 
-
+</br>
 
 #### 3.2 특징
 
@@ -315,7 +311,7 @@ public class MainActivity extends AppCompatActivity{
    Looper.loop();
    ```
 
-   ​
+   </br>
 
 2. 루퍼는 핸들러를 사용할 수 있도록 **메시지큐**와 연결시켜 준다.
 
@@ -342,7 +338,7 @@ public class MainActivity extends AppCompatActivity{
        }
    ```
 
-   ​
+   </br>
 
 
 #### 3.3 사용하기
@@ -374,7 +370,9 @@ public class LooperEx extends Thread {
 
 
 
+</br>
 
+</br>
 
 ## 4. 마무리
 
@@ -390,7 +388,7 @@ public class LooperEx extends Thread {
 
 #### ThreadPoolExecutor
 
-
+</br>
 
 #### UI 업데이트 다른 방법들
 
@@ -401,7 +399,7 @@ public class LooperEx extends Thread {
 
 위와 같은 메소드를 사용하여 UI를 업데이트 할 수 있다. 두 메소드는 엄밀하게 이야기하여 핸들러에서 제공하는 메소드이며, 모두 Runnable 객체를 매개 변수로 사용한다.
 
-
+</br>
 
 #### 출처
 
