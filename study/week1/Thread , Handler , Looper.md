@@ -14,19 +14,19 @@
 
 ## 0. 들어가기전,, 
 
-#### 0.1 용어정리
+### 0.1 용어정리
 
-##### 메인 스레드 (UI 스레드)
+#### 메인 스레드 (UI 스레드)
 
 프로세스에서 제일 처음 실행되는 스레드를 말한다. 메인 스레드는 응용프로그램의 시작과 함께 시작되고 해당 응용프로그램의 프로세스와 같은 수명을 가진다. 메인 스레드는 UI를 변경할 수 있는 유일한 스레드이기 때문에 UI스레드라고 부르기도 한다. UI스레드는 안드로이드 구성요소를 실행하고 화면 UI요소를 변경하는 데 사용하는 응용프로그램의 메인 스레드이다. 
 
-##### 작업 스레드, 서브 스레드
+#### 작업 스레드, 서브 스레드
 
 메인 스레드에서 파생되어 실행되는 스레드
 
 </br>
 
-##### 단일 스레드 모델
+#### 단일 스레드 모델
 
 다양한 종류의 스레드로 동시에 호출할 수 없는 메소드를 **단일 스레드 모델**이라 한다. 시스템 내에서 해당 작업 또는 해당 기능을 사용하는 시점에는 반드시 하나의 스레드만 실행되어야 한다. **스레드로부터 안전하지 못한 (Thread-Unsafe) 메소드** 라고 부르기도 한다.  
 
@@ -34,7 +34,7 @@
 
 </br>
 
-##### 동기화(Synchronized)
+#### 동기화(Synchronized)
 
 하나의 자원을 여러 스레드가 사용할 때 한 시점에서 하나의 스레드만 접근을 허용하는 기능이다. 
 
@@ -48,7 +48,7 @@ Ex) 프린터 : 문서를 출력하고 있는 동안 다른 문서를 동시에 
 
 ## 1. Thread
 
-#### 1.1 안드로이드에서의 스레드
+### 1.1 안드로이드에서의 스레드
 
 스레드란 쉽게 말해 여러작업을 같이 하기 위한 기능이라고 생각하면 된다. 예를 들어 음악을 들으면서 SNS를 할 수 있는 것처럼 말이다. 
 
@@ -56,7 +56,7 @@ Ex) 프린터 : 문서를 출력하고 있는 동안 다른 문서를 동시에 
 
 ###### </br>
 
-#### 1.2 Thread, 왜 사용해요?
+### 1.2 Thread, 왜 사용해요?
 
 메인스레드 만으로 구현하게 된다면, 사용자는 해당 작업이 끝날 때까지 멈춰있는 화면을 보고만 있어야한다. 오랜 시간동안 UI관련 작업이 처리되지 못하면 결국 *ANR 에러가 발생한다. 그러면 어플리케이션은 정지된다.
 
@@ -68,11 +68,11 @@ Ex) 프린터 : 문서를 출력하고 있는 동안 다른 문서를 동시에 
 
 </br>
 
-#### 1.3 Thread, 직접 만들어보자
+### 1.3 Thread, 직접 만들어보자
 
 스레드를 구현하는 방법은 2가지가 있다. 하나는 **Thread**를 이용하는 것이고, 나머지 하나는 **Runnable**을 이용하는 것이다.
 
-##### 1.3.1 Thread를 상속받아 구현하기
+#### 1.3.1 Thread를 상속받아 구현하기
 
 ```java
 public class TaeiimThread extends Thread {
@@ -92,7 +92,7 @@ thread.start();
 
 </br>
 
-##### 1.3.2.  Runnable 인터페이스 구현
+#### 1.3.2.  Runnable 인터페이스 구현
 
 Runnable 인터페이스를 상속받은 후, run() 메소드에 원하는 작업을 하도록 구현하면 된다.
 
@@ -116,7 +116,7 @@ thread.start();
 
 </br>
 
-##### 1.3.3. Thread VS. Runnable
+#### 1.3.3. Thread VS. Runnable
 
 Thread와 Runnable 은 몇가지 차이점이 있다.
 
@@ -146,11 +146,11 @@ Thread와 Runnable 은 몇가지 차이점이 있다.
 
 ## 2. Handler
 
-#### 2.1 Handler란?
+### 2.1 Handler란?
 
 Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스레드로부터 메시지를 받아서 Message Queue에 넣는 역할을 하는 스레드 간의 통신 장치이다.
 
-![thread_img](/Users/parktaeim/Desktop/thread_img.png)
+![thread_img](/Users/parktaeim/Documents/GitHub/Android-Study/study/week1/thread_img.png/thread_img.png)
 
 
 
@@ -169,7 +169,7 @@ Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스�
 
 
 
-#### 2.2 사용목적
+### 2.2 사용목적
 
 핸들러는 일반적으로 UI갱신을 위해 사용된다.
 
@@ -202,7 +202,7 @@ Handler는 Looper로부터 받은 Message를 실행, 처리하거나 다른 스�
 
 </br>
 
-#### 2.3 Handler, 직접 사용해보자!
+### 2.3 Handler, 직접 사용해보자!
 
 다음은 Handler를 이용해 1초씩 증가하는 타이머를 만든 예제이다. 
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity{
 
 ## 3. Looper
 
-#### 3.1 Looper란
+### 3.1 Looper란
 
  Looper는 무한히 루프를 돌며 자신히 속한 스레드의 Message Queue에서 Message나 Runnable 객체를 차례로 꺼내 Handler가 처리하도록 전달한다. 
 
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity{
 
 </br>
 
-#### 3.2 특징
+### 3.2 특징
 
 1. 루퍼 클래스는 생성자를 사용하여 인스턴스를 만들어 사용하는 것이 아니라 **정적 메소드**를 사용한다.
 
@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity{
    </br>
 
 
-#### 3.3 사용하기
+### 3.3 사용하기
 
 루퍼는 클래스를 인스턴스화하고 객체 내 메소드를 호출하는 일반적인 자바 프로그램과 다르게 
 
@@ -401,7 +401,7 @@ public class LooperEx extends Thread {
 
 </br>
 
-#### 출처
+### 출처
 
 ##### 도서
 
