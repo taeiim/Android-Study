@@ -4,11 +4,11 @@
 
 >
 
-> Present Time : 2018-04-15-SUN
+> Present Time : 2018-06-03-SUN
 >
 > Presentation File : https://github.com/ParkSohyeon17/TIL/blob/master/Android/MVC%2C%20MVVM%2C%20MVP.pptx
 >
-> Last Updated : 2018-04-21-SAT
+> Last Updated : 2018-06-04-MON
 
 
 
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 #### 특징
 
-![Model-View-Controller 클래스 구조](C:\androidStudyLog\study\week4\img\mvc_class_structure.png)
+![Model-View-Controller 클래스 구조](D:\android-study\study\week1\aac_img\mvc_class_structure.png)
 
 - Model : 비즈니스 계층 관리. 네트워크 또는 데이터베이스 API를 처리하는 **데이터 계층**
 
