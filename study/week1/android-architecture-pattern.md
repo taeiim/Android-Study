@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 #### 특징
 
-![Model-View-Controller 클래스 구조](https://github.com/taeiim/Android-Study/tree/master/study/week1/aac_img\mvc_class_structure.png)
+![Model-View-Controller 클래스 구조](https://github.com/taeiim/Android-Study/blob/master/study/week1/aac_img.png/mvc_class_structure.png)
 
 - Model : 비즈니스 계층 관리. 네트워크 또는 데이터베이스 API를 처리하는 **데이터 계층**
 
