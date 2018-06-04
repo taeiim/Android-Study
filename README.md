@@ -8,7 +8,7 @@
 
 ##### 01. [MVC/MVP/MVVM](study/week1/android-architecture-pattern.md) (박소현)
 
-##### 02. Thread, Handler, Looper (박태임)
+##### 02. [Thread, Handler, Looper](Android-Study/study/week1/Thread , Handler , Looper.md) (박태임)
 
 <br />
 
