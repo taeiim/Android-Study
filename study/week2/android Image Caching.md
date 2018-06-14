@@ -538,7 +538,7 @@ Picasso.with(context).load(imageUrl).resize(30, 30).into(imageView);
 
 ####라이브러리별 비교 
 
-<img src='C:\Users\ghdth\Documents\GitHub\Android-Study\study\week2\Image_Caching_png/Image_Caching_library.png'>
+<img src='https://raw.githubusercontent.com/taeiim/Android-Study/master/study/week2/Image_Caching_png/Image_Caching_library.PNG'>
 
 #### 총평
 
