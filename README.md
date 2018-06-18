@@ -14,9 +14,9 @@
 
 [ **2회차**. 2018.06.04 - 06.15 ]
 
-##### 03. [RxJava] (study/week2/RxJava.md) (고수민)
+##### 03. [RxJava](study/week2/RxJava.md) (고수민)
 
-##### 04. [Image Caching] (study/week2/android%20Image%20Caching.md) (홍소망)
+##### 04. [Image Caching](study/week2/android%20Image%20Caching.md) (홍소망)
 
 <br />
 
