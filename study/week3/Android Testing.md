@@ -195,7 +195,7 @@
 
 - BeforeClass/AfterClass 와  Before/After의 호출 순서 이해 
 
-  ![Annotation](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/Annotation.png)
+  ![Annotation](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/img_annotation.png)
 
 </br>
 
@@ -234,7 +234,7 @@
 
    OK를 누르면 디렉토리를 선택하는 창이 나오는데, com(test) 를 선택한다. (그 이유는 하단에 [참고] 를 참고하세요.)
 
-   ![스크린샷 2018-06-26 오후 11.11.58](/Users/parktaeim/Desktop/스크린샷 2018-06-26 오후 11.11.58.png)
+   ![Create Test](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/img_createTest.png)
 
 
 </br>
@@ -249,7 +249,7 @@
 
   ​
 
-- ![스크린샷 2018-06-26 오후 11.21.34](/Users/parktaeim/Desktop/스크린샷 2018-06-26 오후 11.21.34.png)
+- ![test directory](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/img_app_com(test).png)
 
 
 </br>
