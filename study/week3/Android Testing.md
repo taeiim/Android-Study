@@ -14,11 +14,11 @@
 
 ## 1. 테스트가 뭐쥬? 
 
-#### 1.1 테스트란?
+### 1.1 테스트란?
 
 </br>
 
-#### 1.2 테스트의 목적
+### 1.2 테스트의 목적
 
 - 필요한 조건을 만족하는지 확인
 
@@ -35,7 +35,7 @@
 </br>
 
 
-#### 1.3 자동테스트 와 수동테스트
+### 1.3 자동테스트 와 수동테스트
 
 테스트는 수동 테스트와 자동테스트로 크게 둘로 나눌 수 있다.
 
@@ -85,7 +85,7 @@
 
 *** 안드로이드 앱의 테스트 계층 사진**
 
-![앱 테스트 계층](/Users/parktaeim/Documents/GitHub/Android-Study/study/week3/Img_AndroidTesting/앱 테스트 계층.png)
+![앱 테스트 계층](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/%EC%95%B1%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B3%84%EC%B8%B5.png)
 
 기본적으로 테스트 케이스의 수나 실행 횟수 (실행 타이밍)는 '단위테스트'가 가장 많고, '그 밖의 테스트'가 가장 적다. 아래로 갈 수록 많아지므로 다음과 같은 사진으로 정리할 수 있다.
 
@@ -103,7 +103,7 @@
 
 ## 4. 단위 테스트 (Unit Test)
 
-#### 4.1 단위 테스트란?
+### 4.1 단위 테스트란?
 
 프로그램을 작성한 후에 코드를 테스트하기 위한 방법 중에 메소드 단위로 기능을 테스트
 
@@ -113,7 +113,7 @@
 
 
 
-#### 4.4 Mockito
+### 4.4 Mockito
 
 이상적으로, 각 테스트 케이스는 서로 분리되어야 한다. 이를 위해 가짜 객체 (Mock object) 를 생성하는 것도 좋은 방법이다. 
 
@@ -129,7 +129,7 @@
 
 ###### 이 문서는 JUnit4를 기준으로 작성되었습니다. 
 
-#### 5.1 JUnit 이란?  
+### 5.1 JUnit 이란?  
 
 안드로이드 단위 테스트에는 JUnit 이라는 프레임워크가 사용된다.  JUnit은 자바용 단위테스트 작성을 위한 산업 표준 프레임워크 이다. 
 
@@ -139,7 +139,7 @@
 
 
 
-#### 5.2 기본 단정문
+### 5.2 기본 단정문
 
 - ##### 단정문이 뭔가요?
 
@@ -162,7 +162,7 @@
 
 
 
-#### 5.3 JUnit 어노테이션 (Annotation)
+### 5.3 JUnit 어노테이션 (Annotation)
 
 - ##### 어노테이션
 
@@ -195,15 +195,11 @@
 
 - BeforeClass/AfterClass 와  Before/After의 호출 순서 이해 
 
-  ![Annotation](/Users/parktaeim/Documents/GitHub/Android-Study/study/week3/Img_AndroidTesting/Annotation.png)
-
-
-
-
+  ![Annotation](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/Annotation.png)
 
 </br>
 
-####5.3 JUnit을 이용해 직접 테스트해보자! - Calculator
+### 5.3 JUnit을 이용해 직접 테스트해보자! - Calculator
 
 1. ##### Caluculator 클래스를 만들어준다.
 
