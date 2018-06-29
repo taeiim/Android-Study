@@ -25,3 +25,8 @@
 - 데이터 바인딩
 - 리팩토링
 - 테스팅 (단위테스트, UI테스트 등)
+- Dagger
+- View 중첩
+- ConstraintLayout
+- maven
+- 화면 수직/수평 전환
