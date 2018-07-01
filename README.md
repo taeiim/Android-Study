@@ -20,7 +20,7 @@
 
 [ **3회차**. 2018.06.16 - 06.22 ]
 
-##### 05. 단위테스트 (박태임)
+##### 05. [단위테스트](study/week3/Android%20Testing.md) (박태임)
 
 ##### 06. 디자인패턴 (Builder,Adapter,Observer)  (박소현)
 
@@ -30,4 +30,22 @@
 
 ##### 07. Realm (홍소망)
 
-##### 08. RecyclerView 파헤치기 (송시은)
+##### 08. [RecyclerView](study/week4/RecyclerView/Recyclerview_sieun.md) (송시은)
+
+<br />
+
+[ **5회차**. 2018.06.30 - 07.06 ]
+
+##### 09. 메모리 관리 (박태임)
+
+##### 10. Retrofit (박소현)
+
+<br />
+
+[ **6회차**. 2018.07.07 - 07.13 ]
+
+##### 11. Android Jetpack (홍소망)
+
+##### 12. Kotlin (송시은)
+
+<br />
