@@ -22,13 +22,13 @@
 
 ##### 05. [단위테스트](study/week3/Android%20Testing.md) (박태임)
 
-##### 06. 디자인패턴 (Builder,Adapter,Observer)  (박소현)
+##### 06. [디자인패턴 (Builder,Adapter,Observer)](study/week3/design-pattern.md)  (박소현)
 
 <br />
 
 [ **4회차**. 2018.06.23 - 06.29 ]
 
-##### 07. Realm (홍소망)
+##### 07. [Realm](study/week4/Realm.md) (홍소망)
 
 ##### 08. [RecyclerView](study/week4/RecyclerView/Recyclerview_sieun.md) (송시은)
 
