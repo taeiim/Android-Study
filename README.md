@@ -22,7 +22,7 @@
 
 ##### 05. [단위테스트](study/week3/Android%20Testing.md) (박태임)
 
-##### 06. 디자인패턴 (Builder,Adapter,Observer)  (박소현)
+##### 06. [디자인패턴 (Builder,Adapter,Observer)](study/week3/design-pattern.md)  (박소현)
 
 <br />
 
