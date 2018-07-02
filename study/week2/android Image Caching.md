@@ -17,442 +17,236 @@
 - [android Image caching](http://javacan.tistory.com/entry/android-image-cache-implementation)
 - [Image caching library](https://d2.naver.com/helloworld/429368)
 
-----
+### 1.캐싱이란?
 
-### 1.Image Caching을 하는 이유
+데이터에 대한 향후 요청에 신속하게 대응 할 수 있도록 데이터를 로컬에 저장하는 프로세스
+
+#### 비트맵 캐시
+
+이미지를 비트맵으로 바꾸어 메모리에 저장하는 것이다.
+
+#### 메모리 캐시
+
+메모리 캐시는 원본의 압축된 형식으로 저장된다. 이미지는 화면에 표시되기 전에  이 캐시에서 디코드 되어 가져온다
+
+이 캐시는 앱이 백그라운드로 가면 지워진다.
+
+#### 디스크 캐시
+
+디스크 캐시는 데이터가 지속적으로 남아있고 용량도 메모리 캐시 보다  더 많이 쓸 수 있다.하지만 메모리 캐시보다 느리다. 
+
+이 캐시는 앱이 백그라운드 상태거나, 종료,장치가 꺼져 있을 때 없어지지 않는다.  사용자는 안드로이드 설정메뉴에서 디스크 캐시를 없앨 수 있다.
+
+### 2.Image Caching을 하는 이유
 
 - 특정 URL 이미지를 리스트로 보여줄 때, 동일 한 URL 이미지를 매번 다운 받아 출력하면 비효율
 - 사용자 응답속도 느려짐
 
-### 2.Image Caching 기능
+###3.코드
 
-- 메모리에 지정 개수 만큼 이미지 보관
-- 이미지 메모리/파일의 2레벨 캐시 제공
-  + 캐시에 이미지에 보관하면 멤리와 파일에 동시 보관
-  + 메모리 캐시 보관할 수 있는 개수에 제한
-  + 파일 캐시는 보관 할 수 있는 전체 크기 제한
-  + 메모리 캐시에 없으면 파일 캐시로 부터 이미지 받아옴
-
-
-### 3.클래스 구성
-
-+ ImageCache 
-
-  + 이미지 캐시를 위한 인터페이스 
-
-
-  + MemoryImageCache
-    + 메모리 기반의 이미지 캐시 구현
-+ FileImageCache 
-  + 파일 기반의 이미지 캐시 구현
-+ ChainedImageCache
-  + 캐시 체인 기능 
-+ ImageCacheFactory
-  + ImageCache의 생성 및 검색 기능 
-#### ImageCache 인터페이스
-
-ImageCache 인터페이스는 캐시 목적의 기능을 정의한다.
+#### 비트맵 캐시 코드
 
 ```
-public interface ImageCache {
+private LruCache<String, Bitmap> mMemoryCache;
 
-
-
-	public void addBitmap(String key, Bitmap bitmap);
-
-
-
-	public void addBitmap(String key, File bitmapFile);
-
-
-
-	public Bitmap getBitmap(String key);
-
-
-
-	public void clear();
-
-
-
-}
-```
-
-#### MemoryImageCache클래스
-
-내부적으로 LruCache*를 사용
-
-```
-ackage com.toonburi.app.infra.imagecache;
-
-
-
-import java.io.File;
-
-
-
-import android.graphics.Bitmap;
-
-import android.graphics.BitmapFactory;
-
-import android.support.v4.util.LruCache;
-
-
-
-public class MemoryImageCache implements ImageCache {
-
-
-
-	private LruCache<String, Bitmap> lruCache;
-
-
-
-	public MemoryImageCache(int maxCount) {
-
-		lruCache = new LruCache<String, Bitmap>(maxCount);
-
-	}
-
-
-
-	@Override
-
-	public void addBitmap(String key, Bitmap bitmap) {
-
-		if (bitmap == null)
-
-			return;
-
-		lruCache.put(key, bitmap);
-
-	}
-
-
-
-	@Override
-
-	public void addBitmap(String key, File bitmapFile) {
-
-		if (bitmapFile == null)
-
-			return;
-
-		if (!bitmapFile.exists())
-
-			return;
-
-
-
-		Bitmap bitmap = BitmapFactory.decodeFile(bitmapFile.getAbsolutePath());
-
-		lruCache.put(key, bitmap);
-
-	}
-
-
-
-	@Override
-
-	public Bitmap getBitmap(String key) {
-
-		return lruCache.get(key);
-
-	}
-
-
-
-	@Override
-
-	public void clear() {
-
-		lruCache.evictAll();
-
-	}
-
-
-
-}
-```
-
-
-
-#### FileImageCache 클래스
-
-```
-public class FileImageCache implements ImageCache {
-
-	private static final String TAG = "FileImageCache";
-
-
-
-	private FileCache fileCache;
-
-
-
-	public FileImageCache(String cacheName) {
-		//이미지 캐시 생성 전에 초기화
-		fileCache = FileCacheFactory.getInstance().get(cacheName);
-
-	}
-
-
-
-	@Override
-
-	public void addBitmap(String key, final Bitmap bitmap) {
-
-		try {
-
-			fileCache.put(key, new ByteProvider() {
-
-				@Override
-
-				public void writeTo(OutputStream os) {
-
-					bitmap.compress(CompressFormat.PNG, 100, os);
-
-				}
-
-			});
-
-		} catch (IOException e) {
-
-			Log.e(TAG, "fail to bitmap to fileCache", e);
-
-		}
-
-	}
-
-
-
-	@Override
-
-	public void addBitmap(String key, File bitmapFile) {
-
-		try {
-
-			fileCache.put(key, bitmapFile, true);
-
-		} catch (IOException e) {
-
-			Log.e(TAG, String.format("fail to bitmap file[%s] to fileCache",
-
-					bitmapFile.getAbsolutePath()), e);
-
-		}
-
-	}
-
-
-
-	@Override
-
-	public Bitmap getBitmap(String key) {
-
-		FileEntry cachedFile = fileCache.get(key);
-
-		if (cachedFile == null) {
-
-			return null;
-
-		}
-
-		return BitmapFactory.decodeFile(cachedFile.getFile().getAbsolutePath());
-
-	}
-
-
-
-	@Override
-
-	public void clear() {
-
-		fileCache.clear();
-
-	}
-
-
-
-}
-```
-
-#### ChainedImageCache 클래스
-
-이미지 캐시와 파일 캐시를 1차/2차 캐시로 사용하기 위해 만듬
-
-```
-....
-	private List<ImageCache> chain;
-	public ChainedImageCache(List<ImageCache> chain) {
-
-		this.chain = chain;
-
-	}
-	//모든 ImageCach를 차례대로 실행 시켜 준다.
-	@Override
-
-	public void addBitmap(String key, Bitmap bitmap) {
-
-		for (ImageCache cache : chain) {
-
-			cache.addBitmap(key, bitmap);
-
-		}
-
-	}
-
-//모든 파일캐쉬를 실행시켜준다.
-	@Override
-
-	public void addBitmap(String key, File bitmapFile) {
-
-		for (ImageCache cache : chain) {
-
-			cache.addBitmap(key, bitmapFile);
-
-		}
-
-	}
-	
 @Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Get max available VM memory, exceeding this amount will throw an
+    // OutOfMemory exception. Stored in kilobytes as LruCache takes an
+    // int in its constructor.
+    //메모리 사용량 알기위해서
+    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 
-	public final Bitmap getBitmap(String key) {
+    // Use 1/8th of the available memory for this memory cache.
+    final int cacheSize = maxMemory / 8;
 
-		Bitmap bitmap = null;
+    mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+        @Override
+        protected int sizeOf(String key, Bitmap bitmap) {
+            // The cache size will be measured in kilobytes rather than
+            // number of items.
+            return bitmap.getByteCount() / 1024;
+        }
+    };
+    ...
+}
 
-		List<ImageCache> previousCaches = new ArrayList<ImageCache>();
-		//chian을 따라 Bitmap이 존재 할 떄까지 탐색
-		for (ImageCache cache : chain) {
-
-			bitmap = cache.getBitmap(key);
-
-			if (bitmap != null) {
-
-				break;
-
-			}
-//bitmap이 발련됬으면 해당 캐시 이전에 위치한 캐시들에 Bitmap 정보 추가
-			previousCaches.add(cache);
-
-		}
-
-		if (bitmap == null)
-
-			return null;
-
-
-		//이후 동인한 키로 요청이 오면 체인의 앞에서 발견되도록 한다.
-		if (!previousCaches.isEmpty()) {
-
-			for (ImageCache cache : previousCaches) {
-
-				cache.addBitmap(key, bitmap);
-
-			}
-
-		}
-
-		return bitmap;
-
-	}
-	....
+public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+    if (getBitmapFromMemCache(key) == null) {
+        mMemoryCache.put(key, bitmap);//메모리 캐시에 저장
+    }
+}
+//캐쉬된 이미지 가져오기
+public Bitmap getBitmapFromMemCache(String key) {
+    return mMemoryCache.get(key);
+}
 ```
 
-#### ImageCachFactory 클래스
+##### LruCache 사용시 maxSize 및 sizeOf()사용 의미
 
-캐시 생성 기능 제공
+-LruCache를 생성할 때 정해주는 maxSize는 이미지 갯수도 될 수 있고 가용 메모리도 될 수 있다.
 
-```
-....	
-//메모리만 사용하는 ImageCache 생성
-	public ImageCache createMemoryCache(String cacheName, int imageMaxCounts) {
+- sizeOf()메소드를 Override 하지 않은 경우
 
-		synchronized (cacheMap) {
+  ```
+  int maxSize = 10;
 
-			checkAleadyExists(cacheName);
+  LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(maxSize);
+  ```
 
-			ImageCache cache = new MemoryImageCache(imageMaxCounts);
+  이렇게 구현하면 캐시에 저장된느 이미지 갯수가 10개라는 뜻이다.
 
-			cacheMap.put(cacheName, cache);
+- sizeOf()메소드를 Override 했을 경우 
 
-			return cache;
+  ```
+  int memoryClass = ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+  int maxSize = 1024 * 1024 * memoryClass / 4;
 
-		}
+  LruCache<String, Bitmap> cache = new LruCache<String, Bitmap>(maxSize){
 
-	}
-	
-	
-//	1차 메모리/2차 파일 기반의 2레벨 캐시를 생성한다.
-public ImageCache createTwoLevelCache(String cacheName, int imageMaxCounts) {
+      @Override
 
-		synchronized (cacheMap) {
+      protected int sizeOf(String key, Bitmap bitmap){
 
-			checkAleadyExists(cacheName);
+      	return bitmap.getByteCount();
 
-			List<ImageCache> chain = new ArrayList<ImageCache>();
+     }
 
-			chain.add(new MemoryImageCache(imageMaxCounts));
+  };
+  ```
 
-			chain.add(new FileImageCache(cacheName));
+  이렇게 구현하면 캐시의 가용 메모리가 어플리케이션이 사용할 수 있는  메모리의 1/4만큼 캐시에 쓸 수 있게 하겠다라는 의미이다.
 
-			ChainedImageCache cache = new ChainedImageCache(chain);
-
-			cacheMap.put(cacheName, cache);
-
-			return cache;
-
-		}
-
-	}	
-....
-```
-
-####이미지 캐시 사용
+#### 디스크캐싱
 
 ```
--- onCreate 등 초기화 부분
+private DiskLruCache mDiskLruCache;
+private final Object mDiskCacheLock = new Object();
+private boolean mDiskCacheStarting = true;
+private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
+private static final String DISK_CACHE_SUBDIR = "thumbnails";
 
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Initialize memory cache
+    ...
+    // Initialize disk cache on background thread
+    //백그라운드에 디스크 캐시 초기화
+    File cacheDir = getDiskCacheDir(this, DISK_CACHE_SUBDIR);
+    new InitDiskCacheTask().execute(cacheDir);
+    ...
+}
+//비동기로 백그라운드에서 디스크 캐시를 실행한다.
+class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
+    @Override
+    protected Void doInBackground(File... params) {
+        synchronized (mDiskCacheLock) {
+            File cacheDir = params[0];//디스크 캐시가 저장된 디렉토리
+            mDiskLruCache = DiskLruCache.open(cacheDir, DISK_CACHE_SIZE);
+            mDiskCacheStarting = false; //초기화 완료
+            mDiskCacheLock.notifyAll(); //작업으로 연결된 쓰레드에게 알린다.
+        }
+        return null;
+    }
+}
 
-// 2레벨 캐시(이미지 파일 캐시)를 사용하려면 동일 이름의 파일 캐시를 생성해 주어야 한다.
+class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
+    ...
+    // Decode image in background.
+    @Override
+    protected Bitmap doInBackground(Integer... params) {
+    
+        final String imageKey = String.valueOf(params[0]);
 
-FileCacheFactory.getInstance().create(cacheName, cacheSize);
+        // Check disk cache in background thread
+        백그라운드 스레드에서 필요한 비트맵을 가져온다.
+        Bitmap bitmap = getBitmapFromDiskCache(imageKey);
 
+        if (bitmap == null) { // Not found in disk cache
+            // Process as normal
+            //일반적으로 디코딩하는 방법
+            final Bitmap bitmap = decodeSampledBitmapFromResource(
+                    getResources(), params[0], 100, 100));
+        }
 
+		//디코딩된 비트맵은 해당 키와 함께 캐시 처리 된다.
+        addBitmapToCache(imageKey, bitmap);
 
-// 이미지 캐시 초기화
+        return bitmap;
+    }
+    ...
+}
 
-ImageCacheFactory.getInstance().createTwoLevelCache(cacheName, memoryImageMaxCounts);
+public void addBitmapToCache(String key, Bitmap bitmap) {
+    // Add to memory cache as before
+    메모리캐시에 저장한다
+    if (getBitmapFromMemCache(key) == null) {
+        mMemoryCache.put(key, bitmap);
+    }
 
+    // Also add to disk cache
+    //디스크 캐시에도 저장한다.
+    synchronized (mDiskCacheLock) {//백그라운드에서 디스크 캐시가 시행되었을 때를 기다린다
+    
+        if (mDiskLruCache != null && mDiskLruCache.get(key) == null) {
+            mDiskLruCache.put(key, bitmap);
+        }
+    }
+}
 
-
--- 이미지 캐시 사용 부분
-
-ImageCache imageCache = ImageCacheFactory.getInstance().getCache(cacheName);
-
-Bitmap bitmap = imageCache.getBitmap(key);
-
-if (bitmap != null) {
-
-	imageView.set.....
-
+public Bitmap getBitmapFromDiskCache(String key) {
+    synchronized (mDiskCacheLock) {
+        // Wait while disk cache is started from background thread
+        //백그라운드에서 디스크 캐시가 시행되길 기다린다.
+        while (mDiskCacheStarting) {
+            try {
+                mDiskCacheLock.wait();
+            } catch (InterruptedException e) {}
+        }
+        if (mDiskLruCache != null) {
+            return mDiskLruCache.get(key);
+        }
+    }
+    return null;
 }
 
 
+public static File getDiskCacheDir(Context context, String uniqueName) {
+       // 사용을 해보고 외부저장소의 캐시가 작동하지 않는다면 내부 저장소를 사용하라는 내용이의 코드인데 잘 이해가 안되용ㅇ
 
--- 이미지 캐시 추가 부분
+    final String cachePath =          Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                    !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :
+                            context.getCacheDir().getPath();
 
-imageCache.putBitmap(key, someBitmap);
+    return new File(cachePath + File.separator + uniqueName);
+}
 ```
+
+AsyncTask<Params, Progress,Result>
+
+Params-파라미터 타입은 작업 실행 시에 송신
+
+Progress-dolnBackground* 작업 시 진행 단위의 타입
+
+Result-dolnBackground 리턴값
 
 #### 용어정리
 
-+ LruCache
+가용메모리: 실제  메모리 사용가능 여유
 
-  -LinkedHashMap을 사용하여 최근에 사용된 object의 strong reference를 보관하고 있다가 정해진 사이즈를 넘어가게 되면 가장 최근에 사용되지 않은 놈부터 쪽아내는 LRU 알고리즘을 사용하는 메모리 캐시이다.
+AsyncTask: 스레드 간의 동기화를 고려해서 소프트웨어를 설계햐아하고 핸들러 사용으로 복잡하고 번거로운 작업을 좀 더 쉽게 만들어주는 추상클래스이다. 
 
-  -메모리 캐쉬를 구현하는 데 유용하다.
+donlnBackground: 기존의 Thread에서의 run() 메소드라고 생각하면 된다.
 
-  ​
+ synchronized: 동기화. 둘 이상의 쓰레드가 파일이나 메모리를 공유하는 경우, 순서를 잘 맞추어 다른 쓰레드가 자원을 사용하고 있는 동안 한 쓰레드가 절대 자원를 변경할 수 없도록 해야한다 .  이런 상황을 처리할 수 있는 방법 이다.
 
+
+
+#### 
+
+​
 
 ### 4.Image Caching 라이브러리
 
