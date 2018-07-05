@@ -6,7 +6,7 @@
 >
 > Present time : 2018-06-27-WED
 >
-> Last updated : 
+> Last updated : 2018-07-05-THURS
 
 
 
@@ -74,6 +74,7 @@
    > - 객체들이 다른 객체와 상호작용하는 방식을 규정
    > - 각각 다른 객체들과 통신하는 방법과 객체의 책임을 규정하여 복잡한 행위들을 관리 할 수 있도록 함
    > - 두 객체 간의 관계에서부터 앱의 전체 아키텍처에까지 영향을 미침
+
 
 
 
@@ -275,22 +276,34 @@ NutritionFacts facts = NutritionFacts.builder()
 #### Setting
 
 1. Eclipse + Window
+
 2. Android Studio + Window
 
+   ​
 
 
-### 2-3. 장점
+
+### 2-2-3. 장점
 
 1. 각 인자가 어떤 의미인지 알기 쉽다.
+
 2. `setter` 메소드가 없으므로 변경 불가능 객체를 만들 수 있다.
+
 3. 한 번에 객체를 생성하므로 객체 일관성이 깨지지 않는다.
+
 4. `build()` 함수가 잘못된 값이 입력되었는지 검증하게 할 수도 있다.
 
+   ​
 
 
-## 2. Adapter
+------------------------
 
-### 2-1. 개념
+
+
+
+## 3. Adapter
+
+### 3-1. 개념
 
 > 기존시스템 업체에서 제공한 클래스
 >
@@ -339,28 +352,47 @@ public class SampleAdapter extends RecyclerView.Adapter<SampleViewHolder> {
 
 
 
-### 2-2. 예제
-
-
-
-### 2-3. 장점
-
-
-
-## 3. Observer
-
-### 3-1. 개념
-
-> 
-
-- 객체간의 1:1 의존성을 정의
-- 하나의 객체가 상태를 변경하면 모든 종속된 객체에 자동으로 통지되고 업데이트를 수행
-
-- API 호출과 같이 불확실한 시간의 작업을 위해서 사용 할 수 있으며 사용자 입력을 처리하는데 사용 할 수 있음
-
-  ​
-
 ### 3-2. 예제
+
+http://jusungpark.tistory.com/22 참고
+
+
+
+### 3-3. 장점
+
+- 호환되지 않는 인터페이스를 사용하는 클라이언트를 그대로 활용할 수 있음
+
+- 클라이언트와 구현된 인터페이스를 분리시킬수 있으며, 향후 인터페이스가 바뀌더라도 그 변경 내역
+
+  은 어댑터에 캡슐화 되기 때문에 클라이언트는 바뀔 필요가 없어짐.
+
+
+
+-----------------------------------------
+
+
+
+## 4. Observer
+
+### 4-1. 개념
+
+> observer : 관찰자
+
+객체지향 설계를 하다보면 객체들 사이에서 다양한 처리를 할 경우가 많다.
+
+
+
+상태를 가지고 있는 주체 객체와 상태의 변경을 알아야 하는 관찰 객체(Observer Object)가 존재하며 이들의 관계는 1:1이 될 수도 있고 1:N이 될 수가 있다.
+
+서로의 정보를 넘기고 받는 과정에서 정보의 단위가 클수록, 객체들의 규모가 클수록, 각 객체들의 관계가 복잡할수록 점점 구현하기 어려워지고 복잡성이 매우 증가할 것이다. 이러한 기능을 할 수 있도록 가이드라인을 제시해주는 것이 바로 Observer Pattern이다.  
+
+
+
+객체와의 관계를 맺고 끊으며 객체의 상태가 변경되면 그 정보를 Observer(Subscribe, 구독자)에게 알려주는 방법을 알아보자.
+
+
+
+### 4-2. 예제
 
 ```java
 apiService.getData(someData)
@@ -369,13 +401,34 @@ apiService.getData(someData)
 ```
 
 - 값(이벤트)를 방출 할 Observable 객체를 정의
-
 - Observable들은 한 번 또는 연속적으로 스트림, 값, 이벤트를 방출함
-
 - Subscriber는 이러한 값을 수신하고 도작한 대로 응답
-
 - 예를들어, API 호출을 작성하고 서버에서 응답을 처리할 Subscriber를 지정 할 수 있음
 
-  ​
+### 4-2-1. 어떤 곳에 쓰일까?
 
-# 3-3. 장점
+Java의 Swing이나 Android의 View나 Button 등의 위젯에 각종 이벤트를 받을 때 쓰인다. 
+
+#### Android - Button
+
+```java
+Button button = (Button) findViewById(R.id.button);
+button.setOnClickListener(new OnClickListener() {
+    @Override
+    public void onClick(...) {
+        // ACTION
+    }
+})
+```
+
+Button은 항상 Click이벤트가 있으며, 이 이벤트는 OnClickListener 라는 인터페이스로 구성되어있다. 
+
+즉 Button이라는 객체가 Publisher가 되고, OnClickListener가 Observer가 된다고 볼 수 있다. Button에서 상태가 변경(클릭 될 경우)된다면 OnClickListener로 알려준다.
+
+위의 예제와 같이 Button에 OnClickListener라는 Observer를 등록하는 경우가 대표적인 Observer Pattern을 적용한 것이다. 
+
+
+
+### 4-3. 장점
+
+- 느슨한 결합성 유지
