@@ -36,7 +36,7 @@
 
 [ **5회차**. 2018.06.30 - 07.06 ]
 
-##### 09. [안드로이드 성능개선](study/week5/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%20%EC%84%B1%EB%8A%A5%EA%B0%9C%EC%84%A0.md) (박태임)
+##### 09. [안드로이드 성능개선](study/week5/android%20performance/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%20%EC%84%B1%EB%8A%A5%EA%B0%9C%EC%84%A0.md) (박태임)
 
 ##### 10. [Retrofit](study/week5/retrofit.md) (박소현)
 
@@ -47,5 +47,13 @@
 ##### 11. Android Jetpack (홍소망)
 
 ##### 12. Kotlin (송시은)
+
+<br />
+
+[ **7회차**. 2018.07.14 - 07.21 ]
+
+##### 13. ConstraintLayout (박태임)
+
+##### 14.  (박소현)
 
 <br />
