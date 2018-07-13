@@ -166,3 +166,6 @@ public void onCreate(Bundle savedInstanceState) {
         + `DAMPING_RATIO_MEDIUM_BOUNCY`
         + `DAMPING_RATIO_LOW_BOUNCY`
         + `DAMPING_RATIO_NO_BOUNCY`
+
+![high](https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true)
+
