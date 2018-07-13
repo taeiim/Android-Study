@@ -71,7 +71,7 @@ runtime에 애니메이션에 대한 행동을 정의 할 수 있다.
 
 예를 들어 재생 버튼을 탭하며 일시 중지 버튼으로 변환되어 두 작업이 관련되어 있다는 것을 사용자에게 알리는 좋은 방법이면 다른 하나를 누리면 다른 버튼이 표시됩
 
-#####AnimationDrawable 사용
+#####- AnimationDrawable 사용
 
 애니메이션을 만드는 한 가지 방법은 Drawables폴더의 사진을 Drawble  resouce에 차래로 로드하여 애니매이션을 만드는 것이다. 이것은 필름 롤 처럼 순서대로 재생되는 점에서 전통적인 애니매이션이다.  AmimationDrawble 클래스는 Drawable 애니메이션의 기초이다.
 
@@ -114,6 +114,55 @@ public void onCreate(Bundle savedInstanceState) {
 
 주의사항
 
-            - ```start()``` 메소드는 ```onCreate()``` 에서는 실행이 불가능하기 때문에 처음부터 애니메이션이 실행되는 것을
-                원한다면 ```onWindowFocusChanged()``` 메소드를 오버라이딩해서 실행해주는 것이 가능하다.
+- ```start()``` 메소드는 ```onCreate()``` 에서는 실행이 불가능하기 때문에 처음부터 애니메이션이 실행되는 것을 원한다면 ```onWindowFocusChanged()``` 메소드를 오버라이딩해서 실행해주는 것이 가능하다.
 
+     ​
+
+#### Physics-based motion
+
+일반적인 물리 기반 애니메이션은 다음과 같다.
+
++ Spring animation
+
+  + Lifecycle of a spring animation(스프링 애니메이션 생명주기)
+
+    + 스프링 기반 애니메이션에서 SpringForce 클래스를 사용하면 스프링의 강성, 감쇠 비율 및 최종 위치를 사용자 정의 할 수 있음
+    + 애니메이션이 시작 되 자마자 스프링 력은 각 프레임의 애니메이션 값과 속도를 업데이트합니다.
+    + 애니메이션은 스프링 력이 평형에 도달 할 때까지 계속됩니다.
+    + 예를 들어 화면에서 앱 아이콘을 드래그 한 다음 아이콘에서 손가락을 떼어 놓으면 나중에 보이지 않지만 익숙한 방식으로 원래 위치로 돌아갑니다.
+
+  + Build a spring animation(스프링 애니메이션 만들기)
+
+    + 스프링 애니메이션 클래스를 사용하려면 프로젝트에 지원 라이브러리를 추가해야합니다.
+
+      ```
+      dependencies {
+            implementation 'com.android.support:support-dynamic-animation:27.1.1'
+        }
+      ```
+
+      ​
+
+    + 기본 단계는 SpringAnimation 클래스의 인스턴스를 만들고 모션 동작 매개 변수를 설정한다
+
+      ```
+      final View img = findViewById(R.id.imageView);
+      // 뷰의 translationY 속성에 애니메이션을 적용하는 스프링 애니메이션 설정
+      // 0에서 스프링 위치
+      final SpringAnimation springAnim = new SpringAnimation(img, DynamicAnimation.TRANSLATION_Y, 0);
+      ```
+
+      스프링 기반 애니메이션은 뷰 객체의 실제 속성을 변경하여 화면에서 뷰의 애니메이션을 만들 수 있습니다. 시스템에서 다음보기를 사용할 수 있습니다.
+
+      + `TRANSLATION_X`, `TRANSLATION_Y`: 이 속성은 레이아웃 컨테이너에서 설정 한 왼쪽 좌표, 위쪽 좌표 및 고도에서 델타로 뷰가있는 위치를 제어합니다.
+
+    + Demping  ratio(감쇠 비율)
+
+       감쇠 비율을 사용하여 진동이 한 바운스에서 다음 바운스로 얼마나 빨리 감소하는지 정의 할 수 있습니다
+
+      + getSpring () 메서드를 호출하여 감쇠 비율을 추가 할 스프링을 검색한다 
+      + setDampingRatio () 메서드를 호출하고 스프링에 추가 할 감쇠 비율을 전달한다. 메서드는 감쇠 비율이 설정된 스프링 력 객체를 반환합니다.
+        + `DAMPING_RATIO_HIGH_BOUNCY`
+        + `DAMPING_RATIO_MEDIUM_BOUNCY`
+        + `DAMPING_RATIO_LOW_BOUNCY`
+        + `DAMPING_RATIO_NO_BOUNCY`
