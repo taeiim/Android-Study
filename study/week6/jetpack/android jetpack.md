@@ -183,7 +183,23 @@ final SpringAnimation anim = new SpringAnimation(img, DynamicAnimation.TRANSLATI
 anim.getSpring().setDampingRatio(DAMPING_RATIO_MEDIUM_BOUNCY);
 ```
 
+### 4.ViewModel
+
+들어기기 전에...
+
+안드로드 앱 개발 시 한 번쯤 겪어 본 어려움 중 하나는   안드로이드 컴포넌트의 수명주기가 아닐까 싶다. 특히 런타임에 화면 방향이 전환되거나 언어, 글꼴 배율과 같은 기기 구정이 변경되는 경우를 다루려면 세심한 처리가 필요했다.
+
+이러한 변경이 일어난는 경우, 안드로이드는 실행 중인 액티비티를 종료하고, 메모리에서 제거 후 다시 생성히기 때문에 이 과정에서 액티비티에 종속된 UI데이터를 유지하는 것은 손이 많이 가는 잡업이다.
 
 
 
+
+
+#### ViewModel구성 요소
+
+새로운 아키텍처 구성 요소 중 가장 중요한 클래스 중 하나인 viewModel은 UI와 관련된 데이터를 보유하고 화면 회전과 같은 구성 변경 중에 무결성을 유지하도록 설계되어 있다. viewModel은 Repository와 대화하고, LiveData를 가져와 뷰에서 볼 수 있도록 한다. 구성 변경 후 Repository를 새로 호출할 필요가 없으므로 코드가 많이 최적화되었다
+
+![ㅇㄴ](https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/viewModel.PNG?raw=true)
+
+일반적으로 시스템이 처음으로 활동 객체의 onCreate () 메소드를 호출 할 때 ViewModel을 요청한다. 시스템은 휴대폰 화면을 회전 할 때와 같이 활동이 끝날 때까지 여러 번 onCreate ()를 호출 할 수 있습니다. ViewModel은 액티비티가 끝나고 소멸 될 때까지 ViewModel을 처음 요청했을 때부터 존재한다.
 
