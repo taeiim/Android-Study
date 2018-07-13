@@ -44,7 +44,7 @@
 
 [ **6회차**. 2018.07.07 - 07.13 ]
 
-##### 11. Android Jetpack (홍소망)
+##### 11. [Android Jetpack](study/week6/jetpack/android%20jetpack.md) (홍소망)
 
 ##### 12. [Kotlin](study/week6/Kotlin/Kotlin_sieun.md) (송시은)
 
