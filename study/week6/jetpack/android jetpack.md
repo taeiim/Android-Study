@@ -162,12 +162,28 @@ public void onCreate(Bundle savedInstanceState) {
 
       + getSpring () 메서드를 호출하여 감쇠 비율을 추가 할 스프링을 검색한다 
       + setDampingRatio () 메서드를 호출하고 스프링에 추가 할 감쇠 비율을 전달한다. 메서드는 감쇠 비율이 설정된 스프링 력 객체를 반환합니다.
-        + `DAMPING_RATIO_HIGH_BOUNCY`
-        + `DAMPING_RATIO_MEDIUM_BOUNCY`
-        + `DAMPING_RATIO_LOW_BOUNCY`
-        + `DAMPING_RATIO_NO_BOUNCY`
+        + 1.`DAMPING_RATIO_HIGH_BOUNCY`
+        + 2.`DAMPING_RATIO_MEDIUM_BOUNCY`
+        + 3.`DAMPING_RATIO_LOW_BOUNCY`
+        + 4.`DAMPING_RATIO_NO_BOUNCY`
 
-![high](https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true)
 
-<img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true" width="100" >
+
+<img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/medium_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/low_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/no_bounce.gif?raw=true" width="200" >
+
+
+
+기본 감쇠 비율은 ``` DAMPING_RATIO_MEDIUM_BOUNCY```설정됩니다.
+
+```
+final View img = findViewById(R.id.imageView);
+final SpringAnimation anim = new SpringAnimation(img, DynamicAnimation.TRANSLATION_Y);
+…
+//Setting the damping ratio to create a low bouncing effect.
+anim.getSpring().setDampingRatio(DAMPING_RATIO_MEDIUM_BOUNCY);
+```
+
+
+
+
 
