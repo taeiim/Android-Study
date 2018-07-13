@@ -169,3 +169,5 @@ public void onCreate(Bundle savedInstanceState) {
 
 ![high](https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true)
 
+<img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true" width="100" >
+
