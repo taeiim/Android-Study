@@ -44,16 +44,22 @@
 
 [ **6회차**. 2018.07.07 - 07.13 ]
 
-##### 11. Android Jetpack (홍소망)
+##### 11. [Android Jetpack](study/week6/jetpack/android%20jetpack.md) (홍소망)
 
-##### 12. Kotlin (송시은)
+##### 12. [Kotlin](study/week6/Kotlin/Kotlin_sieun.md) (송시은)
 
 <br />
 
 [ **7회차**. 2018.07.14 - 07.21 ]
 
-##### 13. ConstraintLayout (박태임)
+##### 13. [ConstraintLayout](study/week7/ConstraintLayout/ConstraintLayout.md) (박태임)
 
 ##### 14.  (박소현)
 
 <br />
+
+[ **8회차**. 2018.07.21 - 07.28 ]
+
+##### 15.  (송시은)
+
+##### 16.  (홍소망)
