@@ -54,7 +54,7 @@
 
 ##### 13. [ConstraintLayout](study/week7/ConstraintLayout/ConstraintLayout.md) (박태임)
 
-##### 14. OAuth (박소현)
+##### 14. [OAuth, LDAP](study/week7/android OAuth, LDAP.md) (박소현)
 
 <br />
 
