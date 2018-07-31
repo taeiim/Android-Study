@@ -8,9 +8,7 @@
 
 
 
-## 목차
-
-[TOC]
+</br>
 
 ## 1. ConstraintLayout, 왜 사용해야 하죠?
 
@@ -32,7 +30,7 @@
 
 따라서, 중첩된 레이아웃이 많을 수록 측정하는데 걸리는 시간도 늘어나게 된다.
 
-
+</br>
 
 ### 1.2 ConstraintLayout을 사용하면?
 
@@ -40,13 +38,13 @@
 
 레이아웃을 좁고 깊게 만들기보다, 얇고 넓게 만들어 레이아웃을 중첩을 줄이면 성능을 향상시킬 수 있다는 것을 알 수 있다. 
 
-![constraintlayout_1](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/constraintlayout_1.png)
+![constraintlayout_1](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_1.png)
 
  ###### [그림1] ConstraintLayout VS. 중첩된 여러 레이아웃
 
 ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계층 구조를 유지하면서도 복잡한 레이아웃을 작성할 수 있다. 
 
-
+</br>
 
 ### 1.3 ConstraintLayout의 장점
 
@@ -74,9 +72,9 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
 아래와 같은 방법으로 Blueprint를 사용할 수 있다.
 
-![constraintlayout_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/constraintlayout_2.png)
+![constraintlayout_2](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_2.png)
 
-
+</br>
 
 ### 2.2 제약 바이어스
 
@@ -84,15 +82,15 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
 따라서 상대 제약을 사용하면서 위젯의 위치를 추가로 조정할 수 있게 하기 위하여 ConstraintLayout에서는 제약 바이어스 기능을 구현하였다. 제약 바이어스를 사용하면 하나의 제약에 지정된 비율을 기준으로 상대 제약을 갖도록 위젯을 위치시킬 수 있다. 
 
-![bias](/Users/parktaeim/Desktop/bias.png)
+![bias](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/bias.png)
 
 위젯을 선택하면 속성 창에 두 개의 슬라이더가 나타난다. 이것을 마우스로 끌면 수평과 수직 방향의 제약 바이어스가 조정된다. 
 
-
+</br>
 
 ### 2.3 Handles
 
-![constraintlayout_3](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/constraintlayout_3.png)
+![constraintlayout_3](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_3.png)
 
 - #### Resize Handle
 
@@ -105,7 +103,7 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
   - 앵커 포인트를 한번 더 클릭하면 제약조건을 삭제할 수 있다.
 
 
-
+</br>
 
 ### 2.4 Chains
 
@@ -119,19 +117,19 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
   체인에 포함된 위젯들이 체인 내부의 사용 가능한 공간에 고르게 분산 배치되며 기본 스타일 값이다. 
 
-  ![chain_spread](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/chain_spread.png)
+  ![chain_spread](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_spread.png)
 
 - ##### Spread Inside 체인
 
   체인에 포함된 위젯들이 체인 헤드와 체인의 마지막 위젯 사이에 고르게 배치된다. 단, 헤드와 마지막 위젯은 체인 내부의 공간 분배에 포함되지 않는다.
 
-  ![chain_spreadinside](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/chain_spreadinside.png)
+  ![chain_spreadinside](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_spreadinside.png)
 
 - ##### Weighted 체인
 
   체인의 각 위젯들이 차지하는 공간을 각 위젯의 가중치 속성으로 제어할 수 있다.
 
-  ![chain_weighted](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/chain_weighted.png)
+  ![chain_weighted](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_weighted.png)
 
   Weighted 체인은 spread 체인 스타일을 사용할 때문 구현할 수 있으며, 체인에 포함된 모든 위젯들의 크기가 match constraint로 지정되어야 한다. 
 
@@ -143,10 +141,10 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
   체인을 구성하는 위젯들이 간격 없이 붙어서 배치되며, 체인 외부의 좌우 또는 상하의 남는 공간은 기본적으로 동일하게 배정된다.
 
-  ![chain_packed](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/chain_packed.png)
+  ![chain_packed](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_packed.png)
 
 
-
+</br>
 
 ### 2.5 Guidelines
 
@@ -154,9 +152,9 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
 Guidelines 객체는 화면에 나타나지 않는다.(View.GONE 상태)
 
+</br>
 
-
-###2.6 Margin
+### 2.6 Margin
 
 특정 위젯과 다른 요소 사이의 간격(마진)을 띄우기 위해 제약을 사용할 수 있다.
 
@@ -164,11 +162,11 @@ Guidelines 객체는 화면에 나타나지 않는다.(View.GONE 상태)
 
 바이어스가 100%로 설정되어 오른쪽에 붙어있더라도 오른쪽 마진이 50dp 설정되어 있다면 항상 레이아웃의 오른쪽에서 50dp 만큼 떨어진다. 
 
-![margin](/Users/parktaeim/Desktop/margin.png)
+![margin](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/margin.png)
 
 마진 값은 속성 창에서 변경할 수 있다. 드롭다운을 사용해도 되고, 값을 직접 입력해도 된다.
 
-
+</br>
 
 ### 2.7 상대 제약과 바이어스의 중요성
 
@@ -178,13 +176,13 @@ ConstraintLayout을 사용할 때는 상대 제약과 마진 및 바이어스가
 
 마진 제약은 항상 지정된 여백을 띄운 후 위젯을 위치시킨다. 따라서 장치를 가로로 회전되어 화면의 높이가 작아지면 하단에 위치해 있는 위젯은 볼 수 없게 된다.  
 
-![constraintlayout_4](/Users/parktaeim/Documents/GitHub/Android-Study/study/week7/ConstraintLayout/images/constraintlayout_4.png)
+![constraintlayout_4](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_4.png)
 
 
 
 이와 달리, 상대 제약으로 수평과 수직 방향의 바이어스를 설정하면 장치 화면의 크기가 달라지더라도 그것의 화면 크기에 비례하여 일정한 위치에 위젯이 나타날 수 있다.
 
-![constraintlayout_5](/Users/parktaeim/Desktop/constraintlayout_5.png)
+![constraintlayout_5](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_5.png)
 
 결론적으로, 유연한 사용자 인터페이스 레이아웃을 생성하려면 상대 제약과 제약 바이어스를 같이 고려하는 것이 중요하다. 
 
@@ -208,7 +206,7 @@ ConstraintLayout으로 레이아웃을 생성할 때, 레이아웃 편집기의 
 
 그러나 레이아웃 편집기의 디자인 모드와 텍스트 모드는 상호 배타적이지 않다. 따라서 디자인 모드에서 레이아웃을 그리듯이 작성하면 XML이 자동 생성되며, 텍스트 모드에서는 그 XML을 사용해서 우리가 직접 편집할 수 있다. 반대의 경우도 마찬가지다. 그러므로 두 가지 모드를 번갈아 사용하면서 레이아웃을 개발하는 것이 좋은 방법이다. 
 
-
+</br>
 
 ### 3.2 레이아웃 편집기
 
@@ -222,13 +220,13 @@ ConstraintLayout으로 레이아웃을 생성할 때, 레이아웃 편집기의 
 
 자동연결이 활성화된 상태에서 레이아웃에 위젯을 끌어 놓으면 자동으로 제약 연결이 추가된다. 
 
-![autoconnect](/Users/parktaeim/Desktop/autoconnect.png)
+![autoconnect](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/autoconnect.png)
 
 자동 연결에서는 레이아웃에 추가되는 위젯과 인접한 부모 레이아웃 및 다른 요소의 위치를 기준으로 그 위젯의 제약 연결을 생성한다. 이때 내부적으로 알고리즘을 사용한다.
 
 그러나 레이아웃 편집기에서 자동으로 제약 연결을 생성할 수 없는 경우가 생길 수 있다. 이때는 수동으로 제약을 추가해주어야 한다.
 
-
+</br>
 
 #### 3.2.2 제약 추론
 
@@ -236,9 +234,9 @@ ConstraintLayout으로 레이아웃을 생성할 때, 레이아웃 편집기의 
 
 그러나 자동연결처럼 제약 추론 기능을 사용할 때도 레이아웃 편집기에서 부적합한 제약 연결을 추가할 수 있다. 이때는 수동으로 변경할 수 있다.
 
-![inferconstraint](/Users/parktaeim/Desktop/inferconstraint.png)
+![inferconstraint](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/inferconstraint.png)
 
-
+</br>
 
 #### 3.2.3 수동 연결
 
@@ -260,7 +258,7 @@ ConstraintLayout은 공부하면 할 수록 매력있고 왜 안쓰나 하는 �
 
 다른 레이아웃을 계속 사용하다보니 ConstraintLayout을 처음 접했을 때 이해하기가 조금 힘들었지만 이렇게 공부하고 정리하다 보니 어느새 이해가 되어있어서 뿌듯하다. 다음부터 레이아웃을 만들때는 꼭 ConstraintLayout을 사용할 것이다.
 
-
+</br>
 
 ### 4.2 출처
 
@@ -268,10 +266,11 @@ ConstraintLayout은 공부하면 할 수록 매력있고 왜 안쓰나 하는 �
 
 - 핵심만 골라 배우는 안드로이드 스튜디오3 & 프로그래밍 (닐 스미스 지음/심재철 옮김)
 
-  ​
 
 #### 웹사이트
 
 - https://academy.realm.io/kr/posts/constraintlayout-it-can-do-what-now/
 - https://academy.realm.io/kr/posts/cool-constraintlayout-droidcon-boston-2017/
 - https://academy.realm.io/kr/posts/exploring-new-android-layouts/ (이미지1 출처)
+
+</br>
