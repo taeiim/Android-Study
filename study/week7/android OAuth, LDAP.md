@@ -100,8 +100,6 @@ OAuth 1.0이 나온 때는 2007년이며, 이후 보안 문제를 해결한 수�
 
 ![diagram](https://github.com/taeiim/Android-Study/blob/master/study/week7/OAuth%2C%20LDAP/diagram.png)
 
-![diagram](C:\Users\dsm2016\Desktop\취업\지란지교\diagram.png)
-
 [표3 - 회사 방문 과정과 OAuth 인증 과정]
 
 |      | 회사 방문 과정                                               | OAuth 인증 과정                        |
