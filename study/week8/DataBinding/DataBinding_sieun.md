@@ -6,30 +6,61 @@
 >
 > 발표자 : 송시은
 
+[TOC]
+
 
 
 ## 0. 참고문서
 
-https://developer.android.com/topic/libraries/data-binding/?hl=ko
-
-https://brunch.co.kr/@oemilk/107
+[Android Developer - ko]: https://developer.android.com/topic/libraries/data-binding/?hl=ko
+[Android Developer - en]: https://developer.android.com/topic/libraries/data-binding/?hl=en#java
+[Android Data Binding]: https://brunch.co.kr/@oemilk/107
 
 
 
 ## 1. 정의
 
-데이터 바인딩 라이브러리는 유연성과 폭넓은 호환성을 모두 제공하는 지원 라이브러리이다.
+**데이터 바인딩 라이브러리** 
 
-Android 2.1(API 레벨 7 이상)까지 Android 플랫폼의 모든 이전 버전에서 사용할 수 있다.
+> 레이아웃의 UI 구성 요소를 프로그래밍 방식이 아닌 선언 형식을 사용하여 앱의 데이터 소스에 바인딩 할 수 있는 지원 라이브러리
+>
 
-Android Plugin for Gradle 1.5.0-alpha1 이상이 필요하다.  
 
-Android Studio 1.3 이상에서는 데이터 바인딩 코드를 위한 다양한 코드 편집 기능을 지원한다.
 
-- 구문 강조표시
-- 식 언어 구문 오류의 플래그 지정
-- XML 코드 완성
-- (선언 탐색 등의) 탐색과 빠른 문서화를 포함한 참조
+### 1.1. 특징
+
+- 액티비티에서 많은 UI 프레임 워크 호출을 제거 할 수 있으므로 유지 관리가 더 쉽고 간단해진다.
+- 앱의 성능을 향상시키고 메모리 누수와 널 포인터 예외를 방지 할 수 있다. 
+- 데이터 바인딩 라이브러리는 [Android Jetpack](https://developer.android.com/jetpack/) 아키텍처 구성 요소이다. 
+- Android 2.1(API 레벨 7 이상)까지 Android 플랫폼의 모든 이전 버전에서 사용할 수 있다.
+- Android Plugin for Gradle 1.5.0-alpha1 이상이 필요하다.  
+- Android Studio 1.3 이상에서는 데이터 바인딩 코드를 위한 다양한 코드 편집 기능을 지원한다.
+  - 구문 강조표시
+  - 식 언어 구문 오류의 플래그 지정
+  - XML 코드 완성
+  - (선언 탐색 등의) 탐색과 빠른 문서화를 포함한 참조
+- 데이터 바인딩 라이브러리는 변경 사항에 대한 데이터를 쉽게 관찰 할 수있는 클래스와 메서드를 제공한다.
+
+
+
+### 1.2. 클래스 바인딩을 위한 새로운 데이터 바인딩 컴파일러
+
+Android Gradle 플러그인 버전 3.1.0-alpha06 에 바인딩 클래스를 생성하는 새로운 데이터 바인딩 컴파일러가 포함되어 있다. 새로운 컴파일러는 바인딩 클래스를 점진적으로 생성한다.
+
+#### 특징
+
+- 대부분의 경우 빌드 프로세스의 속도가 빨라진다.
+
+- 이전 버전의 데이터 바인딩 컴파일러는 코드가 컴파일되는 동일한 단계에서 바인딩 클래스를 생성했다. 따라서 코드가 컴파일되지 않으면 바인딩 클래스를 찾을 수 없다는 오류가 표시될 수 있다. 새로운 데이터 바인딩 컴파일러는 관리 컴파일러가 앱을 빌드하기 전에 바인딩 클래스를 생성하여 오류 방지한다.
+
+- 새로운 데이터 바인딩 컴파일러를 사용하려면 gradle.properties 파일에 다음 옵션을 추가하면 된다.
+
+  ```groovy
+  android.databiding.enableV2=true
+  -Pandroid.databinding.enableV2=true
+  ```
+
+  
 
 
 
@@ -104,7 +135,7 @@ public class User {
 
 ### 2.4. 데이터바인딩
 
-바인딩 클래스는 레이아웃 파일의 이름을 기준으로 자동 생성된다.
+데이터 바인딩 라이브러리는 레이아웃의 뷰를 데이터 객체와 바인딩하는 데 필요한 클래스를 자동으로 생성
 
 > 파스칼 표기법(합성어의 첫 글자를 대문자로 표기)으로 변환하고 뒤에 "Binding" 접미사를 추가
 >
@@ -123,9 +154,11 @@ public class User {
 
 
 
+## 3. 응용
 
+### 3.1. 이벤트 처리
 
-
+데이터 바인딩을 사용하여 뷰에서 발송되는 이벤트를 처리하는 식을 작성 할 수 있다.
 
 
 
