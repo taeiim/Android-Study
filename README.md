@@ -54,13 +54,13 @@
 
 ##### 13. [ConstraintLayout](study/week7/ConstraintLayout/ConstraintLayout.md) (박태임)
 
-##### 14. [OAuth, LDAP](study/week7/android OAuth, LDAP.md) (박소현)
+##### 14. [OAuth&LDAP](study/week7/OAuth&LDAP/OAuth&LDAP.md) (박소현)
 
 <br />
 
 [ **8회차**. 2018.07.25 - 07.30 ]
 
-##### 15. DataBinding (송시은)
+##### 15. [DataBinding](study/week8/DataBinding/DataBinding_sieun.md) (송시은)
 
 <br />
 
@@ -69,5 +69,11 @@
 ##### 16. 리팩토링 (박태임)
 
 ##### 17. ViewModel과 LiveData (박소현)
+
+<br />
+
+[ **10회차**. 2018.08.03 - 08.06 ]
+
+##### 18. JSON (송시은)
 
 <br />
