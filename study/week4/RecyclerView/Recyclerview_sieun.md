@@ -53,7 +53,7 @@ http://www.kmshack.kr/2014/10/android-recyclerview/
 
   - StaggeredGridLayoutManager : 그리드뷰처럼 데이터를 격자 형식으로 표시하면서 아이템의 높이가 일정하지 않아도 되는 지그재그형 그리드 형식으로 표시
 
-    ![](D:\GitHub_Study\Android-Study\study\week4\RecyclerView\그림01.png)
+    ![https://github.com/taeiim/Android-Study/blob/master/study/week4/RecyclerView/그림01.png](https://github.com/taeiim/Android-Study/blob/master/study/week4/RecyclerView/그림01.png)
 
 - ##### RecyclerView.ItemAnimation
 
