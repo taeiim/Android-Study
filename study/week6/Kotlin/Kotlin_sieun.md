@@ -379,19 +379,19 @@ if (value is String)				//타입을 검사한다
 
 #### 2.1.2 파일의 구성요소
 
-![](D:\GitHub_Study\Android-Study\study\week6\Kotlin\코틀린 파일의 구성요소.jpg)
+![https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20파일의%20구성요소.jpg](https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20파일의%20구성요소.jpg)
 
 - 하나의 파일에 패키지, 임포트, 클래스를 선언한 단순 구조이며, 다른 객체지향 언어와 큰 차이가 없다.
 
 - 코틀린 파일에도 패키지를 선언할 수 있는데, 반드시 파일의 첫 줄에 선언해야 한다.
 
-  ![](D:\GitHub_Study\Android-Study\study\week6\Kotlin\코틀린 파일의 구성요소1.jpg)
+  ![https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20파일의%20구성요소1.jpg](https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20파일의%20구성요소1.jpg)
 
 - 코틀린 파일은 클래스를 사용하지 않고 변수와 함수로만 구성할 수도 있다.
 
 - 코틀린에서는 모든 구성요소를 꼭 클래스로 묶지 않아도 되며, 변수나 함수를 클래스 외부에 선언할 수 있다.
 
-  ![](D:\GitHub_Study\Android-Study\study\week6\Kotlin\코틀린 파일의 구성요소2.jpg)
+  ![https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20파일의%20구성요소2.jpg](https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20파일의%20구성요소2.jpg)
 
 - 코틀린은 파일의 구성요소에 대한 규칙이 없으며 개발자의 편의에 따라서 변수, 함수, 클래스 등을 자유롭게 정의할 수 있다.
 
@@ -880,7 +880,7 @@ Anko Coroutines은 코틀린 코루틴 라이브러리(kotlinx.coroutines)와 �
 
 include kotlin support 체크박스가 체크된 상태로 새 프로젝트를 만들면 자동으로 코틀린 파일이 만들어 진다.
 
-![](D:\GitHub_Study\Android-Study\study\week6\Kotlin\코틀린 개발환경 설정.PNG)
+![https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20개발환경%20설정.PNG](https://github.com/taeiim/Android-Study/blob/master/study/week6/Kotlin/코틀린%20개발환경%20설정.PNG)
 
 체크하지 않고 만들더라도 아래와 같이 설정해주면 된다.
 
