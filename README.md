@@ -66,7 +66,7 @@
 
 [ **9회차**. 2018.07.30 - 08.02 ]
 
-##### 16. 리팩토링 (박태임)
+##### 16. [리팩토링](study/week9/Refactoring/Refactoring.md) (박태임)
 
 ##### 17. ViewModel과 LiveData (박소현)
 
@@ -74,6 +74,6 @@
 
 [ **10회차**. 2018.08.03 - 08.06 ]
 
-##### 18. JSON (송시은)
+##### 18. [JSON](study/week10/JSON_sieun.md) (송시은)
 
 <br />
