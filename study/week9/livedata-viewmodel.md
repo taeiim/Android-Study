@@ -124,6 +124,49 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 }
 ```
 
+### 1-2. 두 개의 Fragment에서 ViewModel 공유하기
+
+```java
+//ViewModel
+public class SharedViewModel extends ViewModel {
+    private final MutableLiveData<Item> selected = new MutableLiveData<Item>();
+
+    public void select(Item item) {
+        selected.setValue(item);
+    }
+
+    public LiveData<Item> getSelected() {
+        return selected;
+    }
+}
+```
+
+```java
+//Fragment
+public class MasterFragment extends Fragment {
+    private SharedViewModel model;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        itemSelector.setOnClickListener(item -> {
+            model.select(item);
+        });
+    }
+}
+
+public class DetailFragment extends Fragment {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        SharedViewModel model = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
+        model.getSelected().observe(this, { item ->
+           // Update the UI.
+        });
+    }
+}
+```
+
+getActivity()를 통해 같은 ViewModelProviders에 같은 Activity를 전달하여, 동일한 ViewModelProvider를 가져온다. 가져온 ViewModelProvider에서 get(Class class)메소드를 이용하여 같은 ViewModel을 가져온다. 
+
 -----
 
 </br>
