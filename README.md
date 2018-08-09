@@ -68,7 +68,7 @@
 
 ##### 16. [리팩토링](study/week9/Refactoring/Refactoring.md) (박태임)
 
-##### 17. ViewModel과 LiveData (박소현)
+##### 17. [ViewModel과 LiveData](study/week9/livedata-viewmodel.md) (박소현)
 
 <br />
 

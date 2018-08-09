@@ -6,7 +6,7 @@
 >
 > Present Time : 2018–08-09-THU
 
-
+<br/>
 
 ## 1. 시작
 
@@ -16,13 +16,13 @@
 
 ###### * 리팩토링이 아닌 것 :  -버그를 없애거나 새로운 기능을 추가하는 행위
 
-
+<br/>
 
 ### 1.2 리팩토링의 목적
 
 > 컴퓨터가 인식 가능한 코드는 바보라도 작성할 수 있지만, 인간이 이해할 수 있는 코드는 실력 있는 프로그래머만 작성할 수 있다.
 
-
+<br/><br/>
 
 ## 2. 리소스 리팩토링
 
@@ -36,9 +36,9 @@
 
 따라서, 리소스를 리팩토링할 때는 먼저 컬러와 디멘션(크기)을 수정하는 것이 좋다. 
 
-![refactoring_1](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/refactoring_1.png)
+![refactoring_1](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/refactoring_1.png)
 
-
+<br/>
 
 ### 2.2 colors.xml
 
@@ -52,7 +52,7 @@
 
 **Greyscales** 과  **Quipper colors** 두가지 섹션으로 나눈다. (너무 많은 섹션을 만드는 것보다는 두가지로 간단하게 나누는 것으로도 충분하다.)
 
-![refactoring_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/colors_1.png)
+![colors_1](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/colors_1.png)
 
 **Greyscales** 섹션에는 흰색, 검은색, 회색을 정의했는데, 네이밍 규칙을 잘 만드는 것이 중요하다. 
 
@@ -69,9 +69,9 @@
 
 "warning", "danger" 등 같은 이름도 사용하면 이해하기 쉽다. 
 
-![refactoring_3](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/colors_2.png)
+![colors_2](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/colors_1.png)
 
-
+<br/><br/>
 
 ### 2.3 dimens.xml
 
@@ -83,17 +83,17 @@
 
 space, text, button, radius, elevation 등으로 섹션을 만든다. 
 
-![dimens_base](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/dimens_base.png)
+![dimens_base](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/dimens_base.png)
 
 ``dimens.xml`` : 특정 페이지의 크기를 정의
 
-![dimens](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/dimens.png)
+![dimens](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/dimens.png)
 
 
 
 컬러와 디멘션을 리팩토링 했으니 이제 테마와 스타일을 리팩토링하러 고고고~~‼️
 
-
+<br/><br/>
 
 ### 2.4 themes.xml
 
@@ -105,7 +105,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 테마로 적용하면  적용한 경우에 따라 범위 (액티비티나 애플리케이션) 의 모든 내용이 변경된다. 스타일은 더 로컬이다. 
 
-
+<br/><br/>
 
 ### 2.5 styles.xml
 
@@ -115,15 +115,15 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 ``styles.xml`` 에는 아이콘, 텍스트, 버튼 처럼 기본 스타일을 정의한다.
 
-
+<br/>
 
 #### 2.5.1 styles.xml 이 뭐죠?
 
 미리 속성들을 정의해놓고 사용하는 것. 레이아웃을 간단하게 만들 수 있다. 
 
-![styles_1](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/styles_1.png)
+![styles_1](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/styles_1.png)
 
-
+<br/>
 
 #### 2.5.2 (styles 꿀팁) 스타일도 상속이 가능하다?!
 
@@ -133,9 +133,9 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 ###### 지금까지 색상이 다르거나 크기가 다르면 style을 각각 따로 만들어서 사용했는데 상속 개념을 이용하면 코드가 많이 줄어들것 같다.
 
-![styles_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/styles_2.png)
+![styles_2](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/styles_2.png)
 
-
+<br/><br/>
 
 ### 2.6 drawables
 
@@ -151,7 +151,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
   이름에 컬러를 포함하지 않은 이유는 **틴트** 를 사용하기 때문입니다. 이미지 뷰는 틴트 속성이 있습니다. 
 
-![drawable_namingrule](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/drawable_namingrule.png)
+![drawable_namingrule](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/drawable_namingrule.png)
 
 일반적으로 Drawable을 리팩토링하는 것은 어렵기보다는 귀찮은 일에 가깝다. 
 
@@ -163,7 +163,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 마지막으로 다른 드로어블을 조금씩 리네이밍 한다. 
 
-
+<br/><br/><br/>
 
 ## 3. 코드 리팩토링
 
@@ -185,7 +185,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 긴 메서드에 익숙해진 사람은 잘 쪼개진 간결한 메서드에 익숙해지기까지 시간이 좀 걸린다. 메서드 내용이 간결한 것도 중요하지만, 효과를 보려면 메서드의 이름도 잘 지어야 한다. 
 
-
+<br/><br/>
 
 ### 3.2 기타 꿀팁
 
@@ -193,9 +193,9 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 일일이 1,2,3,4 모두 view를 inflate할 필요 없이 아래와 같이 + 기호를 사용해 한번에 해주면 된다.
 
-![refactoring_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/refactoring_2.png)
+![refactoring_2](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/refactoring_2.png)
 
-
+<br/>
 
 #### 3.2.2 삼항 연산자
 
@@ -224,7 +224,7 @@ if(5 > 4){
 position = getArguments() != null ? getArguments().getInt("position") : 0;
 ```
 
-
+<br/>
 
 #### 3.2.3 for-each문
 
@@ -264,7 +264,7 @@ for(int reviewCnt : reviewCnts){
 
 for문보다 for each문이 타이핑의 양도 작고 가독성이 더 좋은 것 같다.
 
-
+<br/><br/>
 
 ## 4. 마무리
 
