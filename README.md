@@ -64,15 +64,15 @@
 
 <br />
 
-[ **9회차**. 2018.07.30 - 08.02 ]
+[ **9회차**. 2018.07.30 - 08.03 ]
 
-##### 16. [리팩토링](study/week9/Refactoring/Refactoring.md) (박태임)
+##### 16. [Refactoring](study/week9/Refactoring/Refactoring.md) (박태임)
 
 ##### 17. [ViewModel과 LiveData](study/week9/livedata-viewmodel.md) (박소현)
 
 <br />
 
-[ **10회차**. 2018.08.03 - 08.06 ]
+[ **10회차**. 2018.08.04 - 08.09 ]
 
 ##### 18. [JSON](study/week10/JSON_sieun.md) (송시은)
 
