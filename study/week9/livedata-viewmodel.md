@@ -75,7 +75,7 @@ ViewModel은 ui관련된 data를 저장하고 관리하는 클래스이다.
 
 #### 사용시 이점
 
-: ViewModel을 이용하면, UI와 내부 로직을 분리할 수 있고, 리소스 관리가 용이해져 메모리를 관리하는데 간편하다는 장점이 있다. UI 컨트롤러 로직에서 뷰 데이터 소유권을 분리하는 것이다.
+: ViewModel을 이용하면, UI와 내부 로직을 분리할 수 있고, 리소스 관리가 용이해져 메모리를 관리하는데 간편하다는 장점이 있다. UI 컨트롤러 로직에서 뷰 데이터 소유권을 분리하는 것이다. Activity/fragment lifecycle을 따라 동작하는데 생성된 시점에서 Activity/fragment가 finish() 되기 전까지 데이터를 유지하는 기능을 가지고 있다.  
 
 ### 1-1. ViewModel 객체 가져오기
 
@@ -123,6 +123,60 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     }
 }
 ```
+
+<br/>
+
+**step2/ChronoActivity2** 
+
+```java
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main); 
+
+    // The ViewModelStore provides a new ViewModel or one previously created. 
+	ChronometerViewModel chronometerViewModel 													ViewModelProviders.of(this).get(ChronometerViewModel.class); 
+                                                              
+	// Get the chronometer reference 	
+    Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+    
+    if (chronometerViewModel.getStartDate() == null) { 
+        // If the start date is not defined, it's a new ViewModel so set it. 
+        long startTime = SystemClock.elapsedRealtime(); 											chronometerViewModel.setStartDate(startTime); 
+        chronometer.setBase(startTime); 
+    } else { 
+        // Otherwise the ViewModel has been retained, set the chronometer's base to the original 		// starting time. 
+        chronometer.setBase(chronometerViewModel.getStartDate()); 
+    } 
+    
+    chronometer.start(); 
+}
+```
+
+**step2/ChronometerViewModel**  
+
+```java
+public class ChronometerViewModel extends ViewModel {
+    
+    @Nullable 
+    private Long startDate; 
+    
+    @Nullable 
+    public Long getStartDate() {
+        return startDate; 
+    }
+    
+    public void setStartDate(final long startDate) { 
+        this.startDate = startDate;
+    } 
+}
+```
+
+앱을 실행한 후, 스마트폰을 좌우로 회전시켜보면 view는 새로 create되지만 Chronometer는 초기 값을 잃어버리지 않고 표시되는 것을 확인할 수 있다. 홈버튼으로 나갔다 다시 앱으로 돌아와도 값은 유지된다. 백버튼으로 나갔다 앱을 실행하면 값이 초기화 되는 것을 볼 수 있다.
+
+이렇게 ViewModel은 Activity/Fragment 가 finish 되서 destroy 되기 전까지는 값을 유지한다.
+
+<br/>
 
 ### 1-2. 두 개의 Fragment에서 ViewModel 공유하기
 
@@ -183,6 +237,16 @@ getActivity()를 통해 같은 ViewModelProviders에 같은 Activity를 전달�
 4. lifecycle이 inactive 상태였다 active 상태로 변한 경우 최신 데이터를 수신해 항상 최신의 데이터를 보장한다.
 
 → LifecycleOwner의 getLifeCycle() 메서드를 통해 현재의 lifecycle을 가져올 수 있어 상태 체크가 가능하다. 
+
+<br/>
+
+> 앞의 코드(ViewModel)와 비교해서 덧붙이자면, 앱을 실행해보면 예제1과 마찬가지로 스마트폰을 좌우로 회전하거나 홈화면으로 나갔다 돌아와도 값이 유지되는 것을 확인할 수 있다. 그런데 Activity의 onUpdate 리스너에 로그를 남겨보면 홈화면에 나가있는 상태에서도 이벤트를 받아 view를 갱신하는 것을 확인할 수 있다.
+>
+> view가 보이지 않는 상태에서는 데이터는 유지되더라도 view를 갱신할 필요는 없다. 이런 아쉬움은 LiveData를 사용하면 없어진다.
+
+<br/>
+
+LiveData는 acitivity/fragment lifecyle에 따라 동작하며 **STARTED/RESUMED state**일 때만 데이터 변화 이벤트를 observer 에게 전달한다.  
 
 ### 2-1. LifeCycleOwner
 
