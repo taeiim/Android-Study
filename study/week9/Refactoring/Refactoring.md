@@ -4,7 +4,7 @@
 
 > 작성자 : 박태임
 >
-> Present Time : 2018–08-01-WED
+> Present Time : 2018–08-09-THU
 
 
 
@@ -25,10 +25,6 @@
 
 
 ## 리소스 리팩토링
-
-### 복잡한 리소스 문제 
-
-
 
 ### 리팩토링 단계
 
@@ -56,7 +52,7 @@
 
 **Greyscales** 과  **Quipper colors** 두가지 섹션으로 나눈다. (너무 많은 섹션을 만드는 것보다는 두가지로 간단하게 나누는 것으로도 충분하다.)
 
-![refactoring_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/refactoring_2.png)
+![refactoring_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/colors_1.png)
 
 **Greyscales** 섹션에는 흰색, 검은색, 회색을 정의했는데, 네이밍 규칙을 잘 만드는 것이 중요하다. 
 
@@ -73,7 +69,7 @@
 
 "warning", "danger" 등 같은 이름도 사용하면 이해하기 쉽다. 
 
-![refactoring_3](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/refactoring_3.png)
+![refactoring_3](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/colors_2.png)
 
 
 
@@ -101,27 +97,182 @@ space, text, button, radius, elevation 등으로 섹션을 만든다.
 
 ### 3. themes.xml
 
+테마를 사용해서 각 컴포넌트의 윈도우 백그라운드, 컬러, 사이즈 등 공통 속성을 적용할 수 있다. 예를 들어 스플래시 액티비티는 투명한 테마를 사용해서 배경색을 투명하게 할 수 있다. 
+
+themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 있는 것일까?
+
+둘이 구조는 거의 같지만 ``styles.xml`` 이 좀 더 빈번하게 업데이트가 될 가능성이 크다. 
+
+테마로 적용하면  적용한 경우에 따라 범위 (액티비티나 애플리케이션) 의 모든 내용이 변경된다. 스타일은 더 로컬이다. 
+
 
 
 ### 4. styles.xml
 
+``style.xml``을 파일 몇개로 분리.
+
+``styles_login.xml`` 이나 ``styles_messages.xml`` 등 과 같이 특정 페이지를 위한 다른 스타일을 만든다. 
+
+``styles.xml`` 에는 아이콘, 텍스트, 버튼 처럼 기본 스타일을 정의한다.
+
+
+
+#### styles.xml 이 뭐죠?
+
+미리 속성들을 정의해놓고 사용하는 것. 레이아웃을 간단하게 만들 수 있다. 
+
+![styles_1](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/styles_1.png)
+
+
+
+#### (styles 꿀팁) 스타일도 상속이 가능하다?!
+
+``.`` 으로 연결해서 스타일을 상속시킬 수 있다. 
+
+다른 컬러의 버튼 스타일이 필요하면 ``Button.Primary`` 를 만들고 백그라운드와 텍스트컬러 속성만 정의하면 된다. 
+
+###### 지금까지 색상이 다르거나 크기가 다르면 style을 각각 따로 만들어서 사용했는데 상속 개념을 이용하면 코드가 많이 줄어들것 같다.
+
+![styles_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/styles_2.png)
+
+
+
 ### 5. drawables
 
-일반적으로 앱에 너무 많은 drawable이 있으므로 관리하기 어려운 경우가 많다. 쉽게 drawable을 관리하는 방법은 이름 프리픽스를 결정하는 것이다. 
+일반적으로 앱에 너무 많은 drawable이 있으므로 관리하기 어려운 경우가 많다. 쉽게 drawable을 관리하는 방법은 **이름** 프리픽스를 결정하는 것이다. 
 
+아이콘 이름은
 
+- **"구성요소"가 아니라 "모양"을 포함해야 한다.**
+
+  예를들어,  비디오 플레이 아이콘이 있다면 이 아이콘은 사운드 플레이로도 사용될 수 있으므로 `ic_video_play` 보다는 `ic_play`라고 이름 짓는 것이 좋다. 
+
+- **컬러를 포함하지 않아야 한다.**
+
+  이름에 컬러를 포함하지 않은 이유는 **틴트** 를 사용하기 때문입니다. 이미지 뷰는 틴트 속성이 있습니다. 
+
+![drawable_namingrule](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/drawable_namingrule.png)
+
+일반적으로 Drawable을 리팩토링하는 것은 어렵기보다는 귀찮은 일에 가깝다. 
+
+먼저, 사용하지 않는 드로어블을 삭제한다. 애초에 사용하지 않는 드로어블을 없애면 리네이밍하는 데 시간을 쓰지 않아도 된다.
+
+다음 단계는, 모든 아이콘 이름을 리네이밍 하는 것이다. 
+
+아이콘을 변경한 다음으로는 단계적인 리팩토링을 위해 이미지 이름을 변경한다. 
+
+마지막으로 다른 드로어블을 조금씩 리네이밍 한다. 
 
 
 
 ## 코드 리팩토링
 
+#### 메서드 정리 > 메서드 추출 (Extract Method)
 
+리팩토링의 주된 작업은 코드를 포장하는 메서드를 적절히 정리하는 것이다. 거의 모든 문제점은 장황한 메서드로 인해 생긴다. 
+
+> 어떤 코드를 그룹으로 묶어도 되겠다고 판단될 때는, 그 코드를 빼내어 목적을 잘 나타내는 직관적 이름의 메서드로 만들자.
+
+**메서드 추출** 기법은 제일 많이 사용된다. 메서드가 너무 길거나 코드에 주석을 달아야만 의도를 이해할 수 있을 때, 그 코드를 빼내어 별도의 메서드로 만든다.
+
+직관적인 이름의 간결한 메서드가 좋다. 왜냐하면
+
+1. 메서드가 적절히 잘게 쪼개져 있으면 다른 메서드에서 쉽게 사용할 수 있다.
+2. 상위 계층의 메서드에서 주석 같은 더 많은 정보를 읽어들일 수 있다. 
+3. 재정의하기도 훨씬 수월하다.
+
+
+
+긴 메서드에 익숙해진 사람은 잘 쪼개진 간결한 메서드에 익숙해지기까지 시간이 좀 걸린다. 메서드 내용이 간결한 것도 중요하지만, 효과를 보려면 메서드의 이름도 잘 지어야 한다. 
+
+
+
+### 기타 꿀팁
+
+#### Button1, Button2, Button3 … 로 이름지었을 때
+
+일일이 1,2,3,4 모두 view를 inflate할 필요 없이 아래와 같이 + 기호를 사용해 한번에 해주면 된다.
+
+![refactoring_2](/Users/parktaeim/Documents/GitHub/Android-Study/study/week9/Refactoring/images/refactoring_2.png)
+
+
+
+#### 삼항 연산자
+
+> 조건식 ? 피연산자1 : 피연산자2
+
+조건식의 연산결과가 true 이면 결과는 피연산자1이고 , 조건식의 연산결과가 false 이면 결과는 피연산자2 이다.
+
+```java
+// 3항 연산자를 사용했을 때
+int a = (5>4) ? 50 : 40;
+```
+
+```java
+// 3항 연산자 대신 if-else문을 사용했을 대
+int a = 0;
+if(5 > 4){
+    a = 50;
+}else{
+    a = 40;
+}
+```
+
+##### 안드로이드에서 사용한 예
+
+```Java
+position = getArguments() != null ? getArguments().getInt("position") : 0;
+```
+
+
+
+#### for-each문
+
+for each라는 명령어가 따로 있는 것이 아니고 기존과 동일한 for를 사용한다. 하지만, 보통 다른 언어에서 for each라고 많이 하므로 자바에서도 보통 for each문이라고 말한다. 
+
+단, for each문은 따로 반복횟수를 명시적으로 주는 것이 불가능하고, 1스텝씩 순차적으로 반복될 때만 사용가능하다.
+
+```java
+// 기존 for 문
+String[] numbers = {"one", "two", "three"};
+for(int i=0; i<numbers.length; i++) {
+    System.out.println(numbers[i]);
+}
+```
+
+```java
+// for each 문 구조로 변경
+String[] numbers = {"one", "two", "three"};
+for(String number: numbers) {
+    System.out.println(number);
+}
+```
+
+##### 내 코드에 있는 for문 for each로 바꿔보기
+
+```java
+// 변경전
+for (int i = 0; i < 5; i++) {
+    if (reviewCnts[i] > max) max = reviewCnts[i];
+}
+     
+// 변경후
+for(int reviewCnt : reviewCnts){
+    if (reviewCnt > max) max = reviewCnt;
+}
+```
+
+for문보다 for each문이 타이핑의 양도 작고 가독성이 더 좋은 것 같다.
 
 
 
 ## 마무리
 
 ### 소감
+
+ 리팩토링은 거창한 것이 아니다. 변수나 메서드의 이름을 이해하기 쉽게 바꾸는 것도 작은 리팩토링의 예가 된다. 
+
+ 개발자로서 코드의 품질을 생각하고, 협업할 때 같이 일하는 개발자들을 생각하게 된다면 리팩토링은 더욱 중요해질 것 같다. 
 
 
 
@@ -133,11 +284,11 @@ space, text, button, radius, elevation 등으로 섹션을 만든다.
 
 - 소프트웨어 악취를 제거하는 리팩토링 : 구조적 설계 문제를 풀어내는 최선의 실천법 (기리쉬 서야나라야나 외 2명 지음)
 
-- 유지보수 가능한 코딩의 기술 : 클린코드의 비결 - 자바편 (주스트뷔서 등 5인 지음)
-
   ​
 
 #### 웹사이트
 
-- https://academy.realm.io/kr/posts/android-resources-refactoring/
-- ​
+- https://academy.realm.io/kr/posts/android-resources-refactoring/ (한글문서)
+- https://academy.realm.io/posts/android-resources-refactoring/ (영어문서)
+- https://wikidocs.net/264
+
