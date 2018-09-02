@@ -46,7 +46,7 @@
 
 ##### 11. [Android Jetpack](study/week06/jetpack/android%20jetpack.md) (홍소망)
 
-##### 12. [Kotlin](study/week6/Kotlin/Kotlin_sieun.md) (송시은)
+##### 12. [Kotlin](study/week06/Kotlin/Kotlin_sieun.md) (송시은)
 
 <br />
 
