@@ -66,7 +66,7 @@
 
 [ **9회차**. 2018.07.30 - 08.06 ]
 
-##### 16. [Refactoring](study/week9/Refactoring/Refactoring.md) (박태임)
+##### 16. [Refactoring](study/week09/Refactoring/Refactoring.md) (박태임)
 
 ##### 17. [ViewModel과 LiveData](study/week9/livedata-viewmodel.md) (박소현)
 
