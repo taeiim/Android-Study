@@ -618,23 +618,45 @@ CommonUtils.sleep(1000);
 
 기본이 되는 함수(map(), flatMap())와 비교하여 **어떻게 다른지 그 차이점**을 기억하는게 좋음. 실무에 도움이됨
 
-
+</br>
 
 #### 4.3.1 concatMap()
 
+- flatMap() 과 비슷
+  - flatMap() 은 먼저 들어온 데이터를 처리하는 중에 새로운 데이터가 들어오면 나중에 들어온 데이터의 처리결과가 먼저 출력 될 수도 있다. ==> 인터리빙(끼어들기) 라고 함.
+  - But, **concatMap()은 먼저 들어온 데이터 순서대로 처리**해서 결과를 냄
+- 계산 속도는 flatMap()이 훨씬 바르다
+  - 이유) 인터리빙을 허용하기 때문
+  - concatMap() 함수의 순서를 보장해주려면 추가 시간이 필요함.
 
+</br>
 
 #### 4.3.2 switchMap()
 
+- concatMap() 함수가 인터리빙이 발생할 수 있는 상황에서 동작의 순서를 보장해준다면, 
 
+  **switchMap() 함수는 순서를 보장하기 위해 기존에 진행 중이던 작업을 바로 중단**
+
+- 여러 개의 값이 발행되었을때, 마지막에 들어온 값만 처리하고 싶을 때 사용 
+
+  - 중간에 끊기더라도 마지막 데이터의 처리는 보장하기 때문.
+
+</br>
 
 #### 4.3.3 groupBy()
 
 
 
+</br>
+
 #### 4.3.4 scan()
 
-#### 
+- 실행할 때마다 입력값에 맞는 중간 결과 및 최종 결과를 구독자에게 발행
+- reduce() 함수와 비슷
+  - reduce() 는 Observable에서 모든 데이터가 입력된 후 그것을 종합하여 마지막 1개의 데이터만을 구독자에게 발행함.
+  - 즉, 다른 점은 마지막 1개 or 중간결과까지 계속 발행하냐
+
+
 
 </br>
 
@@ -646,21 +668,42 @@ CommonUtils.sleep(1000);
 
 다수의 Observable을 하나로 합하는 방법을 제공한다.
 
+</br>
+
 #### 4.4.1 zip()
 
+- 각각의 Observable을 모두 활용해 2개 혹은 그 이상의 Observable을 결합
+  - 예) A,B 두개의 Observable을 결합한다면 2개의 Observable에서 모두 데이터를 발행해야 결합 가능. 그전까지는 발행을 기다림
 
+</br>
 
 #### 4.4.2 combineLatest()
 
+- 2개 이상의 Observable을 기반으로 Observable 각각의 값이 변경되었을 때 갱신해주는 함수.
+- 두 Observable 모두 값을 발행하면 그때는 결괏값이 나옴
+  - 그 다음부터는 둘 중에 어떤 것이 갱신되던지 최시 결괏값을 보여줌(이 부분이 zip()함수와 다름)
 
+</br>
 
 #### 4.4.3 merge()
 
+- 가장 단순한 결합함수 (zip, combineLatest에 비교하면)
+- 입력 Observable의 순서와 모든 Observable이 데이터를 발행하는지 등에 관여하지 않고 어느 것이든 업스트림에서 먼저 입력되는 데이터를 그대로 발행함.
 
+</br>
 
 #### 4.4.4 concat()
 
+- 2개 이상의 Observable을 이어 붙여주는 함수
 
+- 첫번째 Observable에 onComplete 이벤트가 발생해야 두 번째 Observable을 구독함. (스레드를 활용한 일반적인 코드로 이와 같은 내용을 구현하려면 만만치 않을 것)
+  - 첫번째 Observabl에 onComplete 이벤트가 발생하지 않으면, 두번 째 Observable은 영원히 대기
+    - 이는 잠재적인 메모리 누수(memory leak)의 위험을 내포함.
+    - 따라서, 입력 Observable이 반드시 완료(onComplete 이벤트)될 수 있게 해야함.
+- 결합할 수 있는 Observable은 최대 4개
+- concat() 함수를 활용할 때는 onComplete 이벤트의 발생 여부 확인이 중요.
+
+</br>
 
 
 
@@ -670,21 +713,57 @@ CommonUtils.sleep(1000);
 
 필터 연산자는 발행된 값을 채택하느냐 기각하느냐 여부에 초점을 맞춘다면,  조건 연산자는 지금까지의 흐름을 어떻게 제어할 것인지에 초점을 맞춘다.
 
+</br>
+
 #### 4.5.1 amb()
 
+![4.5.1_amb](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.5.1_amb.png)
 
+- 둘 중 어느 것이든 먼저 나오는 Observable을 채택함.
+  - ambiguous(모호한) 라는 영어 단어의 줄임말
+- 여러 개의  Observable 중에서 1개의 Observable을 선택하는데,
+  - 선택 기준은 가장 먼저 데이터를 발행하는 Observable.
+  - 이후 나머지 Observable에서 발행하는 데이터는 모두 무시한다.
+
+</br>
 
 #### 4.5.2 takeUntil()
 
+- take() 함수에 조건을 설정
+- 인자로 받은 Observable에서 어떤 값을 발행하면, 현재 Observable의 데이터 발행을 중단하고 즉시 완료(onComplete 이벤트 발생)
+  - 즉, take() 처럼 일정 개수만 값을 발행하되, 완료 기준을 다른 Observable에서 값을 발행하는지로 판단하는 것.
 
+```java
+takeUntil (ObservableSource<U> other)
+```
+
+- 인자로 값을 발행할 수 있는 other Observable이 필요하다.
+
+</br>
 
 #### 4.5.3 skipUntil()
 
+- takeUntil() 과 정반대 함수
+- other Observable 에서 데이터를 발행할 때까지 값을 건너 뜀.
+  - other Observable 에서 값을 발행하는 순간부터 원래 Observable에서 값을 정상적으로 발행하기 시작
 
+</br>
 
 #### 4.5.4 all()
 
+- 주어진 조건에 100% 맞을 때만 true 값을 발행
+  - 조건에 맞지 않으면 바로 false 값을 발행
 
+```java
+Single<Boolean> all (Predicate<? super T> predicate)
+```
+
+- predicate 인자는 filter() 함수의 인자와 동일
+
+
+- 주어진 람다가 true인지 false 인지 판정해줌.
+
+</br>
 
 
 
@@ -692,17 +771,17 @@ CommonUtils.sleep(1000);
 
 #### 4.6.1 수학 함수
 
-
+</br>
 
 #### 4.6.2 delay()
 
-
+</br>
 
 #### 4.6.3 timeInterval()
 
 
 
-
+</br></br>
 
 
 
