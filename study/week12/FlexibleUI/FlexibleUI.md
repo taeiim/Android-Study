@@ -166,7 +166,7 @@ public class Articles {
 
    ```java
    /**
-    * HeadlinesFragment 를 클릭했을 때 기사를 표시할 프래그먼트
+    * HeadlinesFragment 를 클릭했을 때 제목를 표시할 프래그먼트
     */
    
    public class ArticleFragment extends Fragment {
@@ -213,5 +213,122 @@ public class Articles {
    }
    ```
 
-   이 프래그먼트는 몇 번째 제목이 선택되었는지에 따라서 해당 제목의 내용을 Articles.Articles 배열에서 가져와서 텍스트뷰에 표시한다. 프래그먼트는 액티비티 생명주기와 연관된 복잡한 사정으로 생성자를 통한 파라미터 전달이 금지되어 있다고 했다. 파ㅏ미터를 가지는 생성자를 만들면 안드로이드 스튜디오가 빨간 줄로 표시할 것이다. 대신 Bundle 객체를 Argument로 전달할 수 있다.
+   이 프래그먼트는 몇 번째 제목이 선택되었는지에 따라서 해당 제목의 내용을 Articles.Articles 배열에서 가져와서 텍스트뷰에 표시한다. 
 
+   프래그먼트는 액티비티 생명주기와 연관된 복잡한 사정으로 생성자를 통한 파라미터 전달이 금지되어 있다고 한다. 파라미터를 가지는 생성자를 만들면 안드로이드 스튜디오가 빨간 줄로 표시할 것이다. 대신 Bundle 객체를 Argument로 전달할 수 있다. 프래그먼트를 처음 생성했을 때는 Argument로 제목 번호를 전달받아서 제목을 표시하고, 화면이 회전하면 마지막에 선택된 기사 번호를 onSavedInstanceState() 메서드에서 저장하고 onCreateView() 메서드에서 복원한다.
+
+   
+
+4. 두 프래그먼트를 포함할 액티비티인 MainActivity인 레이아웃 파일을 다음과 같이 작성한다.
+
+   ```xml
+   <?xml version="1.0" encoding="utf-8"?>
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   tools:context=".MainActivity">
+   
+   <FrameLayout
+       android:id="@+id/fragment_container"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
+   </RelativeLayout>
+   ```
+
+   레이아웃의 내부에는 프래그먼트를 표시할 영역인 FrameLayout을 배치하였고 id를 부여했다.
+
+   이 영역에 최초에는 프래그먼트 A를 표시하고, 제목을 선택하면 프래그먼트 B로 교체할 것이다.
+
+   
+
+5. MainActivity 작성
+
+   ```java
+   public class MainActivity extends AppCompatActivity implements HeadlinesFragment.OnHeadlineSelectedListener {
+   
+       @Override
+       protected void onCreate(Bundle savedInstanceState) {
+           super.onCreate(savedInstanceState);
+           setContentView(R.layout.activity_main);
+   
+           // layout-large 의 레이아웃에는 fragment_container 가 없음
+           if (findViewById(R.id.fragment_container) != null) {
+               // 화면 회전 시 HeadlinesFragment 가 재생성되는 것 방지
+               if (savedInstanceState == null) {
+                   HeadlinesFragment headlinesFragment = new HeadlinesFragment();
+                   // headlinesFragment 를 R.id.fragment_container 영역에 추가
+                   getSupportFragmentManager().beginTransaction()
+                           .add(R.id.fragment_container, headlinesFragment)
+                           .commit();
+               }
+           }
+       }
+   
+       // HeadlinesFragment 의 제목이 선택되었을 때 호출
+       @Override
+       public void onHeadlineSelected(int position) {
+           ArticleFragment articleFragment = (ArticleFragment) getSupportFragmentManager().findFragmentById(R.id.article_fragment);
+           // layout-large 의 경우 null 이 아님
+           if (articleFragment == null) {
+               // ArticleFragment 프래그먼트 생성
+               ArticleFragment newArticleFragment = new ArticleFragment();
+               // Argument 로 기사 번호 전달
+               Bundle args = new Bundle();
+               args.putInt(ArticleFragment.ARG_POSITION, position);
+               newArticleFragment.setArguments(args);
+               // R.id.fragment_container 아이디를 가진 영역의 프래그먼트를 articleFragment 로 교체하고
+               // 프래그먼트 매니저의 BackStack 에 쌓는다
+               getSupportFragmentManager().beginTransaction()
+                       .replace(R.id.fragment_container, newArticleFragment)
+                       .addToBackStack(null)
+                       .commit();
+           } else {
+               articleFragment.updateArticleView(position);
+           }
+       }
+   }
+   ```
+
+   MainActivity를 실행 시 HeadlinesFragment를 표시하고 제목을 클릭했을 때 onHeadlineSelected() 콜백이 호출되며, ArticleFragment로 교체된다.
+
+   주의해서 볼 부분은 onCreate() 메서드에서 savedInstanceState == null 일 때만 HeadlinesFragment를 추가하고 있다. 이 조건이 없다면 화면이 회전될 때마다 기존 HeadlinesFragment가 유지되며 새로운 HeadlinsFragment가 생성되기 때문에 반드시 savedInstanceState가 null인지 검사하는 로직을 잊으면 안된다. 이유는 액티비티를 회전하여 강제로 재생성해도 프래그먼트는 프래그먼트 매니저가 별도로 관리하며 재생성되지 않기 때문이다.
+
+   onHeadlineSelected() 콜백 메서드에서 기사의 내용을 표시하는 ArticleFragment로 교체할 때 addToBackStack(null) 메서드를 통해서 프래그먼트의 백스택에 추가한다. 백스택(BackStack)이란, 프래그먼트 매니저가 내부적으로 관리하고 있는 프래그먼트를 관리하는 스택이다.
+
+
+
+#### 3.1.2. 화면이 큰 기기를 위한 구현 추가
+
+안드로이드의 레이아웃은 화면 크기에 따라 분기하게 할 수 있다. 예를 들어, 기본 레이아웃의 경로는 layout/activity_main.xml이지만, layout-large.activity_main.xml을 추가하면 일반적으로는 layout 디렉터리의 XML 파일을 참조하고, 화면이 7인치 이상으로 큰 기기에서는 layout_large 디렉터리의 XML 파일을 참조할 수 있다.
+
+1. 7인치 이상의 레이아웃을 위한 디렉터리를 추가한다.
+
+2. layout-large 에 activity_main.xml을 추가한다.
+
+   ```xml
+   <?xml version="1.0" encoding="utf-8"?>
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tools="http://schemas.android.com/tools"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+   
+       <fragment
+           android:id="@+id/headlines_fragment"
+           android:name="com.example.user.dynamicuiexam.HeadlinesFragment"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="1"
+           tools:layout="@android:layout/simple_list_item_1" />
+   
+       <fragment
+           android:id="@+id/article_fragment"
+           android:name="com.example.user.dynamicuiexam.ArticleFragment"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"
+           android:layout_weight="2"
+           tools:layout="@layout/fragment_articles" />
+   </LinearLayout>
+   ```
+
+   
