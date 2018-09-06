@@ -388,56 +388,56 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 | 변환(Transforming) 연산자     | 입력을 받아서 원하는 출력을 내는 전통적인 의미의 함수           | map(), flatmap() 등                       |
 | 필터(Filter) 연산자           | 입력 데이터 중 원하는 데이터만 걸러냄                    | filter(), first(), take() 등              |
 | 합성(Combining) 연산자        | 여러 Observable 조합                         |                                          |
-| 오류처리(Error Handling) 연산자 |                                          |                                          |
-| 유틸리티(Utility) 연산자        |                                          |                                          |
-| 조건(Conditional) 연산자      |                                          |                                          |
-| 수학과 집합형 연산자              |                                          |                                          |
-| 배압(Back pressure) 연산자    |                                          |                                          |
+| 오류처리(Error Handling) 연산자 |                                          | onErrorReturn(), onErrorResumeNext(), retry() 등 |
+| 유틸리티(Utility) 연산자        |                                          | subscribeOn(), observeOn()               |
+| 조건(Conditional) 연산자      | Observable의 흐름을 제어하는 역할                  |                                          |
+| 수학과 집합형 연산자              | 수학 함수와 연관있는 연산자                          |                                          |
+| 배압(Back pressure) 연산자    | 배압 이슈에 대응하는 연산자                          |                                          |
 
 - 2017년 5월 등록된 연산자 개수: 400개 이상
+
+
+
+
+</br>
 
 
 
 ### 3.3 map() 함수
 
 - 입력값을 어떤 함수에 넣어서 원하는 값으로 변환하는 함수. 
-
-- - String을 String으로 변환할 수도 있고, String을 Integer나 다른 객체로도 변환할 수 있음
-
+  - String을 String으로 변환할 수도 있고, String을 Integer나 다른 객체로도 변환할 수 있음
 - .map(ball -> ball + “*”);
-
-- - map 원형 : public final <R> Observable<R> map(Function<? super T, ? extends R> maper)
-
-  - - 즉 map 함수 인자 ‘ Function<? super T, ?extends R> mapper’ 에  ‘ball->ball+”*” ‘ 들어간거
-
+  - map 원형 : public final <R> Observable<R> map(Function<? super T, ? extends R> maper)
+    - 즉 map 함수 인자 ‘ Function<? super T, ?extends R> mapper’ 에  ‘ball->ball+”*” ‘ 들어간거
     - Function 인터페이스를 이용해 분리
-
-    - - Function<String, String> getStar = ball -> ball + “*” ;
+      - Function<String, String> getStar = ball -> ball + “*” ;
       - .map(getStar)    // 원래는 .map(ball -> ball + “*”); 이거 였음
-      - 나중에 코드가 길어질수록 Function으로 빼서 사용하면 좋을듯 (내생각)
-
 - map() 핵심
-
-- - 내가 원하는 값을 ‘어떤 함수’ 에 넣는 것
-
-  - - 어떤 함수 : Function 인터페이스 객체 / 람다 표현식
-
+  - 내가 원하는 값을 ‘어떤 함수’ 에 넣는 것
+    - 어떤 함수 : Function 인터페이스 객체 / 람다 표현식
   - 원하는 함수를 정의할 수 있느냐가 관건
+
+
+
+</br>
+
 
 
 
 ### 3.4 flatMap() 함수
 
 - map()을 좀 더 발전시킨 함수
-
 - 결과가 Observable로 나옴
-
 - flatMap() => 일대다 or 일대일 Observable 함수
-
-- - map() => 일대일 함수
+  - map() => 일대일 함수
   - RxJava에서 여러 개의 데이터를 발행하는 방법은 Observable 밖에 없음 (배압(back pressure)을 고려하면 Observable 대신에 Flowable)
 
-- ​
+
+
+</br>
+
+
 
 ### 3.5 filter() 함수
 
@@ -512,35 +512,103 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 
 
 
+</br>
+
+
+
 ### 4.2 생성 연산자
 
 생성 연산자의 역할은 **데이터의 흐름을 만드는 것**이다.
 
 간단하게 **Observable** (Observable, Single, Maybe 객체 등)을 만드는 것
 
+
+
 #### 4.2.1 interval()
 
+- 일정시간 간격으로 데이터 흐름 생성
 
+- 주어진 시간 간격으로 0부터 1씩 증가하는 Long 객체(기본형X, 래퍼클래스O) 발행 
+
+- 함수 원형 두가지
+
+  | 함수 원형                                    | 설명                                | 비고                                       |
+  | ---------------------------------------- | --------------------------------- | ---------------------------------------- |
+  | interval(long period, TimeUnit unit)     | 일정 시간(period) 쉬었다가 데이터 발행         |                                          |
+  | interval(long initialDelay, long period, TimeUnit unit) | 동작은 같고 최초 지연 시간(initialDelay)을 조절 | 보통 초기 지연시간 없이(initialDelay를 0으로) 바로 데이터를 발행하기 위해 사용 |
+
+
+
+###### 참고 ) SchedulerSupport 어노테이션
+
+```@SchedulerSupport(SchedulerSupport.COMPUTATION)
+@SchedulerSupport(SchedulerSupport.COMPUTATION)
+```
+
+- interval() 함수의 동작이 계산 스케줄러에서 실행된다는 의미
+- 현재 스레드가 아니라 계산을 위한 별도의 스레드(RxJava에서 스케줄러)에서 동작
+
+</br>
 
 #### 4.2.2 timer()
 
+- interval()과 유사하지만 **한번만 실행**되는 함수
+- 일정 시간이 지난 후, 한 개의 데이터를 발행하고 onComplete() 이벤트 발행
 
+</br>
 
 #### 4.2.3 range()
 
+- 주어진 값 (n) 부터 m개의 Integer 객체를 발행
+  - interval() / timer() 는 Long 객체를 발행했지만 range()는 Integer 객체를 발행하는 것이 다름
+- 스케줄러에서 실행되지 않고 현재 스레드에서 실행
+  - (interval(), timer()와 다르게)
 
+</br>
 
 #### 4.2.4 intervalRange()
 
+- interval() + range() 를 혼합해놓은 함수
 
+  - **interval() 처럼** 일정시간 간격으로 값을 출력하지만
+  - **range() 처럼** 시작 숫자(n)로 부터 m개만큼의 값만 생성하고 onComplete이벤트가 발생
+    - 즉, interval() 처럼 무한히 데이터 흐름을 발행하지 않음
+
+- 리턴 타입은 interval()함수와 동일하게 Long 타입
+
+  ​
+
+```java
+public static Observable<Long> intervalRange 
+  (long start, long count, long initialDelay, long period, TimeUnit unit) { }  
+```
+
+인자의 개수가 너무 많아서 직관적이지 않다. 차라리 다른 함수들을 조합해 intervalRange() 를 만들 수 있다.
+
+```java
+Observable<Long> souce = Observable.interval(100L, TimeUnit.MILLISECONDS)
+  .map (val -> val+1)
+  .take (5);
+source.subscribe(Log::i);
+CommonUtils.sleep(1000);
+```
+
+</br>
 
 #### 4.2.5 defer()
 
+- timer() 와 비슷하지만 데이터 흐름생성을 구독자가 subscribe() 함수를 호출할 때까지 미룰 수 있음. 이때 새로운 Observable이 생성됨
 
+</br>
 
 #### 4.2.6 repeat()
 
+- 단순히 반복 실행을 함.
+- 해당 서버가 잘 살아있는지 확인(ping, heart beat..) 하는 코드에 유용
 
+
+
+</br>
 
 
 
@@ -568,7 +636,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 
 #### 
 
-
+</br>
 
 
 
