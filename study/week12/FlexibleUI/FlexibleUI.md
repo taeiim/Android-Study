@@ -8,6 +8,10 @@
 
 
 
+[TOC]
+
+
+
 ## 0. 참고문서
 
 - 될 때까지 안드로이드(오준석 지음)
@@ -197,7 +201,7 @@ public class Articles {
            }
        }
    
-       // 선택된 기사를 표시
+       // 선택된 제목의 내용을 표시
        public void updateArticleView(int position) {
            TextView article = (TextView) getView().findViewById(R.id.article_text);
            article.setText(Articles.Articles[position]);
@@ -267,7 +271,7 @@ public class Articles {
        public void onHeadlineSelected(int position) {
            // ArticleFragment 프래그먼트 생성
            ArticleFragment newArticleFragment = new ArticleFragment();
-           // Argument 로 기사 번호 전달
+           // Argument 로 제목 번호 전달
            Bundle args = new Bundle();
            args.putInt(ArticleFragment.ARG_POSITION, position);
            newArticleFragment.setArguments(args);
