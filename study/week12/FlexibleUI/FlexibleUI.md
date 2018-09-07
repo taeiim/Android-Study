@@ -201,7 +201,7 @@ public class Articles {
            }
        }
    
-       // 선택된 기사를 표시
+       // 선택된 제목의 내용을 표시
        public void updateArticleView(int position) {
            TextView article = (TextView) getView().findViewById(R.id.article_text);
            article.setText(Articles.Articles[position]);
