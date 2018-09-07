@@ -20,7 +20,7 @@
 
 안드로이드 프로젝트에서 아이콘이 있는 mipmap 디렉터리는 기기의 밀도(density)에 따라 분기하도록 되어있다. 앱이 실행될 때 기기의 밀도에 따라 해당 폴더의 아이콘이 선택되는 것이다.
 
-![](https://github.com/taeiim/Android-Study/blob/master/study/week12/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83%EB%B6%84%EA%B8%B0/mipmap.PNG)
+![](https://github.com/taeiim/Android-Study/blob/master/study/week12/FlexibleUI/mipmap.PNG)
 
 
 
@@ -48,7 +48,7 @@
 
 예시)
 
-![](https://github.com/taeiim/Android-Study/blob/master/study/week12/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83%EB%B6%84%EA%B8%B0/fragments-screen-mock.png)
+![](https://github.com/taeiim/Android-Study/blob/master/study/week12/FlexibleUI/fragments-screen-mock.png)
 
 
 
@@ -60,7 +60,7 @@
 
 작성할 예제의 동작을 그림으로 표현하면 다음과 같다.
 
-![](https://github.com/taeiim/Android-Study/blob/master/study/week12/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83%EB%B6%84%EA%B8%B0/example_process_pic.PNG)
+![](https://github.com/taeiim/Android-Study/blob/master/study/week12/FlexibleUI/example_process_pic.PNG)
 
 1. 액티비티가 시작하면 HeadlinesFragment를 동적 추가한다.
 2. HeadlinesFragment에서 아이템이 선택되면 onHeadlineSelected 콜백이 호출된다.
@@ -252,40 +252,32 @@ public class Articles {
            super.onCreate(savedInstanceState);
            setContentView(R.layout.activity_main);
    
-           // layout-large 의 레이아웃에는 fragment_container 가 없음
-           if (findViewById(R.id.fragment_container) != null) {
-               // 화면 회전 시 HeadlinesFragment 가 재생성되는 것 방지
-               if (savedInstanceState == null) {
-                   HeadlinesFragment headlinesFragment = new HeadlinesFragment();
-                   // headlinesFragment 를 R.id.fragment_container 영역에 추가
-                   getSupportFragmentManager().beginTransaction()
-                           .add(R.id.fragment_container, headlinesFragment)
-                           .commit();
-               }
+           // 화면 회전 시 HeadlinesFragment 가 재생성되는 것 방지
+           if (savedInstanceState == null) {
+               HeadlinesFragment headlinesFragment = new HeadlinesFragment();
+               // headlinesFragment 를 R.id.fragment_container 영역에 추가
+               getSupportFragmentManager().beginTransaction()
+                   .add(R.id.fragment_container, headlinesFragment)
+                   .commit();
            }
        }
    
        // HeadlinesFragment 의 제목이 선택되었을 때 호출
        @Override
        public void onHeadlineSelected(int position) {
-           ArticleFragment articleFragment = (ArticleFragment) getSupportFragmentManager().findFragmentById(R.id.article_fragment);
-           // layout-large 의 경우 null 이 아님
-           if (articleFragment == null) {
-               // ArticleFragment 프래그먼트 생성
-               ArticleFragment newArticleFragment = new ArticleFragment();
-               // Argument 로 기사 번호 전달
-               Bundle args = new Bundle();
-               args.putInt(ArticleFragment.ARG_POSITION, position);
-               newArticleFragment.setArguments(args);
-               // R.id.fragment_container 아이디를 가진 영역의 프래그먼트를 articleFragment 로 교체하고
-               // 프래그먼트 매니저의 BackStack 에 쌓는다
-               getSupportFragmentManager().beginTransaction()
-                       .replace(R.id.fragment_container, newArticleFragment)
-                       .addToBackStack(null)
-                       .commit();
-           } else {
-               articleFragment.updateArticleView(position);
-           }
+           // ArticleFragment 프래그먼트 생성
+           ArticleFragment newArticleFragment = new ArticleFragment();
+           // Argument 로 기사 번호 전달
+           Bundle args = new Bundle();
+           args.putInt(ArticleFragment.ARG_POSITION, position);
+           newArticleFragment.setArguments(args);
+           // R.id.fragment_container 아이디를 가진 영역의 
+           //프래그먼트를 articleFragment 로 교체하고
+           // 프래그먼트 매니저의 BackStack 에 쌓는다
+           getSupportFragmentManager().beginTransaction()
+               .replace(R.id.fragment_container, newArticleFragment)
+               .addToBackStack(null)
+               .commit();
        }
    }
    ```
@@ -331,4 +323,57 @@ public class Articles {
    </LinearLayout>
    ```
 
+3. MainActivity 코드 수정
+
+   ```java
+   @Override
+       protected void onCreate(Bundle savedInstanceState) {
+           super.onCreate(savedInstanceState);
+           setContentView(R.layout.activity_main);
    
+           // layout-large 의 레이아웃에는 fragment_container 가 없음
+           if (findViewById(R.id.fragment_container) != null) {
+               // 화면 회전 시 HeadlinesFragment 가 재생성되는 것 방지
+               if (savedInstanceState == null) {
+                   HeadlinesFragment headlinesFragment = new HeadlinesFragment();
+                   // headlinesFragment 를 R.id.fragment_container 영역에 추가
+                   getSupportFragmentManager().beginTransaction()
+                           .add(R.id.fragment_container, headlinesFragment)
+                           .commit();
+               }
+           }
+       }
+   ```
+
+   onCreate() 에서 layout-large인지 아닌지에 따라 다르게 처리
+
+   layout-large의 레이아웃은 미리 두 개의 프래그먼트가 위치 해 있으므로 아무것도 하지 않아도 된다.
+
+   
+
+   ```java
+   @Override
+       public void onHeadlineSelected(int position) {
+           ArticleFragment articleFragment = (ArticleFragment) getSupportFragmentManager().findFragmentById(R.id.article_fragment);
+           // layout-large 의 경우 null 이 아님
+           if (articleFragment == null) {
+               // ArticleFragment 프래그먼트 생성
+               ArticleFragment newArticleFragment = new ArticleFragment();
+               // Argument 로 기사 번호 전달
+               Bundle args = new Bundle();
+               args.putInt(ArticleFragment.ARG_POSITION, position);
+               newArticleFragment.setArguments(args);
+               // R.id.fragment_container 아이디를 가진 영역의 프래그먼트를 articleFragment 로 교체하고
+               // 프래그먼트 매니저의 BackStack 에 쌓는다
+               getSupportFragmentManager().beginTransaction()
+                       .replace(R.id.fragment_container, newArticleFragment)
+                       .addToBackStack(null)
+                       .commit();
+           } else {
+               articleFragment.updateArticleView(position);
+           }
+       }
+   }
+   ```
+
+   기존의 articleFragment라는 변수명을 newArticleFragment로 수정하였고, layout-large의 경우에는 article_fragment 아이디로 이미 ArticleFragment를 포함하고 있으므로, 이것이 null인지 아닌지에 따라서 아른 처리를 하도록 수정했다. 만약 layout-large와 같이 ArticleFragment가 이미 있다면 그 프래그먼트의 기사만 updateArticleView()를 통해 갱신하면 된다.
