@@ -271,7 +271,7 @@ public class Articles {
        public void onHeadlineSelected(int position) {
            // ArticleFragment 프래그먼트 생성
            ArticleFragment newArticleFragment = new ArticleFragment();
-           // Argument 로 기사 번호 전달
+           // Argument 로 제목 번호 전달
            Bundle args = new Bundle();
            args.putInt(ArticleFragment.ARG_POSITION, position);
            newArticleFragment.setArguments(args);
