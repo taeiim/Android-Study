@@ -126,7 +126,7 @@ Observable.just("Hello", "RxJava2")
 - RxJava는 마블 다이어그램으로 배운다고 해도 과언이 아니다.
 
 
-![marbleDiagram](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/marbleDiagram.png)
+![marbleDiagram](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/marbleDiagram.png)
 
 </br></br>
 
@@ -496,7 +496,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - 원하는 함수를 정의할 수 있느냐가 관건
 
 
-![3.3_map](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.3_map.png)
+![3.3_map](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/3.3_map.png)
 
 
 </br>
@@ -513,7 +513,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - RxJava에서 여러 개의 데이터를 발행하는 방법은 Observable 밖에 없음 (배압(back pressure)을 고려하면 Observable 대신에 Flowable)
 
 
-![3.4_flatMap](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.4_flatMap.png)
+![3.4_flatMap](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/3.4_flatMap.png)
 
 
 </br>
@@ -543,7 +543,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - skipLast(N) : 마지막 N개 값을 건너뜀.
   - 가장 유용한 함수는 take()
 
-![3.5_filter](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.5_filter.png)
+![3.5_filter](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/3.5_filter.png)
 
 </br>
 
@@ -568,7 +568,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - BiFunction<String, String, String> : 인자1, 인자2, 리턴 타입 모두 String
 
 
-![3.6_reduce](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.6_reduce.png)
+![3.6_reduce](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/3.6_reduce.png)
 
 </br></br>
 
@@ -606,7 +606,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 
 #### 4.2.1 interval()
 
-![4.2.1_interval](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.2.1_interval.png)
+![4.2.1_interval](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.2.1_interval.png)
 
 - 일정시간 간격으로 데이터 흐름 생성
 
@@ -637,7 +637,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 - interval()과 유사하지만 **한번만 실행**되는 함수
 - 일정 시간이 지난 후, 한 개의 데이터를 발행하고 onComplete() 이벤트 발행
 
-![4.2.2_timer](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.2.2_timer.png)
+![4.2.2_timer](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.2.2_timer.png)
 
 </br>
 
@@ -648,7 +648,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 - 스케줄러에서 실행되지 않고 현재 스레드에서 실행
   - (interval(), timer()와 다르게)
 
-![4.2.3_range](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.2.3_range.png)
+![4.2.3_range](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.2.3_range.png)
 
 </br>
 
@@ -661,7 +661,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
     - 즉, interval() 처럼 무한히 데이터 흐름을 발행하지 않음
 - 리턴 타입은 interval()함수와 동일하게 Long 타입
 
-![4.2.4_intervalrange](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.2.4_intervalrange.png)
+![4.2.4_intervalrange](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.2.4_intervalrange.png)
 
 ​
 
@@ -686,7 +686,7 @@ CommonUtils.sleep(1000);
 
 - timer() 와 비슷하지만 데이터 흐름생성을 구독자가 subscribe() 함수를 호출할 때까지 미룰 수 있음. 이때 새로운 Observable이 생성됨
 
-![4.2.5_defer](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.2.5_defer.png)
+![4.2.5_defer](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.2.5_defer.png)
 
 </br>
 
@@ -696,7 +696,7 @@ CommonUtils.sleep(1000);
 - 해당 서버가 잘 살아있는지 확인(ping, heart beat..) 하는 코드에 유용
 
 
-![4.2.6_repeat](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.2.6_repeat.png)
+![4.2.6_repeat](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.2.6_repeat.png)
 
 
 </br>
@@ -720,7 +720,7 @@ CommonUtils.sleep(1000);
   - 이유) 인터리빙을 허용하기 때문
   - concatMap() 함수의 순서를 보장해주려면 추가 시간이 필요함.
 
-![4.3.1_concatMap](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.3.1_concatMap.png)
+![4.3.1_concatMap](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.3.1_concatMap.png)
 
 </br>
 
@@ -734,7 +734,7 @@ CommonUtils.sleep(1000);
 
   - 중간에 끊기더라도 마지막 데이터의 처리는 보장하기 때문.
 
-![4.3.2_switchmap](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.3.2_switchmap.png)
+![4.3.2_switchmap](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.3.2_switchmap.png)
 
 </br>
 
@@ -743,7 +743,7 @@ CommonUtils.sleep(1000);
 - 어떤 기준(keySelector 인자)으로 단일 Observable을 여러 개로 이루어진 Observable 그룹(GroupedObservable)으로 만듬.
   - 어떤 기준으로 Observable 각각을 여러 개 Observable의 그룹으로 구분한다고 생각하면 됨
 
-![4.3.3_groupBy](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.3.3_groupBy.png)
+![4.3.3_groupBy](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.3.3_groupBy.png)
 
 
 
@@ -763,7 +763,7 @@ CommonUtils.sleep(1000);
   - 즉, 다른 점은 마지막 1개 or 중간결과까지 계속 발행하냐
 
 
-![4.3.4_scan](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.3.4_scan.png)
+![4.3.4_scan](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.3.4_scan.png)
 
 
 </br>
@@ -783,7 +783,7 @@ CommonUtils.sleep(1000);
 - 각각의 Observable을 모두 활용해 2개 혹은 그 이상의 Observable을 결합
   - 예) A,B 두개의 Observable을 결합한다면 2개의 Observable에서 모두 데이터를 발행해야 결합 가능. 그전까지는 발행을 기다림
 
-![4.4.1_zip](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.4.1_zip.png)
+![4.4.1_zip](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.4.1_zip.png)
 
 </br>
 
@@ -793,7 +793,7 @@ CommonUtils.sleep(1000);
 - 두 Observable 모두 값을 발행하면 그때는 결괏값이 나옴
   - 그 다음부터는 둘 중에 어떤 것이 갱신되던지 최신 결괏값을 보여줌(이 부분이 zip()함수와 다름)
 
-![4.4.2_combineLatest](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.4.2_combineLatest.png)
+![4.4.2_combineLatest](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.4.2_combineLatest.png)
 
 </br>
 
@@ -802,7 +802,7 @@ CommonUtils.sleep(1000);
 - 가장 단순한 결합함수 (zip, combineLatest에 비교하면)
 - 입력 Observable의 순서와 모든 Observable이 데이터를 발행하는지 등에 관여하지 않고 어느 것이든 업스트림에서 먼저 입력되는 데이터를 그대로 발행함.
 
-![4.4.3_merge](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.4.3_merge.png)
+![4.4.3_merge](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.4.3_merge.png)
 
 </br>
 
@@ -816,7 +816,7 @@ CommonUtils.sleep(1000);
 - 결합할 수 있는 Observable은 최대 4개
 - concat() 함수를 활용할 때는 onComplete 이벤트의 발생 여부 확인이 중요.
 
-![4.4.4_concat](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.4.4_concat.png)
+![4.4.4_concat](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.4.4_concat.png)
 
 </br>
 
@@ -838,7 +838,7 @@ CommonUtils.sleep(1000);
   - 선택 기준은 가장 먼저 데이터를 발행하는 Observable.
   - 이후 나머지 Observable에서 발행하는 데이터는 모두 무시한다.
 
-![4.5.1_amb](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.5.1_amb.png)
+![4.5.1_amb](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.5.1_amb.png)
 
 </br>
 
@@ -854,7 +854,7 @@ takeUntil (ObservableSource<U> other)
 
 - 인자로 값을 발행할 수 있는 other Observable이 필요하다.
 
-![4.5.2_takeUntil](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.5.2_takeUntil.png)
+![4.5.2_takeUntil](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.5.2_takeUntil.png)
 
 </br>
 
@@ -864,7 +864,7 @@ takeUntil (ObservableSource<U> other)
 - other Observable 에서 데이터를 발행할 때까지 값을 건너 뜀.
   - other Observable 에서 값을 발행하는 순간부터 원래 Observable에서 값을 정상적으로 발행하기 시작
 
-![4.5.3_skipUntil](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.5.3_skipUntil.png)
+![4.5.3_skipUntil](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.5.3_skipUntil.png)
 
 </br>
 
@@ -882,7 +882,7 @@ Single<Boolean> all (Predicate<? super T> predicate)
 
 - 주어진 람다가 true인지 false 인지 판정해줌.
 
-![4.5.4_all](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.5.4_all.png)
+![4.5.4_all](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.5.4_all.png)
 
 </br>
 
@@ -958,7 +958,7 @@ flowable.subscribe(sum -> Lob.i("sum >> " + sum));
   - Observable<T> delay (long delay, TimeUnit unit) 
 - Interval()과 마찬가지로 계산 스케줄러에서 실행.
 
-![4.6.2_delay](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.6.2_delay.png)
+![4.6.2_delay](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.6.2_delay.png)
 
 </br>
 
@@ -966,7 +966,7 @@ flowable.subscribe(sum -> Lob.i("sum >> " + sum));
 
 - 어떤 값을 발행했을 때 이전 값을 발행한 이후 얼마나 시간이 흘렀는지 알려준다.
 
-![4.6.4_timeInterval](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.6.4_timeInterval.png)
+![4.6.4_timeInterval](https://github.com/taeiim/Android-Study/blob/master/study/week12/RxJava/images/4.6.4_timeInterval.png)
 
 </br></br>
 
