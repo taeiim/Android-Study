@@ -33,8 +33,9 @@
 
 ### 1.2 RxJava 맛보기
 
-```
-
+```Java
+Observable.just("Hello", "RxJava2")
+  .subscribe(System.out::println);
 ```
 
 - Observable 클래스 : 리액티브 프로그래밍이 Observable에서 시작
@@ -94,11 +95,10 @@
 ### 1.4 마블 다이어그램
 
 - 마블 다이어그램은 RxJava를 이해하는 핵심 도구
-- 책 정독하면 이해됨
 - RxJava는 마블 다이어그램으로 배운다고 해도 과언이 아니다.
 
 
-
+![marbleDiagram](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/marbleDiagram.png)
 
 </br></br>
 
@@ -245,20 +245,28 @@
   - ArrayList(List), ArrayBlockingQueue(BlockingQueue), HashSet(Set), LinkedList, Stack, TreeSet, Vector 등..
 
 ```java
-Observable.fromIterable(arrayList);
+List<String> foods = new ArrayList<>();
+foods.add("pizza");
+foods.add("chicken");
+foods.add("hamburger");
+
+Observable<String> source = Observable.fromIterable(foods);
+source.subscribe(System.out::println);
+
+/* 실행결과
+pizza
+chicken
+hamburger
+*/
 ```
 
 
 
-#### 2.2.4.2 fromCallable() 함수
+#### 2.2.4.3 fromCallable() 함수 
 
-#### 
+#### 2.2.4.4 fromFuture() 함수
 
-#### 2.2.4.2 fromFuture() 함수
-
-
-
-#### 2.2.4.2 fromPublisher() 함수
+#### 2.2.4.5 fromPublisher() 함수
 
 
 
@@ -454,6 +462,8 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - 원하는 함수를 정의할 수 있느냐가 관건
 
 
+![3.3_map](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.3_map.png)
+
 
 </br>
 
@@ -468,6 +478,8 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - map() => 일대일 함수
   - RxJava에서 여러 개의 데이터를 발행하는 방법은 Observable 밖에 없음 (배압(back pressure)을 고려하면 Observable 대신에 Flowable)
 
+
+![3.4_flatMap](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.4_flatMap.png)
 
 
 </br>
@@ -490,20 +502,14 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
 - filter()와 비슷한 함수들
 
 - - first(default) : Observable의 첫 번째 값을 필터. 값이 없이 완료되면 기본값 리턴.
-
   - last(default) : 마지막 값
-
   - take(N) : 최초 N 개 값만 가져옴.
-
   - takeLast(N) : 마지막 N 개 값만 필터함.
-
   - skip(N) : 최초 N 값을 건너뜀.
-
   - skipLast(N) : 마지막 N개 값을 건너뜀.
-
   - 가장 유용한 함수는 take()
 
-    ​
+![3.5_filter](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.5_filter.png)
 
 </br>
 
@@ -528,7 +534,7 @@ Subject 클래스는 **차가운 Observable을 뜨거운 Observable로 변환**�
   - BiFunction<String, String, String> : 인자1, 인자2, 리턴 타입 모두 String
 
 
-
+![3.6_reduce](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/3.6_reduce.png)
 
 </br></br>
 
@@ -852,15 +858,81 @@ Single<Boolean> all (Predicate<? super T> predicate)
 
 #### 4.6.1 수학 함수
 
+- RxJava에는 여러가지 확장 모듈이 존재한다. (RxAndroid, RxNetty, RxApacheHttp등)
+  - RxJava1 => 수학함수 모은 RxJavaMath 가 있음.
+  - RxJava2 => RxJavaMath 지원안됨. —> 다른 라이브러리 사용해야 함.
+- RxJava2의 핵심 커미터인 데이빗 카르녹이 만든 RxJava2Extensions 라이브러리 사용
+
+#### 4.6.1.1 count()
+
+- Single< Long> count()
+- Observable에서 발행한 데이터의 개수를 발행
+- 결과가 1개 값이므로 Single< Long>을 발행
+
+```java
+Integer[] data = {1,2,3,4,7};
+
+Single<Long> source = Observable.fromArray(data)
+  .count();
+source.subscribe(count -> Log.i("count >> " + count));
+
+// [출력] count >> 5
+```
+
+
+
+#### 4.6.1.2 max() / min()
+
+- Flowable<T> max(Publisher<T> source)
+- Flowable<T> min(Publisher<T> source)
+
+```java
+Integer[] data = {1,2,3,4,7};
+
+Floawable.fromArray(data)
+  .to(MathFlowable::max)
+  .subscribe(max -> Log.i("max >> " + max));
+
+// [출력] max >> 7
+```
+
+
+
+#### 4.6.1.3 sum() / average()
+
+- sum()과 average()는 각각 아래처럼 sumInt(), averageDouble() 처럼 인자 타입이 함수 이름에 그대로 반영되어 있음. (원하는 타입 골라 사용)
+- Flowable<Integer> sumInt(Publisher<Integer> source)
+- Flowable<Integer> averageDouble(Publisher<? extends Number> source)
+
+```java
+Integer[] data = {1,2,3,4,7};
+
+Flowable<Integer> flowable = Flowable.fromArray(data)
+  .to(MathFlowable::sumInt);
+flowable.subscribe(sum -> Lob.i("sum >> " + sum));
+
+// [출력] sum >> 17
+```
+
+
+
 </br>
 
 #### 4.6.2 delay()
+
+- 단순하게 인자로 전달받는 time과 시간단위(TimeUnit)만큼 입력받은 Observable의 데이터 발행을 지연시켜주는 역할
+  - Observable<T> delay (long delay, TimeUnit unit) 
+- Interval()과 마찬가지로 계산 스케줄러에서 실행.
+
+![4.6.2_delay](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.6.2_delay.png)
 
 </br>
 
 #### 4.6.3 timeInterval()
 
+- 어떤 값을 발행했을 때 이전 값을 발행한 이후 얼마나 시간이 흘렀는지 알려준다.
 
+![4.6.4_timeInterval](/Users/parktaeim/Documents/GitHub/Android-Study/study/week12/RxJava/images/4.6.4_timeInterval.png)
 
 </br></br>
 
