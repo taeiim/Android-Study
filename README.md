@@ -90,7 +90,7 @@
 
 ##### 21. [RxJava 끝장내기](study/week12/RxJava/RxJava.md)  (박태임)
 
-##### 22. [Flexible UI](https://github.com/taeiim/Android-Study/blob/master/study/week12/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83%EB%B6%84%EA%B8%B0/%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83%20%EB%B6%84%EA%B8%B0.md)  (송시은)
+##### 22. [Flexible UI](study/week12/FlexibleUI/FlexibleUI.md)  (송시은)
 
 <br />
 
@@ -102,3 +102,10 @@
 
 <br />
 
+[ **14회차**. 2018.09.15 - 09.21 ]
+
+##### 25. RxAndroid (박태임)
+
+##### 26.  (송시은)
+
+<br />
