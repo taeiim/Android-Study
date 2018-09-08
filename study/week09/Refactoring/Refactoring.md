@@ -36,7 +36,7 @@
 
 따라서, 리소스를 리팩토링할 때는 먼저 컬러와 디멘션(크기)을 수정하는 것이 좋다. 
 
-![refactoring_1](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/refactoring_1.png)
+![refactoring_1](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/refactoring_1.png)
 
 <br/>
 
