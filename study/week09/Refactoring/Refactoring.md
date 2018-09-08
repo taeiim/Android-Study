@@ -52,7 +52,7 @@
 
 **Greyscales** 과  **Quipper colors** 두가지 섹션으로 나눈다. (너무 많은 섹션을 만드는 것보다는 두가지로 간단하게 나누는 것으로도 충분하다.)
 
-![colors_1](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/colors_1.png)
+![colors_1](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/colors_1.png)
 
 **Greyscales** 섹션에는 흰색, 검은색, 회색을 정의했는데, 네이밍 규칙을 잘 만드는 것이 중요하다. 
 
@@ -69,7 +69,7 @@
 
 "warning", "danger" 등 같은 이름도 사용하면 이해하기 쉽다. 
 
-![colors_2](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/colors_1.png)
+![colors_2](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/colors_1.png)
 
 <br/><br/>
 
@@ -83,11 +83,11 @@
 
 space, text, button, radius, elevation 등으로 섹션을 만든다. 
 
-![dimens_base](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/dimens_base.png)
+![dimens_base](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/dimens_base.png)
 
 ``dimens.xml`` : 특정 페이지의 크기를 정의
 
-![dimens](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/dimens.png)
+![dimens](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/dimens.png)
 
 
 
@@ -121,7 +121,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 미리 속성들을 정의해놓고 사용하는 것. 레이아웃을 간단하게 만들 수 있다. 
 
-![styles_1](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/styles_1.png)
+![styles_1](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/styles_1.png)
 
 <br/>
 
@@ -133,7 +133,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 ###### 지금까지 색상이 다르거나 크기가 다르면 style을 각각 따로 만들어서 사용했는데 상속 개념을 이용하면 코드가 많이 줄어들것 같다.
 
-![styles_2](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/styles_2.png)
+![styles_2](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/styles_2.png)
 
 <br/><br/>
 
@@ -151,7 +151,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
   이름에 컬러를 포함하지 않은 이유는 **틴트** 를 사용하기 때문입니다. 이미지 뷰는 틴트 속성이 있습니다. 
 
-![drawable_namingrule](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/drawable_namingrule.png)
+![drawable_namingrule](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/drawable_namingrule.png)
 
 일반적으로 Drawable을 리팩토링하는 것은 어렵기보다는 귀찮은 일에 가깝다. 
 
@@ -193,7 +193,7 @@ themes.xml은 styles.xml과 비슷하다. 그렇다면 왜 둘이 분리되어 �
 
 일일이 1,2,3,4 모두 view를 inflate할 필요 없이 아래와 같이 + 기호를 사용해 한번에 해주면 된다.
 
-![refactoring_2](https://github.com/taeiim/Android-Study/blob/master/study/week9/Refactoring/images/refactoring_2.png)
+![refactoring_2](https://github.com/taeiim/Android-Study/blob/master/study/week09/Refactoring/images/refactoring_2.png)
 
 <br/>
 
