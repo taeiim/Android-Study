@@ -58,7 +58,7 @@ Android Gradle 플러그인 버전 3.1.0-alpha06 에 바인딩 클래스를 생�
   -Pandroid.databinding.enableV2=true
   ```
 
-  ![https://github.com/taeiim/Android-Study/blob/master/study/week8/DataBinding/gradle_properties.PNG](https://github.com/taeiim/Android-Study/blob/master/study/week8/DataBinding/gradle_properties.PNG)
+  ![](https://github.com/taeiim/Android-Study/blob/master/study/week08/DataBinding/gradle_properties.PNG)
 
 - 안드로이드 플러그인 버전 3.1의 새로운 데이터 바인딩 컴파일러는 이전 버전과 호환되지 않는다. 증분 컴파일을 활용하려면 이 기능을 사용하는 모든 바인딩 클래스를 생성해야한다. 
 
