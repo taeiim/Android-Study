@@ -96,7 +96,7 @@
 
 [ **13회차**. 2018.09.08 - 09.14 ]
 
-##### 23. MVP, 실제로 적용해보자! (이종현)
+##### 23. [MVP, 실제로 적용해보자!](study/week13/AndroidMVP/Android-MVP.md) (이종현)
 
 ##### 24. Handling Lifecycles (손승용)
 
