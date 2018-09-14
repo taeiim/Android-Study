@@ -89,7 +89,7 @@
 
 *** 안드로이드 앱의 테스트 계층 사진** (테스팅의 피라미드)
 
-![앱 테스트 계층](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/%EC%95%B1%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B3%84%EC%B8%B5.png)
+![앱 테스트 계층](https://github.com/taeiim/Android-Study/blob/master/study/week03/Img_AndroidTesting/%EC%95%B1%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B3%84%EC%B8%B5.png)
 
 기본적으로 테스트 케이스의 수나 실행 횟수 (실행 타이밍)는 '단위테스트'가 가장 많고, '그 밖의 테스트'가 가장 적다. 아래로 갈 수록 많아지므로 다음과 같은 사진으로 정리할 수 있다.
 
@@ -209,7 +209,7 @@
 
 - BeforeClass/AfterClass 와  Before/After의 호출 순서 이해 
 
-  ![Annotation](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/img_annotation.png)
+  ![Annotation](https://github.com/taeiim/Android-Study/blob/master/study/week03/Img_AndroidTesting/img_annotation.png)
 
 </br>
 
@@ -248,7 +248,7 @@
 
    OK를 누르면 디렉토리를 선택하는 창이 나오는데, com(test) 를 선택한다. (그 이유는 하단에 [참고] 를 참고하세요.)
 
-   ![Create Test](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/img_createTest.png)
+   ![Create Test](https://github.com/taeiim/Android-Study/blob/master/study/week03/Img_AndroidTesting/img_createTest.png)
 
 
 </br>
@@ -263,7 +263,7 @@
 
   ​
 
-- ![test directory](https://github.com/taeiim/Android-Study/blob/master/study/week3/Img_AndroidTesting/img_app_com(test).png)
+- ![test directory](https://github.com/taeiim/Android-Study/blob/master/study/week03/Img_AndroidTesting/img_app_com(test).png)
 
 
 </br>
