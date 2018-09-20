@@ -29,8 +29,7 @@
 
   - ex) 파일 다운로드, 음악 재생
 
-- [BadThreadExam]: https://github.com/taeiim/Android-Study/tree/master/study/week14/Service/BadThreadExam
-
+- https://github.com/taeiim/Android-Study/tree/master/study/week14/Service/BadThreadExam
 - 서비스 컴포넌트를 사용하면 위 예제와 같은 문제를 해결할 수 있다!
 
 
@@ -57,7 +56,7 @@
 
 앱을 종료했다가 다시 시작하더라도 서비스는 계속 동작하여 다운로드 작업을 멈추지 말아야 한다.
 
-[StartService]: https://github.com/taeiim/Android-Study/tree/master/study/week14/Service/ServiceExam
+https://github.com/taeiim/Android-Study/tree/master/study/week14/Service/ServiceExam 
 
 => 서비스는 액티비티와 독립적으로 동작하므로 앱을 종료하고 다시 실행헤도 서비스의 생명주기에는 아무 영향이 없다.
 
