@@ -16,6 +16,7 @@
 
 - 될 때까지 안드로이드(오준석 지음)
 - https://developer.android.com/guide/components/services?hl=ko
+- https://developer.android.com/guide/components/bound-services#Lifecycle
 
 
 
@@ -58,7 +59,7 @@
 
 https://github.com/taeiim/Android-Study/tree/master/study/week14/Service/ServiceExam 
 
-=> 서비스는 액티비티와 독립적으로 동작하므로 앱을 종료하고 다시 실행헤도 서비스의 생명주기에는 아무 영향이 없다.
+=> 서비스는 액티비티와 독립적으로 동작하므로 앱을 종료하고 다시 실행해도 서비스의 생명주기에는 아무 영향이 없다.
 
 
 
@@ -99,7 +100,7 @@ onStartCommand() 메서드가 반환하는 상수가 그런 역할을 한다. �
 
 ### 2.2 인텐트 서비스
 
-대부분의 서비스는 여러 요펑을 동시에 처리하지 않아도 되기 때문에, 일반적으로 Service를 확장한 IntentService 클래스를 사용한다. 이 클래스는 기본 Service 클래스와 비교하여 다음과 같은 작업을 수행한다.
+대부분의 서비스는 여러 요청을 동시에 처리하지 않아도 되기 때문에, 일반적으로 Service를 확장한 IntentService 클래스를 사용한다. 이 클래스는 기본 Service 클래스와 비교하여 다음과 같은 작업을 수행한다.
 
 - onStartCommand() 메서드에 전달된 인텐트마다 별도의 스레드를 자동으로 생성해 준다.
 - 한 번에 하나의 인텐트를 처리하는 onHandleIntent() 메서드를 제공한다.
@@ -112,10 +113,31 @@ onStartCommand() 메서드가 반환하는 상수가 그런 역할을 한다. �
 #### 2.2.1. 같이 실습~
 
 1. MyIntentService 클래스 생성
+
 2. 생성자, onHandleIntent() 메서드만 남기고 나머지 코드 제거(인텐트 서비스 기본적인 사용방법을 알기 위해)
+
 3. onHandleIntent() 메서드(작업 스레드로 동작하므로)에 오래 걸리는 처리를 작성
+
+   ```java
+   @Override
+       protected void onHandleIntent(Intent intent) {
+           for (int i = 0; i < 5; i++) {
+               try {
+                   // 1초마다 쉬기
+                   Thread.sleep(1000);
+               } catch (InterruptedException e) {
+                   Thread.currentThread().interrupt();
+               }
+               // 1초마다 로그 남기기
+               Log.d("MyIntentService", "인텐트 서비스 동작 중 " + i);
+           }
+       }
+   ```
+
 4. xml에 인텐트 서비스 시작 버튼 작성
-5. 메인 액티비티에 인텐트 서비스를 시작하는 코드 추가
+
+5. 메인 액티비티에 인텐트 서비스를 시작하는 onStartIntentService() 메서드 작성
+
 6. 로그캣 확인(인텐트 서비스 시작 여러번 클릭)
 
 위에 말했다 시피 엔텐트 서비스는 차례대로 실행됨을 확인할 수 있다!!!!!
@@ -137,7 +159,7 @@ onStartCommand() 메서드가 반환하는 상수가 그런 역할을 한다. �
 
 #### 2.3.1. 같이 실습~~
 
-1. 포그라운드 서비스 만들기
+1. MyService에 포그라운드 서비스 만들기
 
 ```java
 ... 생략 ...
@@ -164,16 +186,43 @@ onStartCommand() 메서드가 반환하는 상수가 그런 역할을 한다. �
 ```
 
 - 오레오부터는 알림에 채널 ID를 지정해 줘야 한다.
-- 여기서는 default라는 채널 ID를 지정
-- 채널 ID는 카테고리라고 생각하면 된다.
+- 여기서는 default라는 채널 ID를 지정, 채널 ID는 카테고리라고 생각하면 된다.
 - NotificationManager에 채널 생성을 요청해야 채널이 생성 됨(채널 ID, 채널 이름, 중요도)
 - 채널을 생성하는 createNotificationChannel() 메서드는 이전 버전에 없기 때문에 버전 분기 처리함
 - 주의할 점은 startForeground(int, Notification)의 첫 번째 파라미터인 알림 ID는 0이면 안됨!
 - 알림의 필수 요소인 아이콘, 제목, 내용은 꼭 있어야함(하나라도 없으면 알림 등록 X)
 
 2. 인텐트에 액션을 설정하고 해당 액션을 처리할 수 있도록 onStartCommand() 메서드 수정
+
+   ```java
+   @Override
+       public int onStartCommand(Intent intent, int flags, int startId) {
+           if ("startForeground".equals(intent.getAction())) {
+               // 포그라운드 서비스 시작
+               startForegroundService();
+           } else if (mThread == null) {
+               ... 생략 ...
+           }
+           return START_STICKY;
+       }
+   ```
+
 3. xml 파일에 포그라운드 서비스 시작 버튼 추가
+
 4. 메인액티비티에 포그라운드 서비스 시작 버튼의 동작 정의(여기서 인텐트에 startForeground 액션 추가)
+
+   ```java
+   public void onStartForegroundService(View view) {
+           Intent intent = new Intent(this, MyService.class);
+           intent.setAction("startForeground");
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+               startForegroundService(intent);
+           } else {
+               startService(intent);
+           }
+       }
+   ```
+
 5. 버전 분기 수행(오레오에서는 포그라운드 서비스를 시작하기 위해 startForegroundService() 메서드 호출 후 5초 이내 서비스에서 startForeground() 메서드를 호출해야 함)
 
 
@@ -267,7 +316,7 @@ onStartCommand() 메서드가 반환하는 상수가 그런 역할을 한다. �
      - 두 번째는 서비스가 시스템에 의해 강제로 종료되었을 때 감지할 수 있는 콜백
    - 메인액티비티에 ServiceConnection 객체를 정의하고,
    - onStart() 메서드에서 bindService() 메서드로 서비스에 연결한다.
-   - 액티비티가 포그라운드에서 동작 중이 아닐 때는 서비스와 연결을 해제해야 하는데, onPause() 메서드에서 unBindService() 메서드로 연결을 해제한다.
+   - 액티비티가 포그라운드에서 동작 중이 아닐 때는 서비스와 연결을 해제해야 하는데, onStop() 메서드에서 unBindService() 메서드로 연결을 해제한다.
 
    ```java
    @Override
@@ -315,11 +364,37 @@ onStartCommand() 메서드가 반환하는 상수가 그런 역할을 한다. �
 3. 바인딩 상태 확인
 
    - 앱을 실행하기 전에 액티비티와 서비스의 연결 상태를 모니터링하기 위해 로그 추가
+
+     ```java
+     @Override
+         public IBinder onBind(Intent intent) {
+             Log.d(TAG, "onBind: ");
+             return mBinder;
+         }
+     
+         @Override
+         public boolean onUnbind(Intent intent) {
+             Log.d(TAG, "onUnbind: ");
+             return super.onUnbind(intent);
+         }
+     ```
+
    - onBind() 와 반대로 onUnBind() 는 연결이 끊어졌을 때 호출되는 메서드
 
 4. xml 파일에 카운팅 값 출력 버튼 추가
 
 5. 메인 액티비티에서 토스트 값이 나올 수 있도록 getCountValue() 메서드 수정
+
+   ```java
+   public void getCountValue(View view) {
+           if (mBound){
+               Toast.makeText(this, "카운팅 : " + mService.getCount(), 
+                              Toast.LENGTH_SHORT).show();
+           }
+       }
+   ```
+
+   
 
 
 
