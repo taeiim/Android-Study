@@ -38,7 +38,7 @@
 
 레이아웃을 좁고 깊게 만들기보다, 얇고 넓게 만들어 레이아웃을 중첩을 줄이면 성능을 향상시킬 수 있다는 것을 알 수 있다. 
 
-![constraintlayout_1](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_1.png)
+![constraintlayout_1](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/constraintlayout_1.png)
 
  ###### [그림1] ConstraintLayout VS. 중첩된 여러 레이아웃
 
@@ -72,7 +72,7 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
 아래와 같은 방법으로 Blueprint를 사용할 수 있다.
 
-![constraintlayout_2](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_2.png)
+![constraintlayout_2](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/constraintlayout_2.png)
 
 </br>
 
@@ -82,7 +82,7 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
 따라서 상대 제약을 사용하면서 위젯의 위치를 추가로 조정할 수 있게 하기 위하여 ConstraintLayout에서는 제약 바이어스 기능을 구현하였다. 제약 바이어스를 사용하면 하나의 제약에 지정된 비율을 기준으로 상대 제약을 갖도록 위젯을 위치시킬 수 있다. 
 
-![bias](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/bias.png)
+![bias](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/bias.png)
 
 위젯을 선택하면 속성 창에 두 개의 슬라이더가 나타난다. 이것을 마우스로 끌면 수평과 수직 방향의 제약 바이어스가 조정된다. 
 
@@ -90,7 +90,7 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
 ### 2.3 Handles
 
-![constraintlayout_3](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_3.png)
+![constraintlayout_3](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/constraintlayout_3.png)
 
 - #### Resize Handle
 
@@ -117,19 +117,19 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
   체인에 포함된 위젯들이 체인 내부의 사용 가능한 공간에 고르게 분산 배치되며 기본 스타일 값이다. 
 
-  ![chain_spread](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_spread.png)
+  ![chain_spread](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/chain_spread.png)
 
 - ##### Spread Inside 체인
 
   체인에 포함된 위젯들이 체인 헤드와 체인의 마지막 위젯 사이에 고르게 배치된다. 단, 헤드와 마지막 위젯은 체인 내부의 공간 분배에 포함되지 않는다.
 
-  ![chain_spreadinside](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_spreadinside.png)
+  ![chain_spreadinside](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/chain_spreadinside.png)
 
 - ##### Weighted 체인
 
   체인의 각 위젯들이 차지하는 공간을 각 위젯의 가중치 속성으로 제어할 수 있다.
 
-  ![chain_weighted](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_weighted.png)
+  ![chain_weighted](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/chain_weighted.png)
 
   Weighted 체인은 spread 체인 스타일을 사용할 때문 구현할 수 있으며, 체인에 포함된 모든 위젯들의 크기가 match constraint로 지정되어야 한다. 
 
@@ -141,7 +141,7 @@ ConstraintLayout을 사용하면 위 그림과 같이 평평한(flattened) 계�
 
   체인을 구성하는 위젯들이 간격 없이 붙어서 배치되며, 체인 외부의 좌우 또는 상하의 남는 공간은 기본적으로 동일하게 배정된다.
 
-  ![chain_packed](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/chain_packed.png)
+  ![chain_packed](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/chain_packed.png)
 
 
 </br>
@@ -162,7 +162,7 @@ Guidelines 객체는 화면에 나타나지 않는다.(View.GONE 상태)
 
 바이어스가 100%로 설정되어 오른쪽에 붙어있더라도 오른쪽 마진이 50dp 설정되어 있다면 항상 레이아웃의 오른쪽에서 50dp 만큼 떨어진다. 
 
-![margin](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/margin.png)
+![margin](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/margin.png)
 
 마진 값은 속성 창에서 변경할 수 있다. 드롭다운을 사용해도 되고, 값을 직접 입력해도 된다.
 
@@ -176,13 +176,13 @@ ConstraintLayout을 사용할 때는 상대 제약과 마진 및 바이어스가
 
 마진 제약은 항상 지정된 여백을 띄운 후 위젯을 위치시킨다. 따라서 장치를 가로로 회전되어 화면의 높이가 작아지면 하단에 위치해 있는 위젯은 볼 수 없게 된다.  
 
-![constraintlayout_4](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_4.png)
+![constraintlayout_4](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/constraintlayout_4.png)
 
 
 
 이와 달리, 상대 제약으로 수평과 수직 방향의 바이어스를 설정하면 장치 화면의 크기가 달라지더라도 그것의 화면 크기에 비례하여 일정한 위치에 위젯이 나타날 수 있다.
 
-![constraintlayout_5](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/constraintlayout_5.png)
+![constraintlayout_5](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/constraintlayout_5.png)
 
 결론적으로, 유연한 사용자 인터페이스 레이아웃을 생성하려면 상대 제약과 제약 바이어스를 같이 고려하는 것이 중요하다. 
 
@@ -220,7 +220,7 @@ ConstraintLayout으로 레이아웃을 생성할 때, 레이아웃 편집기의 
 
 자동연결이 활성화된 상태에서 레이아웃에 위젯을 끌어 놓으면 자동으로 제약 연결이 추가된다. 
 
-![autoconnect](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/autoconnect.png)
+![autoconnect](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/autoconnect.png)
 
 자동 연결에서는 레이아웃에 추가되는 위젯과 인접한 부모 레이아웃 및 다른 요소의 위치를 기준으로 그 위젯의 제약 연결을 생성한다. 이때 내부적으로 알고리즘을 사용한다.
 
@@ -234,7 +234,7 @@ ConstraintLayout으로 레이아웃을 생성할 때, 레이아웃 편집기의 
 
 그러나 자동연결처럼 제약 추론 기능을 사용할 때도 레이아웃 편집기에서 부적합한 제약 연결을 추가할 수 있다. 이때는 수동으로 변경할 수 있다.
 
-![inferconstraint](https://github.com/taeiim/Android-Study/blob/master/study/week7/ConstraintLayout/images/inferconstraint.png)
+![inferconstraint](https://github.com/taeiim/Android-Study/blob/master/study/week07/ConstraintLayout/images/inferconstraint.png)
 
 </br>
 
