@@ -106,7 +106,7 @@
 
 ##### 25. [RxAndroid](study/week14/RxAndroid/RxAndroid.md) (박태임)
 
-##### 26.  (송시은)
+##### 26. [Service](study/week14/Service/Service.md) (송시은)
 
 ##### 27. tcp/ip 소켓 (송진우)
 
