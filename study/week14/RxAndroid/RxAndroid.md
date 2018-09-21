@@ -174,9 +174,58 @@ Observable.just("I'm hungry.")
 
 
 
+</br>
+
 ### 2.4 RxLifecycle 라이브러리
 
+RxAndroid에는 `RxLifecycle` 라이브러리를 제공한다. 
 
+안드로이드의 `Activity` 와 `Fragment` 의 라이프 사이클을 RxJava에서 사용할 수 있게 한다.
+
+안드로이드와 UI 라이프 사이클을 대체한다기보다 **구독할 때 발생할 수 있는 메모리 누수를 방지하기 위해 사용**한다. **완료하지 못한 구독을 자동으로 해제(dispose)** 한다. 
+
+</br>
+
+#### 2.4.1 RxLifecycle 라이프 사이클 컴포넌트
+
+`RxLifecycle`  라이브러리는 안드로이드의 라이프 사이클에 맞게 `Observable` 을 관리할 수 있는 컴포넌트를 제공한다.
+
+| 컴포넌트                      | 설명                                       |
+| ------------------------- | ---------------------------------------- |
+| RxActivity                | **액티비티**에 대응                             |
+| RxDialogFragment          | Native/Support 라이브러리인 **DialogFragment** 에 대응 |
+| RxFragment                | Native/Support 라이브러리인 **Fragment** 에 대응  |
+| RxPreferenceFragment      | **PreferenceFragment**에 대응               |
+| RxAppCompatActivity       | Support 라이브러리인 **DialogFragment**에 대응    |
+| RxAppCompatDialogFragment | Support 라이브러리인 **AppCompatDialogFragment**에 대응 |
+| RxFragmentActivity        | Support 라이브러리인 **FragmentActivity**에 대응  |
+
+</br>
+
+#### 2.4.2 RxLifecycle 사용해보기 - 예제
+
+- build.gradle 파일의 depencies에 추가
+
+  ```groovy
+  dependencies{
+  	// RxLifecycle
+  	implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
+  	implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+  	implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+  }
+  ```
+
+
+
+```
+
+```
+
+
+
+
+
+</br>
 
 ### 2.5 UI 이벤트 처리
 
@@ -195,6 +244,24 @@ Observable.just("I'm hungry.")
 ### 3.1 리액티브 RecyclerView
 
 #### 3.1.1 RecyclerView 클래스
+
+RecyclerView 클래스의 구조와 동작 방식
+
+`RecyclerView` 클래스에는 서브 클래스인 `LayoutManaget` 가 있다. 이를 이용하여 뷰를 정의하고, Adapter 클래스를 이용하여 데이터 셋에 맞는 ViewHolder 클래스를 구현할 수 있다. 이외에도 RecyclerView 클래스는 뷰를 제어하는 ItemDecoration, ItemAnimation 라는 서브 클래스를 둔다. Adapter 클래스와 상호 연결되며, ViewHolder 클래스에서 데이터와 뷰를 받아 이를 재사용할 수 있게 한다. 
+
+
+
+##### RecyclerView 클래스와 함께 사용하는 주요 클래스
+
+| 클래스 이름         | 설명                           |
+| -------------- | ---------------------------- |
+| Adapter        | 데이터 세트의 아이템을 나타내는 뷰를 생성      |
+| ViewHolder     | 재활용 뷰에 대한 모든 서브 뷰를 저장        |
+| LayoutManager  | 뷰에 있는 아이템을 배치하고 관리           |
+| ItemDecoration | 아이템을 꾸미는 서브 뷰를 제어            |
+| ItemAnimation  | 아이템을 추가, 정렬, 제거할 때의 애니메이션 효과 |
+
+3.1.2 와 3.1.3 에서 주요 클래스인 **Adapter**와 **LayoutManger**를 하나씩 더 자세히 살펴본다. 
 
 #### 3.1.2 Adapter 클래스
 
