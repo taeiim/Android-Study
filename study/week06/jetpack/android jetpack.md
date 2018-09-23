@@ -6,7 +6,7 @@
 
 - 기존 지원 라이브러리와 아키텍처 컴포너트를 하나로 모아서, 다음과 같이 네가지 범주로 나타냄
 
-  ![jetpack](https://raw.githubusercontent.com/taeiim/Android-Study/master/study/week6/jetpack/image/jetpack.PNG)
+  ![jetpack](https://raw.githubusercontent.com/taeiim/Android-Study/master/study/week06/jetpack/image/jetpack.PNG)
 
   ​
 
@@ -33,7 +33,7 @@ android jetpack은 기본 Android 플랫폼에 속하지 않은 "별도의" 라�
 
 #### 앱 권한 획득 순서
 
-![앱 권한 획득 순서](https://raw.githubusercontent.com/taeiim/Android-Study/master/study/week6/jetpack/image/%EC%95%B1%EA%B6%8C%ED%95%9C%ED%9A%8D%EB%93%9D%EC%88%9C%EC%84%9C.PNG)
+![앱 권한 획득 순서](https://raw.githubusercontent.com/taeiim/Android-Study/master/study/week06/jetpack/image/%EC%95%B1%EA%B6%8C%ED%95%9C%ED%9A%8D%EB%93%9D%EC%88%9C%EC%84%9C.PNG)
 
 먼저 AndroidMainfest.xml에 권한을 설정한 후
 
@@ -169,7 +169,7 @@ public void onCreate(Bundle savedInstanceState) {
 
 
 
-<img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/high_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/medium_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/low_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week6/jetpack/image/no_bounce.gif?raw=true" width="200" >
+<img src="https://github.com/taeiim/Android-Study/blob/master/study/week06/jetpack/image/high_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week06/jetpack/image/medium_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week06/jetpack/image/low_bounce.gif?raw=true" width="200" ><img src="https://github.com/taeiim/Android-Study/blob/master/study/week06/jetpack/image/no_bounce.gif?raw=true" width="200" >
 
 
 
