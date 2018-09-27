@@ -218,7 +218,7 @@ private Socket socket;
 }
 ~~~
 
-#### 3. 소켓을 연결
+#### 3 소켓을 연결
 * connect() 함수로 소켓을 연결합니다.
 ~~~java
 socket.connect();
@@ -365,13 +365,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     var light_on = Emitter.Listener { args ->
-        Text.setText("소켓 on 성공")
-        Receive_Text.setText(args[0].toString())
+        runOnUiThread({
+            Text.setText("소켓 on 성공")
+            Receive_Text.setText(args[0].toString())
+        })
     }
 
     var light_off = Emitter.Listener { args ->
-        Text.setText("소켓 on 성공")
-        Receive_Text.setText(args[0].toString())
+        runOnUiThread({
+            Text.setText("소켓 on 성공")
+            Receive_Text.setText(args[0].toString())
+        })
     }
 }
 ~~~
