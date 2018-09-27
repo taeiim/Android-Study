@@ -1,21 +1,25 @@
 var app = require('express')();
 var server = require('http').createServer(app);
-// http server를 socket.io server로 upgrade한다
 var io = require('socket.io')(server);
+// socket io 가져오기 
+
+//연결 이벤트 시에 콜백으로 socket이 매개변수로 들어가며, 안쪽에서 이벤트에 따른 분기처리를 한다. 
 io.on('connection', function(socket) {
-    console.log('connection');
-    socket.on('Connect',function(data){
-        socket.data = data;
-    });
-    socket.on('call',function(){
-        console.log(socket.data);
-        io.emit('data_call',socket.data);
-    });
-    socket.on('Disconnect',()=>{
-        console.log('disconnect');
-    });
+  console.log("user connect");
+
+  socket.on('lightOn', function(){
+    console.log("light on");
+    io.emit('lightOn', "light");
+  });
+
+  socket.on('lightOff', function(){
+    console.log("light off");
+    io.emit('lightOff', "light");
+  });
+
 });
-  
-server.listen(3000, function() {
-    console.log('Socket IO server listening on port 3000');
+
+//서버를 시작한다. 
+server.listen(7000, function(){
+  console.log("server on 7000");
 });
