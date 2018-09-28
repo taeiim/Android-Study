@@ -108,7 +108,7 @@
 
 ##### 26. [Service](study/week14/Service/Service.md) (송시은)
 
-##### 27. tcp/ip 소켓 (송진우)
+##### 27. [Socket](study/week14/Socket/README.md) (송진우)
 
 <br />
 
