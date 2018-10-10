@@ -218,7 +218,7 @@ private Socket socket;
 }
 ~~~
 
-#### 3. 소켓을 연결
+#### 3 소켓을 연결
 * connect() 함수로 소켓을 연결합니다.
 ~~~java
 socket.connect();
@@ -288,4 +288,94 @@ http.listen('포트 번호!', function(){
 * 소켓도 통신이기 때문에 멀티 스레드를 활용하여 작업을 해줘야 성능 개선 및 로직이 엉키는 것을 방지할 수 있습니다.
 * Socket.io를 사용한다면 이벤트 명이 헷갈리지 않도록 잘 설정해야 합니다. 이벤트가 엇갈릴 경우 일일이 확인해야하는 불상사가 발생합니다.
 
-## 5. Kotlin에 응용해보기
+## 5. Kotlin에 적용해보기
+### 5.1 Java와 다른 점
+* static이 아니라 Kotlin에서는 companion object로 socket을 만들어줍니다.
+~~~kotlin
+companion object {
+    private lateinit var socket : Socket
+    fun get(): Socket {
+        try {
+            socket = IO.socket("http://127.0.0.0:3000")
+            } catch (e: URISyntaxException) {
+                e.printStackTrace()
+            }
+                return socket
+            }
+        }
+~~~
+* 그 외 람다표현식을 좀 더 간편하게 사용할 수 있다는 점 외에는 다른 점이 없습니다.
+
+### 5.2 emit을 보내는 어플리케이션
+~~~kotlin
+class MainActivity : AppCompatActivity() {
+
+    lateinit var Text : TextView
+    lateinit var lighton_btn: Button
+    lateinit var lightoff_btn: Button
+    lateinit var socket: Socket
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        lighton_btn = findViewById(R.id.lighton_button)
+        lightoff_btn = findViewById(R.id.lightoff_button)
+        Text = findViewById(R.id.message)
+
+        socket = SocketApplication.get()
+
+        Text.setText("소켓 생성")
+
+        socket.connect()
+
+        lighton_btn.setOnClickListener { v ->
+            socket.emit("lightOn")
+            Text.setText("Light on Emit 성공")
+        }
+
+        lightoff_btn.setOnClickListener { v ->
+            socket.emit("lightOff")
+            Text.setText("Light off Emit 성공")
+        }
+    }
+}
+~~~
+
+### 5.3 on을 받는 어플리케이션
+~~~kotlin
+class MainActivity : AppCompatActivity() {
+
+    lateinit var Text : TextView
+    lateinit var Receive_Text: TextView
+    lateinit var socket: Socket
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        Text = findViewById(R.id.message)
+        Receive_Text = findViewById(R.id.receive_Text)
+
+        socket = SocketApplication.get()
+
+        socket.on("lightOn",light_on)
+        socket.on("lightOff", light_off)
+        socket.connect()
+    }
+
+    var light_on = Emitter.Listener { args ->
+        runOnUiThread({
+            Text.setText("소켓 on 성공")
+            Receive_Text.setText(args[0].toString())
+        })
+    }
+
+    var light_off = Emitter.Listener { args ->
+        runOnUiThread({
+            Text.setText("소켓 on 성공")
+            Receive_Text.setText(args[0].toString())
+        })
+    }
+}
+~~~

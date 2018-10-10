@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,12 +12,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onStartService"
-        android:text="스레드 시작" />
+        android:text="서비스 시작"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onStopService"
-        android:text="스레드 중지" />
+        android:text="서비스 중지"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onStartIntentService"
+        android:text="인텐트 서비스 시작"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onStartForegroundService"
+        android:text="포그라운드 서비스 시작"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="getCountValue"
+        android:text="카운팅 값 출력"/>
 
 </LinearLayout>
