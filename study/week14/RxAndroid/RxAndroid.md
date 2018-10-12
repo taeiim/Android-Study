@@ -10,7 +10,7 @@
 
 ## 1. RxAndroid 소개
 
-기존 안드로이드 개발에서 가장 어려움을 겪는 문제 중 하나는 복잡한 스레드 사용이다. 복잡한 스레드 사용으로 발생하는 문제는 다음과 같다.
+기존 안드로이드 개발에서 가장 어려움을 겪는 문제 중 하나는 **복잡한 스레드 사용**이다. 복잡한 스레드 사용으로 발생하는 문제는 다음과 같다.
 
 - 안드로이드의 비동기 처리 및 에러 핸들링
 - 수많은 핸들러와 콜백 때문에 발생하는 디버깅 문제
@@ -166,17 +166,7 @@ Observable.just("I'm hungry.")
 
 </br></br>
 
-### 2.3 제어 흐름
-
-쉽고 간단해 보이는 문법도 정확하게 구조를 알고 깊이 이해한 후 사용해야 한다.
-
-조건문, 순환문은 코드에서 가장 많은 비중을 차지한다. 리액티브 프로그래밍의 세계에서도 예외는 아니지만 구현 방법이 다르다.
-
-
-
-</br>
-
-### 2.4 RxLifecycle 라이브러리
+### 2.3 RxLifecycle 라이브러리
 
 RxAndroid에는 `RxLifecycle` 라이브러리를 제공한다. 
 
@@ -186,7 +176,17 @@ RxAndroid에는 `RxLifecycle` 라이브러리를 제공한다.
 
 </br>
 
-#### 2.4.1 RxLifecycle 라이프 사이클 컴포넌트
+#### 2.3.1 RxLifecycle, 왜 사용하죠?
+
+Observable은 안드로이드의 Context를 복사하여 유지한다. onComplete(), onError() 함수가 호출되면 내부에서 자동으로 unsubscribe() 함수를 호출한다. 
+
+그런데 액티비티가 비정상적으로 종료되면 뷰가 참조하는 액티비티는 종료해도 가비지 컬렉션의 대상이 되지 못한다. 따라서 **메모리 누수**가 발생하게 된다.
+
+이때 이런 문제를 해결하기 위한 방법 중 하나가 **RxLifecycle**을 이용하는 것이다.
+
+</br>
+
+#### 2.3.2 RxLifecycle 라이프 사이클 컴포넌트
 
 `RxLifecycle`  라이브러리는 안드로이드의 라이프 사이클에 맞게 `Observable` 을 관리할 수 있는 컴포넌트를 제공한다.
 
@@ -202,34 +202,79 @@ RxAndroid에는 `RxLifecycle` 라이브러리를 제공한다.
 
 </br>
 
-#### 2.4.2 RxLifecycle 사용해보기 - 예제
+#### 2.3.3 RxLifecycle 사용해보기 - 예제
 
 - build.gradle 파일의 depencies에 추가
 
-  ```groovy
-  dependencies{
-  	// RxLifecycle
-  	implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
-  	implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
-  	implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
-  }
-  ```
-
-
-
-```
-
+```groovy
+dependencies{
+	// RxLifecycle
+	implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.2'
+	implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.2'
+	implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.2'
+}
 ```
 
 
+Observable.interval()을 이용해 1초에 한번 로그를 찍다가 
+
+화면이 뒤로가 액티비티가 종료되어도 unsubscribe(구독 해제)를 하지 않는다면, 스트림은 계속 유지되어 로그가 계속 찍히는 것을 확인할 수 있다.
+
+```java
+Observable.interval(0,1,TimeUnit.SECONDS)
+  .map(String::valueOf)
+  .subscribe(s -> Lob.i("###",s));
+```
+
+
+
+compose() 함수로 라이프 사이클을 관리하도록 추가했다. Observable은 해당 클래스가 종료되면 자동으로 해제(dispose)가 된다. 
+
+```java
+Observable.interval(0,1,TimeUnit.SECONDS)
+  .map(String::valueOf)
+  .compose(bindToLifecycle())
+  .subscribe(s -> Lob.i("Lifecycle 적용한 Observable",s));
+```
 
 
 
 </br>
 
-### 2.5 UI 이벤트 처리
+#### 2.3.4 RxLifecycle 마무리
 
-#### 2.5.1 이벤트 리스너
+RxJava2 에서는 RxLifecycle의 컴포넌트 이외에도 메모리 관리를 위한 방법을 제공한다. 
+
+예를 들어 RxJava에 익숙한 개발자들은 안드로이드의 전통적인 라이프사이클 관리 기법보다는 직접 관리하기 편한 dispose() 함수를 사용한 것 등이 있다.
+
+어떤 것이 좋다고 이야기하기는 어렵고 각각 장,단점이 있다. 상황에 맞게 개발자가 잘 선택하여 사용하면 된다.
+
+
+
+</br>
+
+### 2.4 UI 이벤트 처리
+
+#### 2.4.1 이벤트 리스너
+
+이벤트 리스너는 콜백 메서드 하나를 포함하는 뷰 클래스 안의 인터페이스를 뜻한다. 리스너가 등록된 뷰 UI 안의 아이템과 사용자 사이에 상호 작용이 발생할 때 안드로이드 프레임워크가 호출한다. 
+
+
+
+[표] 이벤트 리스너 인터페이스에 포함된 콜백 메서드
+
+| 콜백 메서드 이름             | 설명                                       |
+| --------------------- | ---------------------------------------- |
+| onClick()             | View.OnClickListener에서 콜백함. 사용자가 아이템을 터치하거나 내비게이션 키 혹은 트랙볼로 해당 아이템을 포커스하여 [enter] 키 혹은 트랙볼을 눌렀을 때 호출함. |
+| onLongClick()         | View.OnFocusChangeListener에서 콜백함. 사용자가 아이템을 길게 터치하거나 내비게이션 키 혹은 트랙볼로 해당 아이템을 포커스하여 [enter] 키 혹은 트랙볼(1초 이상)을 길게 눌렀을 때 호출함. |
+| onFocusChange()       | View.OnFocusChangeListener에서 콜백함. 사용자가 내비게이션 키 또는 트랙볼을 사용하여 아이템 위로 움직이게 하거나 포커스가 벗어날 때 호출한다. |
+| onKey()               | View.OnKeyListener에서 콜백함. 사용자가 아이템을 포커스한 후 디바이스에 있는 키를 누르거나 놓았을 때 호출한다. |
+| onTouch()             | View.OnTouchListener에서 콜백함. 사용자가 아이템 경계 안에서 스크린을 누르거나, 놓거나, 어떤 움직임을 포함하는 터치 이벤트 액션을 실행할 때 호출한다. |
+| onCreateContextMenu() | View.OnCreateContextMenuLister에서 콜백함. 길게 터치하거나 누른 결과로 컨텍스트 메뉴가 열렸을 때 호출한다. |
+
+
+
+
 
 
 
@@ -239,49 +284,133 @@ RxAndroid에는 `RxLifecycle` 라이브러리를 제공한다.
 
 ## 3. RxAndroid 활용
 
-뷰의 구성, 스케줄러, REST API 등 안드로이드의 기본 구현을 리액티브 프로그램으로 변경 (RxAndroid의 실제 활용 방법 알아보기)
+### 3.1 REST API를 활용한 네트워크 프로그래밍
 
-### 3.1 리액티브 RecyclerView
+#### Retrofit2 + OkHttp 활용하기
 
-#### 3.1.1 RecyclerView 클래스
+**OkHttp**는 안드로이드에서 사용할 수 있는 대표 클라이언트 중 하나이며 페이스북에서 사용하는 것으로 유명하다. SPDY/GZIP 지원 등 네트워킹 스택을 효율적으로 관리할 수 있고, 빠른 응답속도를 보일 수 있다는 점이 장점이다.
 
-RecyclerView 클래스의 구조와 동작 방식
-
-`RecyclerView` 클래스에는 서브 클래스인 `LayoutManaget` 가 있다. 이를 이용하여 뷰를 정의하고, Adapter 클래스를 이용하여 데이터 셋에 맞는 ViewHolder 클래스를 구현할 수 있다. 이외에도 RecyclerView 클래스는 뷰를 제어하는 ItemDecoration, ItemAnimation 라는 서브 클래스를 둔다. Adapter 클래스와 상호 연결되며, ViewHolder 클래스에서 데이터와 뷰를 받아 이를 재사용할 수 있게 한다. 
+**Retrofit**은 서버 연동과 응답 전체를 관리하는 라이브러리이다. OkHttp가 서버와의 연동 관련 기능만 제공한다면 응답까지 관리해준다는 면에서 편리하다. Retofit 1.x 버전에서는 OkHttp, HttpClient 등 사용자가 원하는 클라이언트를 선택해서 사용할 수 있었지만, 2.x 버전에서는 HttpClient는 더 이상 사용할 수 없고 **OkHttp에 의존**하도록 변경되었다.
 
 
 
-##### RecyclerView 클래스와 함께 사용하는 주요 클래스
+#### RxAndroid에서 Retrofit2 + OkHttp 라이브러리 사용하기 
 
-| 클래스 이름         | 설명                           |
-| -------------- | ---------------------------- |
-| Adapter        | 데이터 세트의 아이템을 나타내는 뷰를 생성      |
-| ViewHolder     | 재활용 뷰에 대한 모든 서브 뷰를 저장        |
-| LayoutManager  | 뷰에 있는 아이템을 배치하고 관리           |
-| ItemDecoration | 아이템을 꾸미는 서브 뷰를 제어            |
-| ItemAnimation  | 아이템을 추가, 정렬, 제거할 때의 애니메이션 효과 |
+Retrofit의 장점 중 하나는 **어노테이션**을 지원하는 것이다. 스프링처럼 어노테이션으로 API를 설계할 수 있다. 예를 들어 **@Header**를 이용하여 헤더를 설정하고, **@GET**이나 **@POST** 등으로 사용할 HTTP 메소드를 선언할 수 있다.
 
-3.1.2 와 3.1.3 에서 주요 클래스인 **Adapter**와 **LayoutManger**를 하나씩 더 자세히 살펴본다. 
 
-#### 3.1.2 Adapter 클래스
 
-#### 3.1.3 LayoutManager 클래스
+Retrofit은 RxJava를 정식으로 지원하므로 **Observable을 API 리턴값**으로 사용할 수 있다. 그 외에 Call과 Future 인터페이스도 지원한다. 
 
-#### 3.1.4 설치된 앱 리스트 나열하기 - 예제
 
-</br>
 
-### 3.2 안드로이드 스레드를 대체하는 RxAndroid
+Java를 이용한 기존 코드
 
-</br>
+```java
+public interface RestAPI {
+    @GET(APIUrl.QUIZZES_URL)
+    Call<JsonObject> quizzes();
 
-### 3.3 REST API를 활용한 네트워크 프로그래밍
+    @FormUrlEncoded
+    @POST(APIUrl.LOGIN_URL)
+    Call<JsonObject> login(@Field("kakaoID") long kakaoId);
 
-</br>
+    @FormUrlEncoded
+    @POST(APIUrl.UPDATE_EXP)
+    Call<JsonObject> updateExp(@Field("exp") int exp, @Field("id") long id);
+}
 
-### 3.4 메모리 누수 (Memory Leak)
+```
 
-</br>
+
+
+RxJava를 적용한 코드
+
+반환값이 **Observable**인 것이 차이점이다.
+
+```java
+public interface RestAPI {
+    @GET(APIUrl.QUIZZES_URL)
+    Observable<JsonObject> quizzes();
+
+    @FormUrlEncoded
+    @POST(APIUrl.LOGIN_URL)
+    Observable<JsonObject> login(@Field("kakaoID") long kakaoId);
+
+    @FormUrlEncoded
+    @POST(APIUrl.UPDATE_EXP)
+    Observable<JsonObject> updateExp(@Field("exp") int exp, @Field("id") long id);
+}
+
+```
+
+
+
+Rxjava와 Retrofit2을 연결하기 위한 어뎁터로 사용하기 위해 추가했다. 정확히는 `RxJava2CallAdapterFactory`를 사용하기 위함이다. 아래와 같이 retrofit instance를 빌드 할 때 `RxJava2CallAdapterFactory`를 추가해 주면 아래처럼 `Observable`이나 `Single`같은 타입을 뱉을 수 있게 된다.
+
+```java
+Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl("https://google.com/")
+    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+  	.addConverterFactory(GsonConverterFactory.create())
+    .build();
+```
+
+
+
+```java
+// RxJava + Retofit + OkHttp
+private void startRx(){
+  GithubServiceApi service = RestfulAdapter.getInstance().getServiceApi();
+  Observable<List<Contributor>> observable = 
+    service.getObContributors(name,repo);
+  
+  mCompositeDisposable.add(
+    observable.subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribeWith(new DisposableObserver<List<Contributor>>(){
+      @Override
+      public void onNext(List<Contributor> contributors){
+        for(Contributor c : contributors){
+          log(c.toString());
+        }
+      }
+    })
+    
+  )
+}
+```
+
+startRx() 메소드는 RestfulAdapter 클래스의 getServiceApi() 메서드 안 retrofit 변수를 이용해 생성된 API 프락시를 가져온다. owner와 repo의 값을 전달하면 observable 변수에 저장된 Observable을 리턴한다. 생성된 Observable에 구독자를 설정하면 getServiceApi() 메소드를 호출하여 github.com에서 정보를 얻어온다. 
+
+결과는 구독자가 수신하게 되고 GSON에서 Contributor 클래스의 구조에 맞게 디코딩한 다음 UI스레드를 이용해 화면에 업데이트한다. 
+
+
+
+```java
+// Retofit + OkHttp
+Call<JsonObject> call = restAPI.updateExp(30,pref.getLong("userID", 0));
+call.enqueue(new Callback<JsonObject>() {
+  @Override
+  public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+    if (response.code() == 200) {
+      Log.d("response----", response.body().toString());
+      
+    }
+  }
+
+  @Override
+  public void onFailure(Call<JsonObject> call, Throwable t) {
+    Log.d("ERROR! onFailure!", t.toString());
+  }
+});
+```
+
+위와 동일하다. 하지만 getXXX 메소드의 실행을 위해서는 retrofit에서 제공하는 Call 인터페이스를 사용한다. Call 인터페이스의 enqueue() 메소드에 콜백을 등록하면 GSON에서 디코딩한 결과를 화면에 업데이트할 수 있다. 
+
+
+
+</br> </br>
 
 
 
