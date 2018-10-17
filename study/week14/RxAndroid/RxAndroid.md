@@ -251,33 +251,6 @@ RxJava2 에서는 RxLifecycle의 컴포넌트 이외에도 메모리 관리를 �
 
 
 
-</br>
-
-### 2.4 UI 이벤트 처리
-
-#### 2.4.1 이벤트 리스너
-
-이벤트 리스너는 콜백 메서드 하나를 포함하는 뷰 클래스 안의 인터페이스를 뜻한다. 리스너가 등록된 뷰 UI 안의 아이템과 사용자 사이에 상호 작용이 발생할 때 안드로이드 프레임워크가 호출한다. 
-
-
-
-[표] 이벤트 리스너 인터페이스에 포함된 콜백 메서드
-
-| 콜백 메서드 이름             | 설명                                       |
-| --------------------- | ---------------------------------------- |
-| onClick()             | View.OnClickListener에서 콜백함. 사용자가 아이템을 터치하거나 내비게이션 키 혹은 트랙볼로 해당 아이템을 포커스하여 [enter] 키 혹은 트랙볼을 눌렀을 때 호출함. |
-| onLongClick()         | View.OnFocusChangeListener에서 콜백함. 사용자가 아이템을 길게 터치하거나 내비게이션 키 혹은 트랙볼로 해당 아이템을 포커스하여 [enter] 키 혹은 트랙볼(1초 이상)을 길게 눌렀을 때 호출함. |
-| onFocusChange()       | View.OnFocusChangeListener에서 콜백함. 사용자가 내비게이션 키 또는 트랙볼을 사용하여 아이템 위로 움직이게 하거나 포커스가 벗어날 때 호출한다. |
-| onKey()               | View.OnKeyListener에서 콜백함. 사용자가 아이템을 포커스한 후 디바이스에 있는 키를 누르거나 놓았을 때 호출한다. |
-| onTouch()             | View.OnTouchListener에서 콜백함. 사용자가 아이템 경계 안에서 스크린을 누르거나, 놓거나, 어떤 움직임을 포함하는 터치 이벤트 액션을 실행할 때 호출한다. |
-| onCreateContextMenu() | View.OnCreateContextMenuLister에서 콜백함. 길게 터치하거나 누른 결과로 컨텍스트 메뉴가 열렸을 때 호출한다. |
-
-
-
-
-
-
-
 </br></br>
 
 
@@ -368,6 +341,7 @@ private void startRx(){
   mCompositeDisposable.add(
     observable.subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
+    //Observable을 구독
     .subscribeWith(new DisposableObserver<List<Contributor>>(){
       @Override
       public void onNext(List<Contributor> contributors){
@@ -386,6 +360,22 @@ startRx() 메소드는 RestfulAdapter 클래스의 getServiceApi() 메서드 안
 결과는 구독자가 수신하게 되고 GSON에서 Contributor 클래스의 구조에 맞게 디코딩한 다음 UI스레드를 이용해 화면에 업데이트한다. 
 
 
+
+생성된 Disposable 객체를 CompositeDisposable에서 관리하도록 CompositeDisposable.add() 함수를 사용하여 추가한다. `CompositeDisposable` 을 사용하면 여러 `Disposable` 객체를 한번에 관리할 수 있다.
+
+```java
+protected void onDestroy() {
+    super.onDestroy();
+
+    mCompositeDisposable.clear();
+}
+```
+
+
+
+
+
+[기존 Java 코드]
 
 ```java
 // Retofit + OkHttp
@@ -415,10 +405,6 @@ call.enqueue(new Callback<JsonObject>() {
 
 
 ## 마치며
-
-### 소감
-
-
 
 ### Reference
 
