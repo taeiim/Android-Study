@@ -102,7 +102,7 @@
 
 <br />
 
-[ **14회차**. 2018.09.15 - 09.21 ]
+[ **14회차**. 2018.09.15 - 09.28 ]
 
 ##### 25. [RxAndroid](study/week14/RxAndroid/RxAndroid.md) (박태임)
 
@@ -112,7 +112,7 @@
 
 <br />
 
-[ **15회차**. 2018.09.22 - 09.28 ]
+[ **15회차**. 2018.09.29 - 10.10 ]
 
 ##### 28. [MVVM, 실제로 적용해보자!](study/week15/HowToMVVM/How-to-MVVM.md) (이종현)
 
@@ -120,17 +120,17 @@
 
 <br />
 
-[ **16회차**. 2018.09.29 - 10.07 ]
+[ **16회차**. 2018.10.11 - 10.24 ]
 
 ##### 30.  (박태임)
 
-##### 31. Content Provider (송시은)
+##### 31. [Content Provider](study/week16/Content-Provider/Content-Provider.md) (송시은)
 
-##### 32.  (송진우)
+##### 32. [Kotlin Anko](study/week16/Kotlin%20Extension%EA%B3%BC%20Anko/Kotlin%20Extension%EA%B3%BC%20Anko.md) (송진우)
 
 <br />
 
-[ **17회차**. 2018.10.08 - 10.14 ]
+[ **17회차**. 2018.10.25 - 10.31 ]
 
 ##### 33.  (이종현)
 
