@@ -114,7 +114,7 @@
 
 [ **15회차**. 2018.09.22 - 09.28 ]
 
-##### 28. MVVM, 실제로 적용해보자! (이종현)
+##### 28. [MVVM, 실제로 적용해보자!](study/week15/HowToMVVM/How-to-MVVM.md) (이종현)
 
 ##### 29. Android Jetpack - Paging (손승용)
 
