@@ -122,11 +122,11 @@
 
 [ **16회차**. 2018.10.11 - 10.24 ]
 
-##### 30.  (박태임)
+##### 30. [신입 안드로이드 개발자로 취업하기 - 면접준비편](study/week16/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%A1%9C%20%EC%B7%A8%EC%97%85%ED%95%98%EA%B8%B0%20-%20%EB%A9%B4%EC%A0%91/%EC%8B%A0%EC%9E%85%20%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C%20%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%A1%9C%20%EC%B7%A8%EC%97%85%ED%95%98%EA%B8%B0%20-%20%EB%A9%B4%EC%A0%91.md) (박태임)
 
 ##### 31. [Content Provider](study/week16/Content-Provider/Content-Provider.md) (송시은)
 
-##### 32. [Kotlin Anko](study/week16/Kotlin-Anko/Kotlin-Anko.md) (송진우)
+##### 32. [Kotlin Anko](study/week16/Kotlin%20Anko/Kotlin%20Anko.md) (송진우)
 
 <br />
 
