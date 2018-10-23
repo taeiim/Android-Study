@@ -82,7 +82,7 @@
 
 ##### 19. [Kotlin DSL](study/week11/Kotlin-DSL.md) (이종현)
 
-##### 20. [Android Kotlin Extension](study/week11/Android KTX/Android KTX.md) (손승용)
+##### 20. [Android Kotlin Extension](study/week11/AndroidKTX/AndroidKTX.md) (손승용)
 
 <br />
 
