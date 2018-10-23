@@ -82,7 +82,7 @@
 
 ##### 19. [Kotlin DSL](study/week11/Kotlin-DSL.md) (이종현)
 
-##### 20. Kotlin Extension과 Anko (손승용)
+##### 20. [Android Kotlin Extension](study/week11/Android KTX/Android KTX.md) (손승용)
 
 <br />
 
@@ -116,7 +116,7 @@
 
 ##### 28. [MVVM, 실제로 적용해보자!](study/week15/HowToMVVM/How-to-MVVM.md) (이종현)
 
-##### 29. Android Jetpack - Paging (손승용)
+##### 29. [Android Jetpack - Paging](study/week15/Paging/Paging.md) (손승용)
 
 <br />
 
