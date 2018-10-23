@@ -126,7 +126,7 @@
 
 ##### 31. [Content Provider](study/week16/Content-Provider/Content-Provider.md) (송시은)
 
-##### 32. [Kotlin Anko](study/week16/Kotlin%20Extension%EA%B3%BC%20Anko/Kotlin%20Extension%EA%B3%BC%20Anko.md) (송진우)
+##### 32. [Kotlin Anko](study/week16/Kotlin Anko.md) (송진우)
 
 <br />
 
