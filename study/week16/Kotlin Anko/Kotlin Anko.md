@@ -1,6 +1,18 @@
 # Kotlin Anko
-# Kotlin-Anko
-Kotlin의 라이브러리 Anko를 좀 더 자세히 공부합니다.
+
+> 발표자 : 송진우
+>
+> 발표일자 : 2018-10-26(금)
+>
+> 발표주제 : Kotlin Anko
+
+
+
+## 0. 참고문서
+
+- 커니의 코틀린(Anko 챕터) -김태호 지음-
+- [Anko Coroutines] https://github.com/Kotlin/anko/wiki/Anko-Coroutines 
+- [Anko SQLite] https://github.com/Kotlin/anko/wiki/Anko-SQLite
 
 ## Anko란?
 * Kotlin으로 작성된 DSL ( Domain-specific-Language) 입니다.
@@ -23,8 +35,8 @@ dependencies {
 }
 ~~~
 
-# Anko Commons
-## 의존성
+## Anko Commons
+### 의존성
 * Anko Commons은 안드로이드 애플리케이션을 작성할 때 일반적으로 자주 구현하는 기능을 간편하게 추가할 수 있는 유틸리티 함수를 제공합니다. 
 * Anko Commons을 사용하여면 이를 사용할 모듈의 빌드스크립트에 의존성을 추가하면 됩니다.
 ~~~gradle
@@ -62,7 +74,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-support-v4-commons:0.10.2"
 }
 ~~~
-## 토스트 표시하기
+### 토스트 표시하기
 * toast() 및 toastLong() 함수를 사용하면 토스트 메시지를 간편하게 표시할 수 있습니다.
 * 토스트를 표시하려면 Context 클래스의 인스턴스가 필요하므로, 이 클래스 혹은 이를 상속하는 클래스(액티비티, 프래그먼트)내부에서만 사용할 수 있습니다.
 ~~~kotlin
@@ -78,7 +90,7 @@ toast(R.string.hello)
 // Toast.makeText(Context, "Hello, Kotlin!", Toast.LENGTH_LONG).show()
 longToast("Hello, Kotlin!)
 ~~~
-## 다이얼로그 생성 및 표시하기
+### 다이얼로그 생성 및 표시하기
 * alert() 함수를 사용하면 AlertDialog를 생성할 수 있습니다. 
 * 토스트와 마찬가지로 Context 클래스 혹은 이를 상속하는 클래스(액티비티, 프래그먼트) 내부에서만 사용할 수 있습니다.
 ~~~kotlin
@@ -137,7 +149,7 @@ pd.progress = 50
 // 진행률을 표시하지 않는 다이얼로그를 생성하고 표시합니다.
 indenterminateProgressDialog(message = "Please wait...").show()
 ~~~
-## 인텐트 생성 및 사용하기
+### 인텐트 생성 및 사용하기
 * 인텐트는 컴포넌트 간에 데이터를 전달할 때에도 사용하지만 주로 액티비티나 서비스를 실행하는 용도로 사용합니다.
 * 다른 컴포넌트를 실행하기 위해 인텐트를 사용하는 경우, 이 인텐트는 대상 컴포넌트에 대한 정보와 기타 부가 정보를 포함합니다.
 ~~~kotlin
@@ -196,7 +208,7 @@ browse(url = "https://google.com")
 // 이메일을 발송하는 인텐트를 실행합니다.
 email(email = "jyte82@gmail.com", subject = "Hello, Taeho Kim", text = "How are you?")
 ~~~
-## 로그 메시지 기록하기
+### 로그 메시지 기록하기
 * 안드로이드 애플리케이션에서 로그메시지를 기록하려면 android.util.Log 클래스에서 제공하는 메서드를 사용해야 합니다. 
 * 하지만 로그를 기록하는 함수를 호출할 때마다 매번 태그를 함께 입력해야 하므로 다소 불편합니다.
 * Anko 라이브러리에서 제공하는 AnkoLogger를 사용하면 훨씬 편리하게 로그 메시지를 기록할 수 있습니다.
@@ -242,7 +254,7 @@ class MainActivity: AppCompatActivity(), AnkoLogger {
     ...
 }
 ~~~
-## 단위 변환하기
+### 단위 변환하기
 * 안드로이드는 다양한 기기를 지원하기 위해 픽셀(px) 단위 대신 dip(혹은 dp; device independent pixels)나 sp(scale independent pixels)를 사용합니다.
 * dp나 sp 단위는 각 단말기의 화면 크기나 밀도에 따라 화면에 표시되는 크기를 일정 비율로 조정하므로, 다양한 화면 크기나 밀도를 가진 단말기에 대응하는 UI를 작성할 때 유용합니다.
 * 커스텀 뷰 내뷰와 같이 뷰에 표시되는 요소의 크기를 픽셀 단위로 다루는 경우 dp나 sp단위를 픽셀 단위로 변환하기 위해 복잡한 과정을 거쳐야 합니다.
@@ -279,7 +291,7 @@ val pxInDip = px2dip(300)
 // 80px를 sp 단위로 변환합니다.
 val pxInSp = px2sp(80)
 ~~~
-## 기타
+### 기타
 * 여러 단말기 환경을 지원하는 애플리케이션은, 단말기 환경에 따라 다른 형태의 UI를 보여주도록 구현하는 경우가 많습니다.
 * 이러한 경우, configuration() 함수를 사용하면 특정 단말기 환경일 때만 실행할 코드를 간단하게 구현할 수 있습니다.
 
@@ -324,7 +336,7 @@ doIfSdk(Build.VERSION_CODES.N) {
 }
 ~~~
 
-# Anko Layouts
+## Anko Layouts
 * 안드로이드 애플리케이션을 작성할 때, 대부분 XML 레이아웃을 사용하여 화면을 구성합니다.
 * 소스 코드(Java 혹은 Kotlin)를 사용하여 화면을 구성하는 것도 가능하지만 XML 레이아웃에 비해 복잡하고 까다라로워 대다수의 사람들이 선호하지 않습니다.
 * 하지만 XML로 작성된 레이아웃을 사용하려면 이 파일에 정의된 뷰를 파싱하는 작업을 먼저 수행해야 합니다.
@@ -380,7 +392,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-appcompat-v7:0.10.2"
 }
 ~~~
-## DSL로 화면 구성하기
+### DSL로 화면 구성하기
 * Anko Layouts을 사용하면 소스 코드에서 화면을 DSL(Domain Specific Language) 형태로 정의할 수 있습니다.
 * 다음은 DSL을 사용하여 화면을 구성하는 간단한 예를 보여줍니다. XML 레이아웃으로 정의할 때보다 더 간단하게 화면을 구성할 수 있는 것을 확인할 수 있습니다.
 ~~~kotlin
@@ -471,7 +483,7 @@ class MainActivity: AppcompatActivity() {
     }
 }
 ~~~
-## 프래그먼트에서 사용하기
+### 프래그먼트에서 사용하기
 * 프래그먼트에서 Anko Layouts을 사용하려면 프래그먼트를 위한 AnkoComponent를 만들고, onCreateView()에서 createView()를 직접 호출하여 프래그먼트의 화면으로 사용할 뷰를 반환하면 됩니다.
 * createView()를 직접 호출하려면 AnkoContext 객체를 직접 만들어 인자로 전달하면 됩니다.
 ~~~kotlin
@@ -502,7 +514,7 @@ class MainFragmentUI : AnkoComponent<MainFragment>  {
     }.view
 }
 ~~~
-## Anko Support Plugin
+### Anko Support Plugin
 * Anko Support Plugin은 Anko와 같이 사용할 수 있는 부가 기능을 제공하는 IDE 플러그인입니다. 
 * 플러그인을 설치하려면 코틀린 IDE 플러그인을 설치하는 과정과 동일하게 진행하면 되며, 플러그인  검색 다이얼로그에서 다음과 같이 'Anko Support'를 선택하여 설치하면 됩니다.
 
@@ -512,19 +524,19 @@ class MainFragmentUI : AnkoComponent<MainFragment>  {
 * 레이아웃 프리뷰 창은 XML 레이아웃 프리뷰 창과 거의 유사한 형태로 구성되어 있습니다.
 * 앞에서 선택한 AnkoComponent의 레이아웃 프리뷰를 보여주며, 화면이 표시되지 않거나 바뀐 내용이 반영되지 않았다면 프로젝트를 다시 빌드하면 됩니다.
 
-# Anko SQLite
+## Anko SQLite
 * Android 커서를 사용하여 SQLite 쿼리 결과를 파싱하는 것은 힘듭니다. 
 * 쿼리의 결과 행을 구문 분석하기 위해 많은 상용구 코드를 작성하고 이를 열거 된 모든 리소스를 적절하게 닫으려면 셀 수없는 try..finally 블록으로 묶어야합니다.
 * Anko는 SQLite databases와 함께 간단하게 작동할 수 있도록 많은 기능들을 제공합니다.
 
-## Using Anko SQLite in your project
+### Using Anko SQLite in your project
 * build.gradle의 dependency에 anko-sqlite를 추가합니다.
 ~~~gradle
 dependencies {
     implementation "org.jetbrains.anko:anko-sqlite:$anko_version"
 }
 ~~~
-## Accessing the database
+### Accessing the database
 * SQLiteOpenHelper를 사용하는 경우 일반적으로 getReadableDatabase () 또는 getWritableDatabase ()를 호출합니다. 
 * 결과는 실제로 프로덕션 코드에서 동일하지만 수신 된 SQLiteDatabase에서 close () 메서드를 호출해야합니다. 
 * 또한 어딘가에 도우미 클래스를 캐시해야하며 여러 스레드에서이 클래스를 사용하는 경우 동시 액세스를 인식하고 있어야합니다. 
@@ -585,7 +597,7 @@ class SomeActivity : Activity() {
 ~~~
 * 아래 언급된 메서드들과 모든 메서드를은 SQLiteException에 throw 할 수 있습니다.
 * Anko가 오류가 발생하지 않는 것처럼 가장하는 것은 무리일 수 있으므로 직접 처리해야합니다.
-## Creating and dropping tables
+### Creating and dropping tables
 * Anko와 함께라면 쉽게 새로운 테이블을 만들고 삭제할 수 있습니다. 구문은 간단합니다.
 ~~~kotlin
 database.use {
@@ -601,7 +613,7 @@ database.use {
 ~~~kotlin
 dropTable("User", true)
 ~~~
-## Inserting data
+### Inserting data
 * 일반적으로 테이블에 행을 삽입하려면 ContentValues ​​인스턴스가 필요합니다. 다음은 그 예입니다.
 ~~~kotlin
 val values = ContentValues()
@@ -630,7 +642,7 @@ database.use {
     )
 }
 ~~~
-## Querying data
+### Querying data
 * Anko는 편리한 쿼리 빌더를 제공합니다. db.select (tableName, vararg columns)를 사용하여 만들 수 있습니다. db는 SQLiteDatabase의 인스턴스입니다.
 
 함수                                   | 기능
@@ -661,7 +673,7 @@ db.select("User", "email").exec {
     // Doing some stuff with emails
 }
 ~~~
-## Parsing query results
+### Parsing query results
 * 그래서 우리는 Cursor를 가지고 있고, 그것을 정규 클래스로 어떻게 파싱할 수 있을까요? 
 * Anko는 parseSingle, parseOpt 및 parseList 함수를 제공하여 훨씬 쉽게 처리 할 수 ​​있습니다.
 
@@ -706,7 +718,7 @@ val rowParser = classParser<Person>()
 * 현재로서는 기본 생성자에 선택적 매개 변수가있는 경우 Anko는 이러한 파서 작성을 지원하지 않습니다.
 * 또한 생성자는 Java Reflection을 사용하여 호출되므로 커다란 데이터 세트의 경우 사용자 정의 RowParser를 작성하는 것이 더 합리적입니다.
 * Anko db.select () 빌더를 사용하는 경우에는 parseSingle, parseOpt 또는 parseList를 직접 호출하고 적절한 파서를 전달할 수 있습니다.
-## Custom row parsers
+### Custom row parsers
 * 예를 들어, 열 (Int, String, String)에 대해 새 파서를 만들어 봅시다. 가장 일반적인 방법은 다음과 같습니다.
 ~~~kotlin
 class MyRowParser : RowParser<Triple<Int, String, String>> {
@@ -722,10 +734,10 @@ val parser = rowParser { id: Int, name: String, email: String ->
 }
 ~~~
 * 이게 다 입니다. rowParser는 모든 캐스트를 생성하고 원하는대로 람다 매개 변수의 이름을 지정할 수 있습니다.
-## Cursor streams
+### Cursor streams
 * Anko는 SQLite Cursor에 기능적으로 접근하는 방법을 제공합니다. 
 *  cursor.asSequence () 또는 cursor.asMapSequence () 확장 함수를 호출하여 일련의 행을 가져옵니다. 커서를 닫는 것을 잊지 마세요 :)
-## Updating values
+### Updating values
 * 사용자 중 한 명에게 새로운 이름을 줍니다.
 ~~~kotlin
 update("User", "name" to "Alice")
@@ -738,12 +750,12 @@ update("User", "name" to "Alice")
     .`whereSimple`("_id = ?", 42)
     .exec()
 ~~~
-## Delete Data
+### Delete Data
 * 행을 삭제 해 봅시다 (delete 메소드에는 whereSimple () 메소드가 없으며, 대신 인수에 직접 쿼리를 제공합니다).
 ~~~kotlin
 val numRowsDeleted = delete("User", "_id = {userID}", "userID" to 37)
 ~~~
-## Transaction
+### Transaction
 * transaction ()이라는 특별한 함수가 있는데, 여러 개의 데이터베이스 연산을 하나의 SQLite 트랜잭션으로 묶을 수 있습니다.
 ~~~kotlin
 transaction {
@@ -753,19 +765,16 @@ transaction {
 * {} 블록 내에 예외가 발생하지 않으면 트랜잭션은 성공으로 표시됩니다.
 * 어떤 이유로 트랜잭션을 중단하려면 TransactionAbortException을 throw 하세요. 이 경우에는이 예외를 직접 처리 할 필요가 없습니다.
 
-## 원문
-* https://github.com/Kotlin/anko/wiki/Anko-SQLite
-
-# Anko Coroutines
-## Using Anko Coroutines in your project
+## Anko Coroutines
+### Using Anko Coroutines in your project
 * build.gradle의 dependency에 anko-coroutines를 추가합니다.
 ~~~kotlin
 dependencies {
     implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 }
 ~~~
-## Listener helpers
-## asReference()
+### Listener helpers
+### asReference()
 * 비동기 API가 취소를 지원하지 않으면 코루틴이 무기한 정지 될 수 있습니다. 
 * 코루틴은 캡처 된 객체에 대한 강력한 참조를 보유하므로 Activity 또는 Fragment 인스턴스의 인스턴스를 캡처하면 메모리 누수가 발생할 수 있습니다.
 * 이러한 경우에는 직접 캡처 대신 asReference ()를 사용하면 됩니다.
@@ -788,7 +797,7 @@ class MyActivity : Activity() {
     fun showData(data: Data) { ... }
 }
 ~~~
-## bg()
+### bg()
 * bg ()를 사용하여 백그라운드 스레드에서 코드를 쉽게 실행할 수 있습니다.
 ~~~kotlin
 fun getData(): Data { ... }
