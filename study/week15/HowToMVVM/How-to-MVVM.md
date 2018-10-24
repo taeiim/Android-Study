@@ -52,7 +52,10 @@ class MainViewModel {
     }
 }
 ```
-위와 같이 ViewModel을 짜줍니다.
+- `ObservableField`를 이용하여 xml에 데이터를 바인딩 할 수 있는 클래스를 만듭니다.
+
+- `calc` 메소드로 `firstNum`과 `secondNum`의 데이터를 받아와서 연산을 한 후, `result`에 넣습니다.
+
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -107,13 +110,31 @@ class MainViewModel {
 ```
 * Two-way Databinding을 이용하여 ViewModel의 `ObservableField`들을 EditText에 바인딩해줍니다.
 * 각 Button에 onClick이 실행될 시 ViewModel의 `calc` 메소드를 호출하도록 해 두었습니다.
-	1. 그러면 ViewModel에 이벤트가 들어오면 ViewModel은 이벤트를 처리하고, ViewModel의 데이터가 변경될 것입니다.
-	2. View는 ViewModel의 데이터를 관측하고 데이터가 바뀐다면 View에 반영합니다.
+  1. 그러면 ViewModel에 이벤트가 들어오면 ViewModel은 이벤트를 처리하고, ViewModel의 데이터가 변경될 것입니다.
+  2. View는 ViewModel의 데이터를 관측하고 데이터가 바뀐다면 View에 반영합니다.
+
+### Activity 작성하기
+
+```kotlin
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        val viewModel = MainViewModel()
+        binding.viewModel = viewModel
+    }
+}
+```
+
+- 기존 `setContentView `를 지우고,  `DatabindingUtil`을 이용하여 다시 `setContentView`를 해줍니다.
+- `ActivityMainBinding`은 레이아웃의 루트 태그를 `layout`으로 바꾸면 이름에 맞춰 자동으로 생성됩니다.
+- `binding`객체에 `viewModel`을 할당해주면 xml에서 `viewModel`에 접근 할 수 있게 됩니다.
 
 ## 2-0. Android Architecture Component
 근데 이게 화면을 돌리면 데이터들이 사라져요
 
-그래서 구글은 생명주기에 최적화된 ViweModel과 LiveData를 내놓습니다.   
+그래서 구글은 생명주기에 최적화된 **ViweModel**과 **LiveData**를 내놓습니다.   
 
 기존 코드를 조금 리팩토링만 하면  프로그래머는 생명주기를 힘들게 관리할 필요가 사라집니다. 물론 기존 구조가 MVVM 한정일 때 이지만요.
 
@@ -140,7 +161,13 @@ val viewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
 위와 같은 방법을 이용하여 AAC의 ViewModel을 사용하면 생명주기에 영향을 받지 않고 안전한 ViewModel을 만들 수 있습니다.
 
 #### tl;dr
-`ViewModel`은 `ViewModelProviders.of()`의 인자로 `FragmentActivit `혹은 `Fragment`를 받습니다. 이 두 클래스는 `LiceCycleOwner`를 가지고 있는데, `ViewModelProviders`는 `LifeCycleOwner`에 따라 `ViewModel `인스턴스를 반환해줍니다. 이를 이용하여 같은 액티비티 아래에 있는 프래그먼트들끼리 데이터 공유가 가능합니다. `Fragment`에서 `getActivity()`로 `LifeCycleOwner`를 가져오면 같은 액티비티 아래에 있는 두개의 프래그먼트가 같은 `ViewModel`을 공유할 수 있습니다.
+`ViewModel`은 `ViewModelProviders.of()`의 인자로 `FragmentActivit `혹은 `Fragment`를 받습니다. 
+
+이 두 클래스는 `LiceCycleOwner`를 가지고 있는데, `ViewModelProviders`는 `LifeCycleOwner`에 따라 `ViewModel `인스턴스를 반환해줍니다. 
+
+이를 이용하여 같은 액티비티 아래에 있는 프래그먼트들끼리 데이터 공유가 가능합니다. 
+
+`Fragment`에서 `getActivity()`로 `LifeCycleOwner`를 가져오면 같은 액티비티 아래에 있는 두개의 프래그먼트가 같은 `ViewModel`을 공유할 수 있습니다.
 
 ### LiveData
 LiveData는 생명주기와 데이터의 변경을 인지할 수 있는 관찰이 가능한 클래스입니다.   
@@ -155,7 +182,7 @@ LiveData는 생명주기와 데이터의 변경을 인지할 수 있는 관찰�
 
 #### LiveData와 Databinding을 혼용하려면
 
-보통의 Databinding을 사용할 때에는 데이터바인딩에서 지원하는 `Observable` 과 같은 클래스들을 사용해야했지만, Databinding 객체에 `lifecycleOwner`를 할당시켜주면 `Observable` 대신 LiveData를 사용할 수 있습니다. 할당시키는 법은 다음과 같습니다.
+보통의 Databinding을 사용할 때에는 데이터바인딩에서 지원하는 `Observable` 과 같은 클래스들을 사용해야했지만, Databinding 객체에서 `setLifecycleOwner()`를 호출하면 `Observable` 대신 LiveData를 사용할 수 있습니다. 할당시키는 법은 다음과 같습니다.
 
 ```kotlin
 val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -164,7 +191,7 @@ binding.setLifecycleOwner(this)
 ## 2-1. AAC로 바꿔보자
 방금 짰던 코드에 AAC를 적용해봅시다! 
 
-생각보다 간단하게, `ObservableField`들을 모두 `LiveData`로 바꾸고, 데이터 바인딩 객체의 `setLifeCycleOwner`를 호출하면 됩니다.
+생각보다 간단하게, `ObservableField`들을 모두 `LiveData`로 바꾸고, 데이터 바인딩 객체의 `setLifeCycleOwner`함수 를 호출하면 됩니다.
 
 ```kotlin
 class MainViewModel : ViewModel() {
@@ -185,6 +212,9 @@ class MainViewModel : ViewModel() {
     }
 }
 ```
+- ` MutableLiveData`는 변할 수 있는 `LiveData`로, 값이 변경되는 데이터일 때 사용합니다.
+- 보통 ViewModel 안에 `private`로 `MutableLiveData`를 생성하고, `LiveData`로 View에 데이터를 노출합니다.
+
 ```kotlin
 class MainActivity : AppCompatActivity() {
 
@@ -197,7 +227,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
-xml은 따로 건드릴 필요 없이 똑같이 두어도 상관이 없습니다. 이렇게 간단하게 AAC를 적용시킬 수 있습니다. 이제 생명주기에도 안전하네요. 와!
+xml은 따로 건드릴 필요 없이 똑같이 두어도 상관이 없습니다. 간단하게 AAC를 적용시킬 수 있습니다. 이제 생명주기에도 안전하네요. 와!
 
 ## 3-1. 실제로 적용하면 어떨까요? with JustGo
 JustGo는 필자가 진행했던 프로젝트인데, AAC와 MVVM 패턴을 이용하여 개발하였습니다. JustGo와 함께 MVVM 패턴을 어떻게 적용해야할지 알아봅시다.
@@ -406,6 +436,7 @@ MVVM 패턴에서는 데이터 바인딩을 이용하여 xml에서 데이터를 
 #### viewModel.compoareLocation
 
 - 3초마다 위치 정보를 갱신하며 `viewModel.compareLocation` 을 호출하며 현재 위치와 목적지를 비교합니다. 
+- 위치 정보 갱신같은 경우는  데이터 바인딩으로 처리하기엔 무리가 있어서 이런 경우에는 View(Activity)에서 처리를 하였습니다.
 
 ---
 
