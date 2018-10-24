@@ -364,7 +364,7 @@ class NavigationViewModel : ViewModel() {
 
 위 코드는 네비게이션의 일부입니다.  아래 레이아웃에서 파란색 선으로 감싸진 부분을 담당합니다.
 
-![Navigation](\Navigation.png)
+![Navigation](Navigation.png)
 
 `android:text="@{viewModel.transit}"`, `android:text="@{viewModel.type}"` 과 같이 데이터 바인딩을 이용하여 액티비티의 별 간섭 없이 바로 xml에 바인딩 할 수 있습니다.    
 
