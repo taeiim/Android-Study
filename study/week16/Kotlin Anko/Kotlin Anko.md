@@ -370,6 +370,7 @@ dependencies {
 ~~~
 * 서프트 라이브러리에 포함된 뷰를 사용하는 경우,  사용하는 뷰가 포함된 라이브러리에 대응하는 Anko Layouts 라이브러리를 의존성에 추가하면 됩니다.
 * 각 서프트 라이브러리에 대응하는 Anko Layouts 라이브러리는 다음과 같습니다.
+
 |서포트 라이브러리|Anko Layouts 라이브러리|
 |---------|----------|
 |appcompat-v7|anko-appcompat-v7|
