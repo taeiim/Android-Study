@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Simple Github</string>
+
+    <string name="clear_all">Clear all</string>
+    <string name="description">Description</string>
+    <string name="language">Language</string>
+    <string name="last_update">Last update</string>
+    <string name="no_description_provided">No description provided</string>
+    <string name="no_language_specified">No language specified</string>
+    <string name="no_recent_repositories">No recent repositories.</string>
+    <string name="no_search_result">No search result.</string>
+    <string name="search">Search</string>
+    <string name="sign_in">Sign in</string>
+    <string name="start_with_github">Start with Github</string>
+    <string name="unknown">Unknown</string>
+    <string name="view_repository">View repository</string>
+</resources>

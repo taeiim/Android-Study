@@ -1,0 +1,23 @@
+ext {
+    // Build configuration
+    buildToolsVersion = '27.0.2'
+    minSdkVersion = 15
+    compileSdkVersion = 27
+    targetSdkVersion = 27
+
+    // Gradle plugin
+    androidPluginVersion = '3.0.1'
+
+    // Library
+    ankoVersion = '0.10.3'
+    archComponentVersion = '1.0.0'
+    glideVersion = '4.1.1'
+    gsonVersion = '2.7'
+    kotlinVersion = '1.2.0'
+    okHttpVersion = '3.8.1'
+    retrofitVersion = '2.3.0'
+    rxAndroidVersion = '2.0.1'
+    rxBindingVersion = '2.0.0'
+    rxJavaVersion = '2.1.3'
+    supportLibVersion = '27.0.2'
+}
