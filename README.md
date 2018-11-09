@@ -134,6 +134,6 @@
 
 ##### 33. KOIN (이종현)
 
-##### 34.  (손승용)
+##### 34. [Loading Large Bitmaps Efficiently](study/week17/Loading%20Large%20Bitmaps%20Efficiently/Loading%20Large%20Bitmaps%20Efficiently.md) (손승용)
 
 <br />
