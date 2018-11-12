@@ -132,7 +132,7 @@
 
 [ **17회차**. 2018.10.25 - 10.31 ]
 
-##### 33. KOIN (이종현)
+##### 33. [KOIN](study/week17/How%20to%20Koin/How-To-Koin.md) (이종현)
 
 ##### 34. [Loading Large Bitmaps Efficiently](study/week17/Loading%20Large%20Bitmaps%20Efficiently/Loading%20Large%20Bitmaps%20Efficiently.md) (손승용)
 
