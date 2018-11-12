@@ -134,7 +134,9 @@ class MainActivity : AppCompatActivity() {
 ## 2-0. Android Architecture Component
 근데 이게 화면을 돌리면 데이터들이 사라져요
 
-그래서 구글은 생명주기에 최적화된 **ViweModel**과 **LiveData**를 내놓습니다.   
+`onCreate`가 호출될 때 마다 새로운 **ViewModel**이 생성되기 때문입니다.
+
+구글은 이러한 문제를 해결하기 위해 생명주기에 최적화된 **ViewModel**과 **LiveData**를 내놓습니다.   
 
 기존 코드를 조금 리팩토링만 하면  프로그래머는 생명주기를 힘들게 관리할 필요가 사라집니다. 물론 기존 구조가 MVVM 한정일 때 이지만요.
 
@@ -158,16 +160,16 @@ class MainViewModel : ViewModel() {
 ```kotlin
 val viewModel = ViewModelProviders.of(this)[MainViewModel::class.java]
 ```
-위와 같은 방법을 이용하여 AAC의 ViewModel을 사용하면 생명주기에 영향을 받지 않고 안전한 ViewModel을 만들 수 있습니다.
+AAC의 ViewModel을 사용하면 생명주기에 영향을 받지 않고 안전한 ViewModel을 만들 수 있습니다.
 
-#### tl;dr
 `ViewModel`은 `ViewModelProviders.of()`의 인자로 `FragmentActivit `혹은 `Fragment`를 받습니다. 
 
 이 두 클래스는 `LiceCycleOwner`를 가지고 있는데, `ViewModelProviders`는 `LifeCycleOwner`에 따라 `ViewModel `인스턴스를 반환해줍니다. 
 
+#### tl;dr
 이를 이용하여 같은 액티비티 아래에 있는 프래그먼트들끼리 데이터 공유가 가능합니다. 
 
-`Fragment`에서 `getActivity()`로 `LifeCycleOwner`를 가져오면 같은 액티비티 아래에 있는 두개의 프래그먼트가 같은 `ViewModel`을 공유할 수 있습니다.
+`Fragment`에서 `getActivity()`로 액티비티의`LifeCycleOwner`를 가져오면 같은 액티비티 아래에 있는 두개의 프래그먼트가 같은 `ViewModel`을 공유할 수 있습니다.
 
 ### LiveData
 LiveData는 생명주기와 데이터의 변경을 인지할 수 있는 관찰이 가능한 클래스입니다.   
@@ -177,8 +179,6 @@ LiveData는 생명주기와 데이터의 변경을 인지할 수 있는 관찰�
 **Start** 와 **Resume** 상태일 때 `observe`가 활성화되고, **Destroyed** 상태로 들어갈 때 관찰을 취소합니다.
 
 이로써, 메모리 릭을 방지할 수 있습니다.
-
-`observe` 이외에도 
 
 #### LiveData와 Databinding을 혼용하려면
 
@@ -299,7 +299,7 @@ class NavigationViewModel : ViewModel() {
 
 #### ??? 왜 MutableLiveData는 _가 붙어있고 LiveData는 없어요?
 
-**뷰**에서 뷰모델의 데이터를 참조할 때에는 `MutableLiveData`를 데이터를 변경할 수 없는 `LiveData`로 치환시켜, View에서 ViewModel의 데이터 상태를 변경할 수 없게 만듭니다.
+**뷰**에서 뷰모델의 데이터를 참조할 때에는 `MutableLiveData`를 이용하여 데이터를 변경하고, View에 노출할 때에는 데이터를 변경할 수 없는 `LiveData`로 치환시켜 View에서 ViewModel의 데이터 상태를 변경할 수 없게 만듭니다. [코틀린 공식 문서](https://kotlinlang.org/docs/reference/coding-conventions.html#property-names)에 따라서 위처럼 코드를 짰는데, Mutable한 데이터는 _를 붙이고, Immutable 한 데이터는 _를 붙이지 않게 만들어 데이터를 노출시킵니다.
 
 - 처음 시작할 때, `getNavigation()` 을 통하여 데이터를 받아오며, 성공 시 `LiveData`에 데이터를 집어넣습니다.
 
@@ -364,7 +364,7 @@ class NavigationViewModel : ViewModel() {
 
 위 코드는 네비게이션의 일부입니다.  아래 레이아웃에서 파란색 선으로 감싸진 부분을 담당합니다.
 
-![Navigation](Navigation.png)
+![Navigation](\Navigation.png)
 
 `android:text="@{viewModel.transit}"`, `android:text="@{viewModel.type}"` 과 같이 데이터 바인딩을 이용하여 액티비티의 별 간섭 없이 바로 xml에 바인딩 할 수 있습니다.    
 
